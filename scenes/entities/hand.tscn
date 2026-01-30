@@ -3,34 +3,46 @@
 [ext_resource type="Script" uid="uid://ugwpx0ejurcm" path="res://scripts/entities/hand.gd" id="1_c0igx"]
 [ext_resource type="Texture2D" uid="uid://c6m4re43b863m" path="res://assets/sprites/hand/closed_hand.png" id="1_r87o2"]
 [ext_resource type="Texture2D" uid="uid://bnfwskw7jtmmi" path="res://assets/sprites/hand/open_hand.png" id="2_c0igx"]
+[ext_resource type="AudioStream" uid="uid://cmloob8h8fjvs" path="res://assets/sfx/Token Place Soft 001.wav" id="4_hgv3r"]
+[ext_resource type="AudioStream" uid="uid://dwehhynvchi8v" path="res://assets/sfx/Silly Whistle C.wav" id="5_kjao4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c0igx"]
-radius = 96.0
+radius = 68.46897
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hgv3r"]
-radius = 128.99612
+radius = 100.31949
 
-[node name="Hand" type="Node2D" unique_id=37195851 node_paths=PackedStringArray("open_hand_sprite_2d", "closed_hand_sprite_2d", "grab_area_2d")]
-script = ExtResource("1_c0igx")
-open_hand_sprite_2d = NodePath("OpenHandSprite2D")
-closed_hand_sprite_2d = NodePath("ClosedHandSprite2D")
-grab_area_2d = NodePath("GrabArea2D")
-
-[node name="OpenHandSprite2D" type="Sprite2D" parent="." unique_id=1131973141]
-position = Vector2(12, -88)
-texture = ExtResource("2_c0igx")
-
-[node name="ClosedHandSprite2D" type="Sprite2D" parent="." unique_id=130110019]
-visible = false
-position = Vector2(12, 16)
-scale = Vector2(0.865, 0.865)
-texture = ExtResource("1_r87o2")
-
-[node name="PalmStaticBody2D" type="StaticBody2D" parent="." unique_id=2041139769]
+[node name="Hand" type="CharacterBody2D" unique_id=1833399177 node_paths=PackedStringArray("open_hand_sprite_2d", "closed_hand_sprite_2d", "grab_area_2d", "grab_audio_stream_player_2d", "drop_audio_stream_player_2d")]
 collision_layer = 4
 collision_mask = 3
+script = ExtResource("1_c0igx")
+open_hand_sprite_2d = NodePath("Sprites/OpenHandSprite2D")
+closed_hand_sprite_2d = NodePath("Sprites/ClosedHandSprite2D")
+grab_area_2d = NodePath("GrabArea2D")
+grab_audio_stream_player_2d = NodePath("SFX/GrabAudioStreamPlayer2D")
+drop_audio_stream_player_2d = NodePath("SFX/DropAudioStreamPlayer2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PalmStaticBody2D" unique_id=1867760668]
+[node name="SFX" type="Node2D" parent="." unique_id=1885763702]
+
+[node name="GrabAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=1969587995]
+stream = ExtResource("4_hgv3r")
+
+[node name="DropAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=1350776346]
+stream = ExtResource("5_kjao4")
+
+[node name="Sprites" type="Node2D" parent="." unique_id=1727911056]
+
+[node name="OpenHandSprite2D" type="Sprite2D" parent="Sprites" unique_id=1131973141]
+position = Vector2(56, -176)
+texture = ExtResource("2_c0igx")
+
+[node name="ClosedHandSprite2D" type="Sprite2D" parent="Sprites" unique_id=130110019]
+visible = false
+position = Vector2(48, -124.00001)
+scale = Vector2(0.895, 0.895)
+texture = ExtResource("1_r87o2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1867760668]
 shape = SubResource("CircleShape2D_c0igx")
 debug_color = Color(0, 0.6, 0.69803923, 0.13333334)
 
@@ -39,5 +51,6 @@ position = Vector2(0, 92)
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea2D" unique_id=302673080]
+position = Vector2(0, 52)
 shape = SubResource("CircleShape2D_hgv3r")
 debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)

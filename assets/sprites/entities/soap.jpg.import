@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj1mn3fryp1d4"
-path="res://.godot/imported/hand.jpg-1d9ba2794797cbc048c12bd71c576872.ctex"
+uid="uid://dw0guo34xgrk5"
+path="res://.godot/imported/soap.jpg-691634449f359cbee0885fbd31cfcf3a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/hand.jpg"
-dest_files=["res://.godot/imported/hand.jpg-1d9ba2794797cbc048c12bd71c576872.ctex"]
+source_file="res://assets/sprites/entities/soap.jpg"
+dest_files=["res://.godot/imported/soap.jpg-691634449f359cbee0885fbd31cfcf3a.ctex"]
 
 [params]
 

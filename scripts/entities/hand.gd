@@ -1,27 +1,44 @@
-extends Node2D
+class_name Hand
+extends CharacterBody2D
 
 
+@export_category("Node References")
 @export var open_hand_sprite_2d: Sprite2D
 @export var closed_hand_sprite_2d: Sprite2D
 @export var grab_area_2d: Area2D
+@export var grab_audio_stream_player_2d: AudioStreamPlayer2D
+@export var drop_audio_stream_player_2d: AudioStreamPlayer2D
+@export var phantom_camera: PhantomCamera2D
+@export var camera: Camera2D
+
+@export_category("Hand Settings")
 @export var max_hold_distance: float = 300.0
 @export var slippery_grip_multiplier: float = 0.35
 @export var follow_speed: float = 18.0
 @export var min_follow_speed: float = 6.0
+@export var speed: float = 2200.0
 
 var is_grabbing: bool = false
 var held_body: RigidBody2D = null
 var hold_offset: Vector2 = Vector2.ZERO
 var held_body_was_frozen: bool = false
-var held_body_freeze_mode: int = RigidBody2D.FREEZE_MODE_STATIC
+var held_body_freeze_mode: RigidBody2D.FreezeMode = RigidBody2D.FREEZE_MODE_STATIC
+var held_body_had_collision_exception: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
 func _physics_process(delta: float) -> void:
-	position = get_global_mouse_position()
+	var target: Vector2 = get_global_mouse_position()
+	if phantom_camera:
+		var view_size := get_viewport_rect().size * phantom_camera.zoom
+		var view_rect := Rect2(camera.get_screen_center_position() - view_size * 0.5, view_size)
+		target = target.clamp(view_rect.position, view_rect.position + view_rect.size)
+	var target_direction: Vector2 = (target - global_position)
+	velocity = target_direction.normalized() * min(speed, target_direction.length() / delta)
 	_apply_hold_force(delta)
+	move_and_slide()
 	
 	
 func _input(event: InputEvent) -> void:
@@ -37,6 +54,8 @@ func release() -> void:
 	_update_hand_sprite()
 
 func grab() -> void:
+	if !grab_audio_stream_player_2d.is_playing():
+		grab_audio_stream_player_2d.play()
 	is_grabbing = true
 	held_body = _find_grabbable_body()
 	if held_body:
@@ -45,6 +64,10 @@ func grab() -> void:
 		held_body_freeze_mode = held_body.freeze_mode
 		held_body.freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 		held_body.freeze = true
+		held_body_had_collision_exception = held_body.get_collision_exceptions().has(self)
+		if not held_body_had_collision_exception:
+			held_body.add_collision_exception_with(self)
+			add_collision_exception_with(held_body)
 	_update_hand_sprite()
 	
 func _update_hand_sprite() -> void:
@@ -86,6 +109,7 @@ func _apply_hold_force(delta: float) -> void:
 	var to_target := target_position - held_body.global_position
 	var grip_multiplier := _get_grip_multiplier(held_body)
 	if to_target.length() > max_hold_distance * grip_multiplier:
+		drop_audio_stream_player_2d.play()
 		release()
 		return
 	var mass : float = max(held_body.mass, 0.01)
@@ -97,3 +121,6 @@ func _restore_held_body() -> void:
 		return
 	held_body.freeze = held_body_was_frozen
 	held_body.freeze_mode = held_body_freeze_mode
+	if not held_body_had_collision_exception:
+		held_body.remove_collision_exception_with(self)
+		remove_collision_exception_with(held_body)

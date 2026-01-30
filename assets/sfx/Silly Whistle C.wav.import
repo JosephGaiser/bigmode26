@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dwehhynvchi8v"
+path="res://.godot/imported/Silly Whistle C.wav-7b67660d186a4c614d7a3efc59986327.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Silly Whistle C.wav"
+dest_files=["res://.godot/imported/Silly Whistle C.wav-7b67660d186a4c614d7a3efc59986327.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

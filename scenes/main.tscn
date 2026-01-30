@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://drq7f1hdgfr0e"]
+
+[ext_resource type="PackedScene" uid="uid://cmrv8l77c824" path="res://scenes/levels/test.tscn" id="2_0wfyh"]
+[ext_resource type="Shader" uid="uid://hu6jf4baapas" path="res://misc/steinberg.gdshader" id="2_sugp2"]
+[ext_resource type="Shader" uid="uid://bv5ns8mrvlt5y" path="res://misc/ditherpalette.gdshader" id="3_jyhfs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbgi4"]
+shader = ExtResource("2_sugp2")
+shader_parameter/lookup_size = 128.0
+shader_parameter/error_carry = 0.205
+shader_parameter/dither_threshold = 0.395
+shader_parameter/luminance_weights = Vector3(0.2126, 0.7152, 0.0722)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
+shader = ExtResource("3_jyhfs")
+shader_parameter/color_dark = Color(0.24859694, 0.14837626, 0, 1)
+shader_parameter/color_light = Color(1, 1, 0.8980392, 1)
+
+[node name="Main" type="Node2D" unique_id=769862492]
+
+[node name="Level" type="Node2D" parent="." unique_id=812408097]
+
+[node name="test" parent="Level" unique_id=601009691 instance=ExtResource("2_0wfyh")]
+
+[node name="Dither" type="CanvasLayer" parent="." unique_id=967476094]
+
+[node name="Steinberg" type="ColorRect" parent="Dither" unique_id=1599416567]
+material = SubResource("ShaderMaterial_tbgi4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Palette" type="CanvasLayer" parent="." unique_id=1299449972]
+
+[node name="DitherColor" type="ColorRect" parent="Palette" unique_id=813817281]
+material = SubResource("ShaderMaterial_tefeu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

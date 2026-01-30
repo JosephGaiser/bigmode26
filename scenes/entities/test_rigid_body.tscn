@@ -1,15 +1,18 @@
 [gd_scene format=3 uid="uid://dvksrivxpyoxc"]
 
-[ext_resource type="Texture2D" uid="uid://rjetkru2f4y5" path="res://icon.svg" id="1_f8mj7"]
+[ext_resource type="Texture2D" uid="uid://bodpal10t7c3r" path="res://assets/sprites/entities/soap.png" id="1_f8mj7"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1i20a"]
-radius = 52.153618
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f8mj7"]
+radius = 80.0
+height = 296.0
 
-[node name="TestRigidBody2D" type="RigidBody2D" unique_id=1354250687]
+[node name="TestRigidBody2D" type="RigidBody2D" unique_id=1354250687 groups=["slippery"]]
 collision_mask = 7
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=105140337]
+position = Vector2(-4, -8)
 texture = ExtResource("1_f8mj7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1682372589]
-shape = SubResource("CircleShape2D_1i20a")
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_f8mj7")

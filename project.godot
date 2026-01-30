@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Bigmode2026"
+run/main_scene="uid://drq7f1hdgfr0e"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
@@ -27,6 +28,10 @@ window/size/viewport_height=1080
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
+
+[global_group]
+
+slippery=""
 
 [input]
 
@@ -94,6 +99,7 @@ common/physics_interpolation=true
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
