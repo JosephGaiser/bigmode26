@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://7pv807xcn11d" path="res://assets/sprites/entities/knife.png" id="1_fpg5a"]
 [ext_resource type="Script" uid="uid://3fs3d48a3sue" path="res://scripts/entities/knife.gd" id="1_xcenm"]
+[ext_resource type="Script" uid="uid://whw5l4jx3igt" path="res://scripts/entities/interactable.gd" id="2_qxk0d"]
+[ext_resource type="AudioStream" uid="uid://bb3l0rsqufjfs" path="res://assets/sfx/Unrecorder F.wav" id="4_fnj14"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xcenm"]
 radius = 32.0
@@ -14,6 +16,9 @@ height = 288.0
 [node name="Knife" type="RigidBody2D" unique_id=1977731433]
 collision_mask = 7
 script = ExtResource("1_xcenm")
+
+[node name="Interactable" type="Node2D" parent="." unique_id=960225152]
+script = ExtResource("2_qxk0d")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=375771177]
 scale = Vector2(0.2, 0.2)
@@ -30,3 +35,21 @@ collision_mask = 7
 position = Vector2(-16, -128)
 shape = SubResource("CapsuleShape2D_fpg5a")
 debug_color = Color(0.9882353, 0, 0, 0.3019608)
+
+[node name="BloodParticles" type="CPUParticles2D" parent="." unique_id=238475621]
+position = Vector2(0, 1)
+emitting = false
+amount = 32
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+spread = 180.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(0.8, 0, 0, 1)
+
+[node name="RejectAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=384756219]
+stream = ExtResource("4_fnj14")

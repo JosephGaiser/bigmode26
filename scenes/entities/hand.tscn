@@ -7,10 +7,10 @@
 [ext_resource type="AudioStream" uid="uid://dwehhynvchi8v" path="res://assets/sfx/Silly Whistle C.wav" id="5_kjao4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c0igx"]
-radius = 68.46897
+radius = 56.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hgv3r"]
-radius = 100.31949
+radius = 92.086914
 
 [node name="Hand" type="CharacterBody2D" unique_id=1833399177 node_paths=PackedStringArray("open_hand_sprite_2d", "closed_hand_sprite_2d", "grab_area_2d", "grab_audio_stream_player_2d", "drop_audio_stream_player_2d")]
 collision_layer = 4
@@ -47,7 +47,7 @@ shape = SubResource("CircleShape2D_c0igx")
 debug_color = Color(0, 0.6, 0.69803923, 0.13333334)
 
 [node name="GrabArea2D" type="Area2D" parent="." unique_id=660925185]
-position = Vector2(0, 92)
+position = Vector2(0, 48)
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea2D" unique_id=302673080]
