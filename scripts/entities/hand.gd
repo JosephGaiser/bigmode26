@@ -68,6 +68,8 @@ func grab() -> void:
 		if not held_body_had_collision_exception:
 			held_body.add_collision_exception_with(self)
 			add_collision_exception_with(held_body)
+		if held_body.has_method("grab"): # NEEDS TO BE CALLED LAST
+			held_body.grab(self)
 	_update_hand_sprite()
 	
 func _update_hand_sprite() -> void:
