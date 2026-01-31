@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d2bpo81kwaamh"
+path="res://.godot/imported/Card Placing 002.wav-a0c366b53271dac20972e8b204c53d6d.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Card Placing 002.wav"
+dest_files=["res://.godot/imported/Card Placing 002.wav-a0c366b53271dac20972e8b204c53d6d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

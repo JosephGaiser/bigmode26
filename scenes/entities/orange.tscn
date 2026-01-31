@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://kq1sac2inidw"]
+
+[ext_resource type="Script" uid="uid://dk8uvq15rvyqg" path="res://scripts/entities/orange.gd" id="1_jhln2"]
+[ext_resource type="Texture2D" uid="uid://bj2adr2b2epqa" path="res://assets/sprites/entities/orange_full.png" id="1_ulumc"]
+[ext_resource type="PackedScene" uid="uid://66g6cmu8mw7p" path="res://scenes/entities/orange_slice.tscn" id="2_8gusw"]
+[ext_resource type="Script" uid="uid://whw5l4jx3igt" path="res://scripts/entities/interactable.gd" id="2_jhln2"]
+[ext_resource type="AudioStream" uid="uid://d2bpo81kwaamh" path="res://assets/sfx/Card Placing 002.wav" id="6_iqg0g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ulumc"]
+radius = 96.0
+
+[node name="Orange" type="RigidBody2D" unique_id=189717667]
+collision_mask = 7
+script = ExtResource("1_jhln2")
+OrangeSliceScene = ExtResource("2_8gusw")
+slice_audio_stream = ExtResource("6_iqg0g")
+
+[node name="Interactable" type="Node2D" parent="." unique_id=1815406902]
+script = ExtResource("2_jhln2")
+metadata/_custom_type_script = "uid://whw5l4jx3igt"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1784689156]
+scale = Vector2(0.21, 0.21)
+texture = ExtResource("1_ulumc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1690068333]
+shape = SubResource("CircleShape2D_ulumc")
+
+[node name="SliceParticles" type="CPUParticles2D" parent="." unique_id=191919191]
+emitting = false
+amount = 200
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.9
+spread = 180.0
+gravity = Vector2(0, 400)
+initial_velocity_min = 150.0
+initial_velocity_max = 250.0
+scale_amount_min = 6.0
+scale_amount_max = 15.0
+color = Color(1, 0.64705884, 0, 1)
+
+[node name="SliceAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=202020202]
+volume_db = 17.408

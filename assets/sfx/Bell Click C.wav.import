@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ddf68giej2v8l"
+path="res://.godot/imported/Bell Click C.wav-24fd5b68bc1a7e9f8e501ca3dd4c79e0.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Bell Click C.wav"
+dest_files=["res://.godot/imported/Bell Click C.wav-24fd5b68bc1a7e9f8e501ca3dd4c79e0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

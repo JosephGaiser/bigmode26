@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://3fs3d48a3sue" path="res://scripts/entities/knife.gd" id="1_xcenm"]
 [ext_resource type="Script" uid="uid://whw5l4jx3igt" path="res://scripts/entities/interactable.gd" id="2_qxk0d"]
 [ext_resource type="AudioStream" uid="uid://bb3l0rsqufjfs" path="res://assets/sfx/Unrecorder F.wav" id="4_fnj14"]
+[ext_resource type="AudioStream" uid="uid://d2bpo81kwaamh" path="res://assets/sfx/Card Placing 002.wav" id="5_c0uwu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xcenm"]
 radius = 32.0
@@ -53,3 +54,6 @@ color = Color(0.8, 0, 0, 1)
 
 [node name="RejectAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=384756219]
 stream = ExtResource("4_fnj14")
+
+[node name="SliceAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=785027640]
+stream = ExtResource("5_c0uwu")
