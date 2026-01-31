@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://2en2bg5ek0yp"]
+
+[ext_resource type="Texture2D" uid="uid://dbgky35uid3kl" path="res://assets/sprites/entities/table.png" id="1_hgf75"]
+
+[node name="Table" type="Node2D" unique_id=1899579319]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=818297242]
+rotation = 0.02757964
+texture = ExtResource("1_hgf75")

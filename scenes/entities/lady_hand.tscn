@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://boqwfmqkua0dl"]
+
+[ext_resource type="Script" uid="uid://whw5l4jx3igt" path="res://scripts/entities/interactable.gd" id="1_6nt6f"]
+[ext_resource type="Texture2D" uid="uid://do0glpw84eqea" path="res://assets/sprites/hand/lady_hand_open.png" id="1_w4dqf"]
+[ext_resource type="Texture2D" uid="uid://dfwtdooam3bxw" path="res://assets/sprites/hand/lady_hand_closed.png" id="2_6nt6f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w4dqf"]
+radius = 56.0
+
+[node name="LadyHand" type="RigidBody2D" unique_id=72659404]
+freeze = true
+
+[node name="Interactable" type="Node2D" parent="." unique_id=757536538]
+script = ExtResource("1_6nt6f")
+metadata/_custom_type_script = "uid://whw5l4jx3igt"
+
+[node name="Sprites" type="Node2D" parent="." unique_id=1961896889]
+
+[node name="OpenHandSprite2D" type="Sprite2D" parent="Sprites" unique_id=281798412]
+position = Vector2(32, 208)
+scale = Vector2(0.265, 0.265)
+texture = ExtResource("1_w4dqf")
+
+[node name="ClosedHandSprite2D" type="Sprite2D" parent="Sprites" unique_id=1378491787]
+visible = false
+position = Vector2(0, 288)
+scale = Vector2(0.26, 0.26)
+texture = ExtResource("2_6nt6f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1132258745]
+shape = SubResource("CircleShape2D_w4dqf")
