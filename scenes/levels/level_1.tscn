@@ -1,36 +1,65 @@
 [gd_scene format=3 uid="uid://dkvdcwd30u8w3"]
 
+[ext_resource type="Script" uid="uid://tamhdftxxv7h" path="res://scripts/levels/level_1.gd" id="1_iwr0g"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_x42e6"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="2_6761a"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_sk5k4"]
-[ext_resource type="PackedScene" uid="uid://dj5k535q6e3je" path="res://scenes/entities/apple.tscn" id="4_6761a"]
+[ext_resource type="Texture2D" uid="uid://coasudnxy3is3" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_move.png" id="4_mm8aj"]
 [ext_resource type="PackedScene" uid="uid://bsudjx8p0hxtu" path="res://scenes/entities/hand.tscn" id="4_oc4kc"]
-[ext_resource type="PackedScene" uid="uid://67kd3ocy0cfp" path="res://scenes/entities/tray.tscn" id="4_sk5k4"]
-[ext_resource type="PackedScene" uid="uid://b1u0ioja5ej5w" path="res://scenes/entities/knife.tscn" id="6_oc4kc"]
-[ext_resource type="PackedScene" uid="uid://c564rdmi35lbv" path="res://scenes/entities/soap.tscn" id="7_s8va5"]
 [ext_resource type="PackedScene" uid="uid://kq1sac2inidw" path="res://scenes/entities/orange.tscn" id="9_dga24"]
+[ext_resource type="Texture2D" uid="uid://cmowacmla3via" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_right_outline.png" id="11_wtwp4"]
+[ext_resource type="Texture2D" uid="uid://bmpqpi2o6v06e" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_w_outline.png" id="12_iwr0g"]
+[ext_resource type="Texture2D" uid="uid://4wyvmum3c8u1" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_a_outline.png" id="13_bahl2"]
+[ext_resource type="Texture2D" uid="uid://dhhvf43vchjke" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_left_outline.png" id="13_iwr0g"]
+[ext_resource type="PackedScene" uid="uid://c564rdmi35lbv" path="res://scenes/entities/soap.tscn" id="13_mm8aj"]
+[ext_resource type="PackedScene" uid="uid://b1u0ioja5ej5w" path="res://scenes/entities/knife.tscn" id="13_wtwp4"]
+[ext_resource type="Texture2D" uid="uid://d2isfb765x2br" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_s_outline.png" id="14_np2pn"]
+[ext_resource type="PackedScene" uid="uid://67kd3ocy0cfp" path="res://scenes/entities/tray.tscn" id="14_wtwp4"]
+[ext_resource type="Texture2D" uid="uid://c4umd06xuedjn" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_d_outline.png" id="15_v6ha0"]
 
 [sub_resource type="Resource" id="Resource_s8va5"]
 script = ExtResource("3_sk5k4")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dnkej"]
+size = Vector2(7232, 2048)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dga24"]
+font_size = 64
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtwp4"]
+size = Vector2(15456, 1447.9999)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dga24"]
-size = Vector2(9976, 208)
+size = Vector2(9976, 3639.9995)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iwr0g"]
+size = Vector2(4971.366, 4063.9995)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x42e6"]
-size = Vector2(310.73297, 4063.9995)
+size = Vector2(4379.3667, 4063.9995)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mm8aj"]
+size = Vector2(186, 517)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bahl2"]
+size = Vector2(186, 901)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_np2pn"]
+size = Vector2(544, 128)
 
 [node name="Level1" type="Node2D" unique_id=867132284]
+script = ExtResource("1_iwr0g")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=864754509]
 physics_interpolation_mode = 1
 top_level = true
-position = Vector2(1024, 400)
-zoom = Vector2(0.9, 0.9)
+position = Vector2(-976, 439)
+zoom = Vector2(0.8, 0.8)
 process_callback = 0
-limit_left = -10000
-limit_top = -10000
-limit_right = 10000
-limit_bottom = 1000
+limit_left = -2032
+limit_top = -1024
+limit_right = 5200
+limit_bottom = 1024
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=1746791582]
@@ -41,11 +70,11 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="PhantomCamera2D" type="Node2D" parent="." unique_id=1541733472 node_paths=PackedStringArray("follow_target")]
 top_level = true
-position = Vector2(1024, 400)
+position = Vector2(-976, 439)
 script = ExtResource("2_6761a")
 follow_mode = 5
 follow_target = NodePath("../Hand")
-zoom = Vector2(0.9, 0.9)
+zoom = Vector2(0.8, 0.8)
 tween_resource = SubResource("Resource_s8va5")
 follow_offset = Vector2(0, 200)
 follow_damping = true
@@ -53,11 +82,83 @@ auto_zoom_max = 1.0
 dead_zone_width = 0.366
 dead_zone_height = 0.195
 draw_limits = true
-limit_left = -10000
-limit_top = -10000
-limit_right = 10000
-limit_bottom = 1000
+limit_target = NodePath("../CameraBounds")
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="CameraBounds" type="CollisionShape2D" parent="." unique_id=956252547]
+position = Vector2(1584, 0)
+shape = SubResource("RectangleShape2D_dnkej")
+disabled = true
+
+[node name="Tutorial" type="Node2D" parent="." unique_id=1424404589]
+
+[node name="ArmControlsLabel" type="Label" parent="Tutorial" unique_id=779207502]
+offset_left = -1664.0
+offset_top = 288.0
+offset_right = -1016.0
+offset_bottom = 439.0
+text = "MOVE ARM
+"
+label_settings = SubResource("LabelSettings_dga24")
+
+[node name="MouseMove" type="Sprite2D" parent="Tutorial/ArmControlsLabel" unique_id=579485011]
+position = Vector2(496, 32)
+texture = ExtResource("4_mm8aj")
+
+[node name="CameraControlsLabel" type="Label" parent="Tutorial" unique_id=413893909]
+offset_left = -1664.0
+offset_top = 384.0
+offset_right = -1016.0
+offset_bottom = 535.0
+text = "MOVE CAMERA
+"
+label_settings = SubResource("LabelSettings_dga24")
+
+[node name="KeyboardWOutline" type="Sprite2D" parent="Tutorial/CameraControlsLabel" unique_id=564149899]
+position = Vector2(656, 32)
+texture = ExtResource("12_iwr0g")
+
+[node name="KeyboardAOutline" type="Sprite2D" parent="Tutorial/CameraControlsLabel" unique_id=148766334]
+position = Vector2(768, 32)
+texture = ExtResource("13_bahl2")
+
+[node name="KeyboardSOutline" type="Sprite2D" parent="Tutorial/CameraControlsLabel" unique_id=1191447529]
+position = Vector2(880, 32)
+texture = ExtResource("14_np2pn")
+
+[node name="KeyboardDOutline" type="Sprite2D" parent="Tutorial/CameraControlsLabel" unique_id=893469492]
+position = Vector2(992, 32)
+texture = ExtResource("15_v6ha0")
+
+[node name="GrabControlsLabel" type="Label" parent="Tutorial" unique_id=1604684280]
+offset_top = 288.0
+offset_right = 582.0
+offset_bottom = 362.0
+text = "GRAB STUFF"
+label_settings = SubResource("LabelSettings_dga24")
+
+[node name="MouseLeftOutline" type="Sprite2D" parent="Tutorial/GrabControlsLabel" unique_id=391561161]
+position = Vector2(560, 32)
+texture = ExtResource("13_iwr0g")
+
+[node name="RotateControlsLabel" type="Label" parent="Tutorial" unique_id=343700172]
+offset_top = 384.0
+offset_right = 607.0
+offset_bottom = 458.0
+text = "ROTATE STUFF"
+label_settings = SubResource("LabelSettings_dga24")
+
+[node name="MouseRightOutline" type="Sprite2D" parent="Tutorial/RotateControlsLabel" unique_id=1332750445]
+position = Vector2(656, 32)
+texture = ExtResource("11_wtwp4")
+
+[node name="SlipperyControlsLabel" type="Label" parent="Tutorial" unique_id=1206104926]
+offset_left = 1664.0
+offset_top = 288.0
+offset_right = 2271.0
+offset_bottom = 362.0
+text = "SOME STUFF IS SLICK"
+label_settings = SubResource("LabelSettings_dga24")
 
 [node name="Level" type="Node2D" parent="." unique_id=1898035121]
 
@@ -67,27 +168,29 @@ collision_layer = 2
 collision_mask = 7
 
 [node name="ColorRect" type="ColorRect" parent="Level/floor" unique_id=1698379283]
-offset_left = -4940.5234
+offset_left = -7696.5234
 offset_top = -106.7778
-offset_right = 4940.0
-offset_bottom = 104.000015
+offset_right = 7696.0
+offset_bottom = 3744.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/floor" unique_id=477951869]
+position = Vector2(0, 620)
 scale = Vector2(1, 1.0000001)
-shape = SubResource("RectangleShape2D_dga24")
+shape = SubResource("RectangleShape2D_wtwp4")
 
 [node name="ceiling" type="StaticBody2D" parent="Level" unique_id=481814928]
-position = Vector2(1012, -2944)
+position = Vector2(1012, -848)
 collision_layer = 2
 collision_mask = 7
 
 [node name="ColorRect" type="ColorRect" parent="Level/ceiling" unique_id=1219270392]
 offset_left = -4940.5234
-offset_top = -69.44444
+offset_top = -3552.0
 offset_right = 4940.0
-offset_bottom = 66.66666
+offset_bottom = 66.66675
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/ceiling" unique_id=999111787]
+position = Vector2(0, -1716)
 scale = Vector2(1, 1.0000001)
 shape = SubResource("RectangleShape2D_dga24")
 
@@ -97,70 +200,103 @@ collision_layer = 2
 collision_mask = 7
 
 [node name="ColorRect" type="ColorRect" parent="Level/leftwall" unique_id=584401859]
-offset_left = -154.31937
+offset_left = -4448.0
 offset_top = -2034.7778
-offset_right = 153.7958
+offset_right = 153.7959
 offset_bottom = 2032.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/leftwall" unique_id=418997641]
+position = Vector2(-2330.3164, 0)
 scale = Vector2(1, 1.0000001)
-shape = SubResource("RectangleShape2D_x42e6")
+shape = SubResource("RectangleShape2D_iwr0g")
 
 [node name="rightwall" type="StaticBody2D" parent="Level" unique_id=1097944657]
-position = Vector2(3376, -960)
+position = Vector2(5216, -960)
 collision_layer = 2
 collision_mask = 7
 
 [node name="ColorRect" type="ColorRect" parent="Level/rightwall" unique_id=1404279623]
 offset_left = -154.31937
 offset_top = -2034.7778
-offset_right = 153.7958
+offset_right = 5440.0
 offset_bottom = 2032.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/rightwall" unique_id=814609022]
+position = Vector2(2034.3169, 0)
 scale = Vector2(1, 1.0000001)
 shape = SubResource("RectangleShape2D_x42e6")
 
+[node name="Dividers" type="StaticBody2D" parent="Level" unique_id=56775880]
+position = Vector2(2832, 288)
+
+[node name="ColorRect" type="ColorRect" parent="Level/Dividers" unique_id=1377108685]
+offset_left = -16.0
+offset_right = 176.0
+offset_bottom = 512.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Dividers" unique_id=1510852829]
+position = Vector2(80, 258.5)
+shape = SubResource("RectangleShape2D_mm8aj")
+
+[node name="Dividers2" type="StaticBody2D" parent="Level" unique_id=2118026162]
+position = Vector2(2832, -416)
+
+[node name="ColorRect" type="ColorRect" parent="Level/Dividers2" unique_id=1062238298]
+offset_left = -16.0
+offset_top = -400.0
+offset_right = 176.0
+offset_bottom = 512.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Dividers2" unique_id=619114344]
+position = Vector2(80, 66.5)
+shape = SubResource("RectangleShape2D_bahl2")
+
 [node name="Entities" type="Node2D" parent="." unique_id=2010477121]
 
-[node name="Tray" parent="Entities" unique_id=552768268 instance=ExtResource("4_sk5k4")]
-position = Vector2(2096, 784)
-
-[node name="Apple" parent="Entities" unique_id=1182857503 instance=ExtResource("4_6761a")]
-position = Vector2(2624, 672)
-
-[node name="Apple2" parent="Entities" unique_id=1450970928 instance=ExtResource("4_6761a")]
-position = Vector2(2832, 672)
-
-[node name="Apple3" parent="Entities" unique_id=487341235 instance=ExtResource("4_6761a")]
-position = Vector2(3040, 672)
-
-[node name="Apple4" parent="Entities" unique_id=2035364277 instance=ExtResource("4_6761a")]
-position = Vector2(2736, 496)
-
-[node name="Apple5" parent="Entities" unique_id=1320523240 instance=ExtResource("4_6761a")]
-position = Vector2(2944, 480)
-
-[node name="Apple6" parent="Entities" unique_id=284336490 instance=ExtResource("4_6761a")]
-position = Vector2(2832, 320)
-
-[node name="Soap" parent="Entities" unique_id=1531947227 instance=ExtResource("7_s8va5")]
-position = Vector2(-944, 496)
-
 [node name="Orange" parent="Entities" unique_id=189717667 instance=ExtResource("9_dga24")]
-position = Vector2(464, 672)
+position = Vector2(864, 672)
 
 [node name="Orange2" parent="Entities" unique_id=909949953 instance=ExtResource("9_dga24")]
-position = Vector2(352, 512)
+position = Vector2(752, 512)
 
 [node name="Orange3" parent="Entities" unique_id=1125098528 instance=ExtResource("9_dga24")]
-position = Vector2(240, 672)
+position = Vector2(640, 672)
 
-[node name="Knife" parent="Entities" unique_id=1977731433 instance=ExtResource("6_oc4kc")]
-position = Vector2(2048, 528)
-rotation = -1.5707964
+[node name="Soap" parent="Entities" unique_id=1531947227 instance=ExtResource("13_mm8aj")]
+position = Vector2(2032, 560)
+
+[node name="Knife" parent="Entities" unique_id=1977731433 instance=ExtResource("13_wtwp4")]
+position = Vector2(4672, 448)
+rotation = 3.1415925
+
+[node name="KnifeBlock" type="StaticBody2D" parent="Entities" unique_id=1946286464]
+position = Vector2(0, 16)
+
+[node name="KnifeBlock" type="ColorRect" parent="Entities/KnifeBlock" unique_id=1857343793]
+offset_left = 4592.0
+offset_top = 448.0
+offset_right = 4800.0
+offset_bottom = 784.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Entities/KnifeBlock" unique_id=1622251979]
+polygon = PackedVector2Array(4592, 448, 4592, 768, 4800, 768, 4800, 448, 4768, 448, 4768, 736, 4624, 736, 4624, 448)
+
+[node name="Tray" parent="Entities" unique_id=552768268 instance=ExtResource("14_wtwp4")]
+position = Vector2(3968, 784)
+
+[node name="OrangeSliceArea2D" type="Area2D" parent="Entities/Tray" unique_id=272119203]
+unique_name_in_owner = true
+position = Vector2(0, -272)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Tray/OrangeSliceArea2D" unique_id=1586654977]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_np2pn")
+debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
 
 [node name="Hand" parent="." unique_id=1833399177 node_paths=PackedStringArray("phantom_camera", "camera") instance=ExtResource("4_oc4kc")]
-position = Vector2(1024, 528)
+position = Vector2(-976, 464)
 phantom_camera = NodePath("../PhantomCamera2D")
 camera = NodePath("../Camera2D")
+
+[connection signal="body_entered" from="Entities/Tray/OrangeSliceArea2D" to="." method="_on_orange_slice_area_2d_body_entered"]
+[connection signal="body_exited" from="Entities/Tray/OrangeSliceArea2D" to="." method="_on_orange_slice_area_2d_body_exited"]

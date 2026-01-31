@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://drq7f1hdgfr0e"]
 
+[ext_resource type="Script" uid="uid://dsar0wfpw7rbq" path="res://scripts/levels/main.gd" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dkvdcwd30u8w3" path="res://scenes/levels/level_1.tscn" id="1_sugp2"]
 [ext_resource type="Shader" uid="uid://hu6jf4baapas" path="res://misc/steinberg.gdshader" id="2_sugp2"]
 [ext_resource type="Shader" uid="uid://bv5ns8mrvlt5y" path="res://misc/ditherpalette.gdshader" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://d1cddqunbhqx0" path="res://scenes/levels/level_2.tscn" id="3_tbgi4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tbgi4"]
 shader = ExtResource("2_sugp2")
@@ -17,6 +19,9 @@ shader_parameter/color_dark = Color(0.24859694, 0.14837626, 0, 1)
 shader_parameter/color_light = Color(1, 1, 0.8980392, 1)
 
 [node name="Main" type="Node2D" unique_id=769862492]
+script = ExtResource("1_jyhfs")
+Level1 = ExtResource("1_sugp2")
+Level2 = ExtResource("3_tbgi4")
 
 [node name="Level" type="Node2D" parent="." unique_id=812408097]
 

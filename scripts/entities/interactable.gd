@@ -13,7 +13,7 @@ signal grab_rejected(hand: Hand)
 
 ## If false, the Hand won't even try to grab this.
 func can_grab(hand: Hand) -> bool:
-	if get_parent().has_method("_can_grab_check"):
+	if get_parent().has_method(&"_can_grab_check"):
 		return get_parent()._can_grab_check(hand)
 	return true
 
@@ -31,5 +31,6 @@ func on_release(hand: Hand) -> void:
 
 ## Called every physics frame while being held.
 ## Useful for items that have active behaviors while in hand.
-func on_hold_process(_hand: Hand, _delta: float) -> void:
-	pass
+func on_hold_process(hand: Hand, delta: float) -> void:
+	if get_parent().has_method(&"_on_hold_process"):
+		get_parent()._on_hold_process(hand, delta)

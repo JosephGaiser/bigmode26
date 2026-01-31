@@ -8,9 +8,34 @@
 radius = 70.0
 height = 266.0
 
+[sub_resource type="Curve" id="Curve_bubble"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_bubble"]
+colors = PackedColorArray(1, 1, 1, 0.8, 1, 1, 1, 0)
+
 [node name="Soap" type="RigidBody2D" unique_id=1531947227]
 collision_mask = 7
 script = ExtResource("1_tjt8m")
+
+[node name="BubbleParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 12
+lifetime = 2.0
+randomness = 0.2
+lifetime_randomness = 0.2
+emission_shape = 3
+emission_rect_extents = Vector2(60, 20)
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, -100)
+initial_velocity_min = 20.0
+initial_velocity_max = 50.0
+scale_amount_min = 4.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_bubble")
+color_alpha_curve = SubResource("Gradient_bubble")
 
 [node name="Interactable" type="Node2D" parent="." unique_id=344576277]
 script = ExtResource("1_xv2jk")

@@ -1137,6 +1137,11 @@ func get_transform_output() -> Transform2D:
 	return _transform_output
 
 
+## Returns the effective limits as a Vector4i (left, top, right, bottom).
+func get_limit_sides() -> Vector4i:
+	return _limit_sides
+
+
 ## Returns the noise [Transform3D] value.
 func get_noise_transform() -> Transform2D:
 	return _transform_noise

@@ -17,6 +17,8 @@ extends CharacterBody2D
 @export var follow_speed: float = 18.0
 @export var min_follow_speed: float = 6.0
 @export var speed: float = 2200.0
+@export var camera_pan_speed: float = 1000.0
+@export var articulation_rotation_speed: float = 0.01
 
 @export_category("Grab Feedback")
 @export var grab_reject_hold_time: float = 0.18 # how long the hand stays "closed" after a failed grab
@@ -35,11 +37,35 @@ var held_body_had_collision_exception: bool = false
 var _rejecting_grab: bool = false
 var _reject_cooldown_until_ms: int = 0
 var _closed_hand_base_pos: Vector2 = Vector2.ZERO
+var _mouse_delta: Vector2 = Vector2.ZERO
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_closed_hand_base_pos = closed_hand_sprite_2d.position
+	if phantom_camera:
+		phantom_camera.follow_mode = PhantomCamera2D.FollowMode.NONE
+
+func _process(delta: float) -> void:
+	if _rejecting_grab:
+		return
+
+	if phantom_camera:
+		var phantom_cam_2d: PhantomCamera2D = phantom_camera as PhantomCamera2D
+		var pan_input := Input.get_vector(&"camera_pan_left", &"camera_pan_right", &"camera_pan_up", &"camera_pan_down")
+		phantom_cam_2d.global_position += pan_input * camera_pan_speed * delta
+		
+		var limits := phantom_cam_2d.get_limit_sides()
+		var limit_left := limits.x
+		var limit_top := limits.y
+		var limit_right := limits.z
+		var limit_bottom := limits.w
+		
+		var view_size := get_viewport_rect().size * phantom_camera.zoom
+		
+		# Clamp camera position so it doesn't show outside limits
+		phantom_camera.global_position.x = clamp(phantom_camera.global_position.x, limit_left + view_size.x / 2, limit_right - view_size.x / 2)
+		phantom_camera.global_position.y = clamp(phantom_camera.global_position.y, limit_top + view_size.y / 2, limit_bottom - view_size.y / 2)
 
 func _physics_process(delta: float) -> void:
 	if _rejecting_grab:
@@ -47,29 +73,52 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	var target: Vector2 = get_global_mouse_position()
-	if phantom_camera:
-		var view_size := get_viewport_rect().size * phantom_camera.zoom
-		var view_rect := Rect2(camera.get_screen_center_position() - view_size * 0.5, view_size)
-		target = target.clamp(view_rect.position, view_rect.position + view_rect.size)
-	var target_direction: Vector2 = (target - global_position)
-	velocity = target_direction.normalized() * min(speed, target_direction.length() / delta)
+	if is_grabbing and held_body and Input.is_action_pressed(&"hand_alt"):
+		# Articulate the held object
+		held_body.rotation += _mouse_delta.x * articulation_rotation_speed
+		# We still want to apply hold force to keep it in place relative to hand
+		# But we don't move the hand itself
+		velocity = Vector2.ZERO
+	else:
+		var target: Vector2 = get_global_mouse_position()
+		if phantom_camera:
+			var view_size := get_viewport_rect().size * phantom_camera.zoom
+			var phantom_cam_2d: PhantomCamera2D = phantom_camera as PhantomCamera2D
+			var limits := phantom_cam_2d.get_limit_sides()
+			
+			var view_rect := Rect2(camera.get_screen_center_position() - view_size * 0.5, view_size)
+			
+			# Further constrain view_rect by camera limits to prevent hand from going off-screen 
+			# when camera is at the edge of its limits
+			var limit_rect := Rect2(Vector2(limits.x, limits.y), Vector2(limits.z - limits.x, limits.w - limits.y))
+			var effective_rect := view_rect.intersection(limit_rect)
+			
+			target = target.clamp(effective_rect.position, effective_rect.position + effective_rect.size)
+		var target_direction: Vector2 = (target - global_position)
+		velocity = target_direction.normalized() * min(speed, target_direction.length() / delta)
+	
+	_mouse_delta = Vector2.ZERO # reset for next frame
 	_apply_hold_force(delta)
 	move_and_slide()
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_released("hand_grab"):
+	if event is InputEventMouseMotion:
+		_mouse_delta = event.relative
+	
+	if event.is_action_released(&"hand_grab"):
 		release()
-	if event.is_action_pressed("hand_grab"):
+	if event.is_action_pressed(&"hand_grab"):
 		grab()
 
 func release() -> void:
 	if _rejecting_grab:
 		return
 	is_grabbing = false
+	if drop_audio_stream_player_2d and not drop_audio_stream_player_2d.is_playing():
+		drop_audio_stream_player_2d.play()
 	_restore_held_body()
-	if held_interactable and held_interactable.has_method("on_release"):
+	if held_interactable and held_interactable.has_method(&"on_release"):
 		held_interactable.on_release(self)
 	held_body = null
 	held_interactable = null
@@ -97,16 +146,16 @@ func grab() -> void:
 	var interactable := _get_interactable(candidate)
 
 	# Ask the object if this grab is allowed BEFORE freezing/attaching it.
-	if interactable and interactable.has_method("can_grab") and not interactable.can_grab(self):
-		if interactable.has_method("on_grab_rejected"):
+	if interactable and interactable.has_method(&"can_grab") and not interactable.can_grab(self):
+		if interactable.has_method(&"on_grab_rejected"):
 			interactable.on_grab_rejected(self)
 		await _play_grab_rejected_feedback()
 		return
 
 	# Compatibility for objects without Interactable component but with can_grab method
-	if not interactable and candidate.has_method("can_grab") and not candidate.can_grab(self):
-		if candidate.has_method("on_grab_rejected"):
-			candidate.on_grab_rejected(self)
+	if not interactable and candidate.has_method(&"can_grab") and not candidate.call(&"can_grab", self):
+		if candidate.has_method(&"on_grab_rejected"):
+			candidate.call(&"on_grab_rejected", self)
 		await _play_grab_rejected_feedback()
 		return
 
@@ -123,10 +172,10 @@ func grab() -> void:
 		held_body.add_collision_exception_with(self)
 		add_collision_exception_with(held_body)
 	
-	if held_interactable and held_interactable.has_method("on_grab"):
+	if held_interactable and held_interactable.has_method(&"on_grab"):
 		held_interactable.on_grab(self)
-	elif held_body.has_method("grab"): # fallback for old pattern
-		held_body.grab(self)
+	elif held_body.has_method(&"grab"): # fallback for old pattern
+		held_body.call(&"grab", self)
 
 func _play_grab_rejected_feedback() -> void:
 	_rejecting_grab = true
@@ -176,17 +225,19 @@ func _find_grabbable_body() -> RigidBody2D:
 	return closest_body
 
 func _get_grip_multiplier(body: RigidBody2D) -> float:
-	if held_interactable and "grip_multiplier" in held_interactable:
-		return held_interactable.grip_multiplier
-	if body.has_meta("grip_multiplier"):
-		return float(body.get_meta("grip_multiplier"))
-	if body.is_in_group("slippery"):
+	if held_interactable and &"grip_multiplier" in held_interactable:
+		var mult = held_interactable.get(&"grip_multiplier")
+		return float(mult)
+	if body.has_meta(&"grip_multiplier"):
+		var meta_val = body.get_meta(&"grip_multiplier")
+		return float(meta_val)
+	if body.is_in_group(&"slippery"):
 		return slippery_grip_multiplier
 	return 1.0
 
 func _get_interactable(body: Node) -> Node:
 	for child in body.get_children():
-		if child.has_signal("grabbed"):
+		if child.has_signal(&"grabbed"):
 			return child
 	return null
 
@@ -199,14 +250,16 @@ func _apply_hold_force(delta: float) -> void:
 		held_interactable = null
 		return
 	
-	if held_interactable and held_interactable.has_method("on_hold_process"):
+	if held_interactable and held_interactable.has_method(&"on_hold_process"):
 		held_interactable.on_hold_process(self, delta)
+	
+	if not is_instance_valid(held_body):
+		return
 	
 	var target_position := global_position + hold_offset
 	var to_target := target_position - held_body.global_position
 	var grip_multiplier := _get_grip_multiplier(held_body)
 	if to_target.length() > max_hold_distance * grip_multiplier:
-		drop_audio_stream_player_2d.play()
 		release()
 		return
 	var mass : float = max(held_body.mass, 0.01)
