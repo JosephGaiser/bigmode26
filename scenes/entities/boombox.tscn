@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cqp0g0stx3eij" path="res://assets/sprites/entities/boombox.png" id="1_6y0jq"]
 [ext_resource type="Script" uid="uid://whw5l4jx3igt" path="res://scripts/entities/interactable.gd" id="1_qvf0l"]
+[ext_resource type="AudioStream" uid="uid://bv6ba5gs8hpr3" path="res://assets/sfx/boombox.wav" id="3_l5is0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvf0l"]
 size = Vector2(960, 544)
@@ -21,3 +22,8 @@ texture = ExtResource("1_6y0jq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=574277555]
 shape = SubResource("RectangleShape2D_qvf0l")
 debug_color = Color(0, 0.6, 0.69803923, 0.13333334)
+
+[node name="MusicAudioStream" type="AudioStreamPlayer2D" parent="." unique_id=2141783283]
+stream = ExtResource("3_l5is0")
+autoplay = true
+attenuation = 2.3784142

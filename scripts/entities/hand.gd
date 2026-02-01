@@ -38,34 +38,17 @@ var _rejecting_grab: bool = false
 var _reject_cooldown_until_ms: int = 0
 var _closed_hand_base_pos: Vector2 = Vector2.ZERO
 var _mouse_delta: Vector2 = Vector2.ZERO
+var _last_held_body_pos: Vector2 = Vector2.ZERO
+var _held_body_velocity: Vector2 = Vector2.ZERO
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_closed_hand_base_pos = closed_hand_sprite_2d.position
-	if phantom_camera:
-		phantom_camera.follow_mode = PhantomCamera2D.FollowMode.NONE
 
 func _process(delta: float) -> void:
 	if _rejecting_grab:
 		return
-
-	if phantom_camera:
-		var phantom_cam_2d: PhantomCamera2D = phantom_camera as PhantomCamera2D
-		var pan_input := Input.get_vector(&"camera_pan_left", &"camera_pan_right", &"camera_pan_up", &"camera_pan_down")
-		phantom_cam_2d.global_position += pan_input * camera_pan_speed * delta
-		
-		var limits := phantom_cam_2d.get_limit_sides()
-		var limit_left := limits.x
-		var limit_top := limits.y
-		var limit_right := limits.z
-		var limit_bottom := limits.w
-		
-		var view_size := get_viewport_rect().size * phantom_camera.zoom
-		
-		# Clamp camera position so it doesn't show outside limits
-		phantom_camera.global_position.x = clamp(phantom_camera.global_position.x, limit_left + view_size.x / 2, limit_right - view_size.x / 2)
-		phantom_camera.global_position.y = clamp(phantom_camera.global_position.y, limit_top + view_size.y / 2, limit_bottom - view_size.y / 2)
 
 func _physics_process(delta: float) -> void:
 	if _rejecting_grab:
@@ -275,13 +258,20 @@ func _apply_hold_force(delta: float) -> void:
 		return
 	var mass : float = max(held_body.mass, 0.01)
 	var tuned_follow_speed : float = max(follow_speed / mass, min_follow_speed)
-	held_body.global_position = held_body.global_position.lerp(target_position, clamp(tuned_follow_speed * delta, 0.0, 1.0))
+	
+	var new_pos: Vector2 = held_body.global_position.lerp(target_position, clamp(tuned_follow_speed * delta, 0.0, 1.0))
+	_held_body_velocity = (new_pos - held_body.global_position) / delta
+	held_body.global_position = new_pos
 
 func _restore_held_body() -> void:
 	if not is_instance_valid(held_body):
 		return
 	held_body.freeze = held_body_was_frozen
 	held_body.freeze_mode = held_body_freeze_mode
+	
+	if not held_body.freeze:
+		held_body.linear_velocity = _held_body_velocity
+	
 	if not held_body_had_collision_exception:
 		held_body.remove_collision_exception_with(self)
 		remove_collision_exception_with(held_body)

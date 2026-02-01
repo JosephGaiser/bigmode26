@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://d2isfb765x2br" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_s_outline.png" id="14_np2pn"]
 [ext_resource type="PackedScene" uid="uid://67kd3ocy0cfp" path="res://scenes/entities/tray.tscn" id="14_wtwp4"]
 [ext_resource type="Texture2D" uid="uid://c4umd06xuedjn" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_d_outline.png" id="15_v6ha0"]
+[ext_resource type="PackedScene" uid="uid://df64pjqadejch" path="res://scenes/entities/player.tscn" id="16_bahl2"]
 
 [sub_resource type="Resource" id="Resource_s8va5"]
 script = ExtResource("3_sk5k4")
@@ -292,6 +293,9 @@ position = Vector2(0, -272)
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_np2pn")
 debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
+
+[node name="Player" parent="." unique_id=2087478349 instance=ExtResource("16_bahl2")]
+position = Vector2(-1520, 640)
 
 [node name="Hand" parent="." unique_id=1833399177 node_paths=PackedStringArray("phantom_camera", "camera") instance=ExtResource("4_oc4kc")]
 position = Vector2(-976, 464)

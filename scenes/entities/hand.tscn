@@ -14,13 +14,16 @@ radius = 92.086914
 
 [node name="Hand" type="CharacterBody2D" unique_id=1833399177 node_paths=PackedStringArray("open_hand_sprite_2d", "closed_hand_sprite_2d", "grab_area_2d", "grab_audio_stream_player_2d", "drop_audio_stream_player_2d")]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 11
 script = ExtResource("1_c0igx")
 open_hand_sprite_2d = NodePath("Sprites/OpenHandSprite2D")
 closed_hand_sprite_2d = NodePath("Sprites/ClosedHandSprite2D")
 grab_area_2d = NodePath("GrabArea2D")
 grab_audio_stream_player_2d = NodePath("SFX/GrabAudioStreamPlayer2D")
 drop_audio_stream_player_2d = NodePath("SFX/DropAudioStreamPlayer2D")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=1133269688]
+current = true
 
 [node name="SFX" type="Node2D" parent="." unique_id=1885763702]
 
@@ -49,6 +52,7 @@ debug_color = Color(0, 0.6, 0.69803923, 0.13333334)
 [node name="GrabArea2D" type="Area2D" parent="." unique_id=660925185]
 position = Vector2(0, 48)
 collision_layer = 4
+collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea2D" unique_id=302673080]
 position = Vector2(0, 52)
