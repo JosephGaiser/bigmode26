@@ -75,7 +75,18 @@ func _physics_process(delta: float) -> void:
 
 	if is_grabbing and held_body and Input.is_action_pressed(&"hand_alt"):
 		# Articulate the held object
-		held_body.rotation += _mouse_delta.x * articulation_rotation_speed
+		var rotation_amount: float = _mouse_delta.x * articulation_rotation_speed
+		
+		var pivot: Marker2D = held_body.get_node_or_null(^"PivotMarker2D")
+		if pivot:
+			var pivot_global_pos := pivot.global_position
+			held_body.global_position = pivot_global_pos + (held_body.global_position - pivot_global_pos).rotated(rotation_amount)
+			held_body.rotation += rotation_amount
+			# Update hold_offset so the object stays in its new relative position to the hand
+			hold_offset = held_body.global_position - global_position
+		else:
+			held_body.rotation += rotation_amount
+		
 		# We still want to apply hold force to keep it in place relative to hand
 		# But we don't move the hand itself
 		velocity = Vector2.ZERO

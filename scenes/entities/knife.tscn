@@ -57,3 +57,6 @@ stream = ExtResource("4_fnj14")
 
 [node name="SliceAudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=785027640]
 stream = ExtResource("5_c0uwu")
+
+[node name="PivotMarker2D" type="Marker2D" parent="." unique_id=977230963]
+position = Vector2(0, 192)
