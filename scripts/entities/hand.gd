@@ -49,13 +49,13 @@ func _ready() -> void:
 	_set_state(State.IDLE)
 
 func _set_state(new_state: State) -> void:
-	print("[DEBUG_LOG] Hand: Changing state from ", State.keys()[current_state], " to ", State.keys()[new_state])
+	print("[DEBUG_LOG] Hand: Changing state from ", current_state, " to ", new_state)
 	# Exit logic for current state
 	match current_state:
 		State.HOLDING:
 			print("[DEBUG_LOG] Hand: Exiting HOLDING state, restoring held body: ", held_body)
 			_restore_held_body()
-			if held_interactable and held_interactable.has_method("on_release"):
+			if held_interactable and held_interactable.has_method(&"on_release"):
 				held_interactable.on_release(self)
 			held_body = null
 			held_interactable = null
@@ -178,6 +178,7 @@ func _is_grab_rejected(body: RigidBody2D, interactable: Node) -> bool:
 	return false
 
 func _start_rejection(body: RigidBody2D = null, interactable: Node = null) -> void:
+	print("[DEBUG_LOG] Hand: _start_rejection called. current_state: ", current_state)
 	if interactable and interactable.has_method(&"on_grab_rejected"):
 		interactable.on_grab_rejected(self)
 	elif body and body.has_method(&"on_grab_rejected"):
@@ -202,6 +203,7 @@ func _start_rejection(body: RigidBody2D = null, interactable: Node = null) -> vo
 func _prepare_held_body() -> void:
 	held_body_was_frozen = held_body.freeze
 	held_body_freeze_mode = held_body.freeze_mode
+	print("[DEBUG_LOG] Hand: Preparing body. Original freeze: ", held_body_was_frozen, " freeze_mode: ", held_body_freeze_mode)
 	held_body.freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 	held_body.freeze = true
 	held_body_had_collision_exception = held_body.get_collision_exceptions().has(self)
@@ -268,17 +270,22 @@ func _apply_hold_force(delta: float) -> void:
 	held_body.global_position = new_pos
 
 func _restore_held_body() -> void:
+	print("[DEBUG_LOG] Hand: Restoring body: ", held_body)
 	if not is_instance_valid(held_body):
+		print("[DEBUG_LOG] Hand: held_body is NOT valid in _restore_held_body")
 		return
 	
-	held_body.freeze = held_body_was_frozen
+	print("[DEBUG_LOG] Hand: Setting freeze to ", held_body_was_frozen)
+	# Use set_deferred if we are in a physics callback
+	held_body.set_deferred(&"freeze", held_body_was_frozen)
 	held_body.freeze_mode = held_body_freeze_mode
+	print("[DEBUG_LOG] Hand: Body freeze is now: ", held_body.freeze, " (deferred set to ", held_body_was_frozen, ")")
 	
-	if not held_body.freeze:
-		held_body.linear_velocity = _held_body_velocity
+	if not held_body_was_frozen:
+		held_body.set_deferred(&"linear_velocity", _held_body_velocity)
 		# Wake up the body if it's sleeping
 		if held_body.has_method(&"set_sleeping"):
-			held_body.sleeping = false
+			held_body.set_deferred(&"sleeping", false)
 	
 	if not held_body_had_collision_exception:
 		held_body.remove_collision_exception_with(self)
@@ -286,6 +293,9 @@ func _restore_held_body() -> void:
 
 
 func _on_vulnerable_area_2d_area_entered(_area: Area2D) -> void:
+	print("[DEBUG_LOG] Hand: Vulnerable area entered. Held body: ", held_body)
+	if current_state == State.HOLDING:
+		print("[DEBUG_LOG] Hand: Was holding, transitioning to REJECTING")
 	_start_rejection()
 	
 	if blood_particles:
