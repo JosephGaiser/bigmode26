@@ -5,10 +5,19 @@
 [ext_resource type="PackedScene" uid="uid://dn3wwljaq45pf" path="res://scenes/entities/egg_shell_2.tscn" id="3_4fjc5"]
 [ext_resource type="Script" uid="uid://whw5l4jx3igt" path="res://scripts/entities/interactable.gd" id="4_1wfw8"]
 [ext_resource type="Texture2D" uid="uid://begvcd3r0w5ws" path="res://assets/sprites/entities/egg.png" id="5_ecf5f"]
+[ext_resource type="AudioStream" uid="uid://dwittg1ty18kv" path="res://assets/sfx/Silly Whistle A.wav" id="6_07f1p"]
+[ext_resource type="AudioStream" uid="uid://b2nemfpm5svsh" path="res://assets/sfx/Token Place Soft 004.wav" id="7_4fjc5"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_idowc"]
+bounce = 0.06
 
 [node name="Egg" type="RigidBody2D" unique_id=1155435445]
 collision_layer = 8
-collision_mask = 31
+collision_mask = 27
+mass = 0.259
+physics_material_override = SubResource("PhysicsMaterial_idowc")
+center_of_mass_mode = 1
+center_of_mass = Vector2(-15, -20)
 contact_monitor = true
 max_contacts_reported = 4
 script = ExtResource("1_idowc")
@@ -41,4 +50,10 @@ texture = ExtResource("5_ecf5f")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1947950366]
 position = Vector2(-0.47916412, 0)
 scale = Vector2(1.3194444, 1.3194443)
-polygon = PackedVector2Array(-32.22632, -12.126316, -25.405264, -21.221054, -17.068422, -28.800001, -5.7000017, -35.62105, 6.4263134, -37.894737, 16.278944, -34.86316, 23.099997, -26.526316, 26.88947, -15.91579, 28.405258, -3.7894738, 26.88947, 7.5789475, 23.857891, 18.189474, 19.310522, 25.768421, 14.00526, 31.83158, 4.1526294, 40.168423, -4.184212, 43.2, -14.794738, 41.68421, -25.405264, 37.136845, -32.22632, 28.042107, -36.01579, 16.673685, -36.773685, 6.8210526, -35.257896, -5.3052635)
+polygon = PackedVector2Array(-32.22632, -12.126316, -25.405264, -21.221054, -17.068422, -28.800001, -5.7000017, -35.62105, 6.4263134, -37.894737, 16.278944, -34.86316, 23.099997, -26.526316, 26.88947, -15.91579, 28.405258, -3.7894738, 26.88947, 7.5789475, 23.857891, 18.189474, 19.310522, 25.768421, 14.00526, 31.83158, 4.1526294, 40.168423, -5.7000017, 43.2, -17.826317, 40.926315, -27.678947, 35.62105, -32.22632, 28.042107, -36.01579, 16.673685, -36.773685, 6.8210526, -35.257896, -5.3052635)
+
+[node name="CrackAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=783238279]
+stream = ExtResource("6_07f1p")
+
+[node name="ImpactAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=2090127361]
+stream = ExtResource("7_4fjc5")

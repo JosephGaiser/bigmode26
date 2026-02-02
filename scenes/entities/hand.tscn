@@ -11,14 +11,14 @@
 radius = 44.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hgv3r"]
-radius = 92.086914
+radius = 80.09994
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kjao4"]
-radius = 48.166378
+radius = 60.530983
 
 [node name="Hand" type="CharacterBody2D" unique_id=1833399177 node_paths=PackedStringArray("open_hand_sprite_2d", "closed_hand_sprite_2d", "grab_area_2d", "grab_audio_stream_player_2d", "drop_audio_stream_player_2d")]
 collision_layer = 4
-collision_mask = 11
+collision_mask = 3
 script = ExtResource("1_c0igx")
 open_hand_sprite_2d = NodePath("Sprites/OpenHandSprite2D")
 closed_hand_sprite_2d = NodePath("Sprites/ClosedHandSprite2D")
@@ -28,34 +28,6 @@ drop_audio_stream_player_2d = NodePath("SFX/DropAudioStreamPlayer2D")
 
 [node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=1133269688]
 current = true
-
-[node name="FX" type="Node2D" parent="." unique_id=1896041785]
-
-[node name="BloodParticles" type="CPUParticles2D" parent="FX" unique_id=701192896]
-position = Vector2(0, 1)
-emitting = false
-amount = 32
-lifetime = 0.5
-one_shot = true
-explosiveness = 0.8
-spread = 180.0
-gravity = Vector2(0, 500)
-initial_velocity_min = 100.0
-initial_velocity_max = 200.0
-scale_amount_min = 2.0
-scale_amount_max = 4.0
-color = Color(0.8, 0, 0, 1)
-
-[node name="SFX" type="Node2D" parent="." unique_id=1885763702]
-
-[node name="GrabAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=1969587995]
-stream = ExtResource("4_hgv3r")
-
-[node name="DropAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=1350776346]
-stream = ExtResource("5_kjao4")
-
-[node name="InjuredAudioPlayer" type="AudioStreamPlayer2D" parent="SFX" unique_id=1617114269]
-stream = ExtResource("4_fworh")
 
 [node name="Sprites" type="Node2D" parent="." unique_id=1727911056]
 
@@ -68,6 +40,35 @@ visible = false
 position = Vector2(48, -124.00001)
 scale = Vector2(0.895, 0.895)
 texture = ExtResource("1_r87o2")
+
+[node name="SFX" type="Node2D" parent="." unique_id=1885763702]
+
+[node name="GrabAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=1969587995]
+stream = ExtResource("4_hgv3r")
+
+[node name="DropAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=1350776346]
+stream = ExtResource("5_kjao4")
+
+[node name="InjuredAudioPlayer" type="AudioStreamPlayer2D" parent="SFX" unique_id=1617114269]
+stream = ExtResource("4_fworh")
+
+[node name="FX" type="Node2D" parent="." unique_id=1896041785]
+
+[node name="BloodParticles" type="CPUParticles2D" parent="FX" unique_id=701192896]
+position = Vector2(0, 128)
+emitting = false
+amount = 64
+lifetime = 2.5
+one_shot = true
+explosiveness = 0.8
+randomness = 0.05
+spread = 180.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(0.8, 0, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1867760668]
 shape = SubResource("CircleShape2D_c0igx")

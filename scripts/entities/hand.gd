@@ -49,9 +49,11 @@ func _ready() -> void:
 	_set_state(State.IDLE)
 
 func _set_state(new_state: State) -> void:
+	print("[DEBUG_LOG] Hand: Changing state from ", State.keys()[current_state], " to ", State.keys()[new_state])
 	# Exit logic for current state
 	match current_state:
 		State.HOLDING:
+			print("[DEBUG_LOG] Hand: Exiting HOLDING state, restoring held body: ", held_body)
 			_restore_held_body()
 			if held_interactable and held_interactable.has_method("on_release"):
 				held_interactable.on_release(self)
@@ -175,10 +177,10 @@ func _is_grab_rejected(body: RigidBody2D, interactable: Node) -> bool:
 		return not body.call(&"can_grab", self)
 	return false
 
-func _start_rejection(body: RigidBody2D, interactable: Node) -> void:
+func _start_rejection(body: RigidBody2D = null, interactable: Node = null) -> void:
 	if interactable and interactable.has_method(&"on_grab_rejected"):
 		interactable.on_grab_rejected(self)
-	elif body.has_method(&"on_grab_rejected"):
+	elif body and body.has_method(&"on_grab_rejected"):
 		body.call(&"on_grab_rejected", self)
 	
 	_set_state(State.REJECTING)
@@ -284,7 +286,14 @@ func _restore_held_body() -> void:
 
 
 func _on_vulnerable_area_2d_area_entered(_area: Area2D) -> void:
-	_set_state(State.IDLE)
+	_start_rejection()
+	
+	if blood_particles:
+		blood_particles.restart()
+		blood_particles.emitting = true
+	
+	if injured_audio_player:
+		injured_audio_player.play()
 	
 	if drop_audio_stream_player_2d and not drop_audio_stream_player_2d.is_playing():
 		drop_audio_stream_player_2d.play()

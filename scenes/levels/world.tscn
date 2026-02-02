@@ -19,19 +19,27 @@
 [sub_resource type="Environment" id="Environment_q418o"]
 glow_enabled = true
 
+[sub_resource type="Resource" id="Resource_q418o"]
+script = ExtResource("4_px3xn")
+
 [sub_resource type="Resource" id="Resource_pj0xw"]
 script = ExtResource("4_px3xn")
-duration = 0.7
-transition = 1
+metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q418o"]
-size = Vector2(2464, 3648)
+size = Vector2(5632, 28928)
+
+[sub_resource type="Curve2D" id="Curve2D_q418o"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -4608, -512, 0, 0, 0, 0, -4608, -61850.387)
+}
+point_count = 2
 
 [sub_resource type="Resource" id="Resource_gs7m4"]
 script = ExtResource("4_px3xn")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pj0xw"]
-size = Vector2(9728, 4544)
+size = Vector2(4096, 4096)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dga24"]
 font_size = 64
@@ -59,8 +67,10 @@ environment = SubResource("Environment_q418o")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=864754509]
 physics_interpolation_mode = 1
 top_level = true
-position = Vector2(-64, -240)
+position = Vector2(0, -512)
+zoom = Vector2(0.8, 0.8)
 process_callback = 0
+editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=1746791582]
 process_priority = 300
@@ -71,27 +81,38 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 [node name="PlayerPhantomCamera2D" type="Node2D" parent="." unique_id=1541733472 node_paths=PackedStringArray("follow_targets")]
 unique_name_in_owner = true
 top_level = true
-position = Vector2(-64, -240)
+position = Vector2(0, -512)
 script = ExtResource("3_btahq")
 priority = 10
 follow_mode = 3
-follow_targets = [NodePath("../Hand"), NodePath("")]
+follow_targets = [NodePath("../Hand"), null]
+zoom = Vector2(0.8, 0.8)
+tween_resource = SubResource("Resource_q418o")
 follow_damping = true
 follow_damping_value = Vector2(0.135, 0.135)
 auto_zoom = true
-auto_zoom_min = 0.2
-auto_zoom_max = 1.0
+auto_zoom_min = 0.01
+auto_zoom_max = 0.8
+auto_zoom_margin = Vector4(250, 250, 250, 250)
 dead_zone_width = 0.153
 dead_zone_height = 0.144
 show_viewfinder_in_play = true
+draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="UpSectionPhantomCamera2D" type="Node2D" parent="." unique_id=328015239]
+[node name="UpSectionPhantomCamera2D" type="Node2D" parent="." unique_id=328015239 node_paths=PackedStringArray("follow_target", "follow_path")]
 unique_name_in_owner = true
-position = Vector2(-4768, -2560)
+top_level = true
+position = Vector2(0, -512)
 script = ExtResource("3_btahq")
-zoom = Vector2(0.185, 0.185)
+follow_mode = 4
+follow_target = NodePath("../Hand")
+follow_path = NodePath("../UpPathPath2D")
+zoom = Vector2(0.4, 0.4)
 tween_resource = SubResource("Resource_pj0xw")
+tween_on_load = false
+follow_damping = true
+draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="UpSectionArea2D" type="Area2D" parent="UpSectionPhantomCamera2D" unique_id=718962424]
@@ -100,15 +121,21 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UpSectionPhantomCamera2D/UpSectionArea2D" unique_id=1252109002]
-position = Vector2(80, -224)
+position = Vector2(0, -13184)
 shape = SubResource("RectangleShape2D_q418o")
 debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
 
+[node name="UpPathPath2D" type="Path2D" parent="." unique_id=790152286]
+position = Vector2(4608, 0)
+curve = SubResource("Curve2D_q418o")
+
 [node name="BigRoomPhantomCamera2D" type="Node2D" parent="." unique_id=1152866720]
 unique_name_in_owner = true
-position = Vector2(-3968, -7424)
+position = Vector2(0, -7808)
 script = ExtResource("3_btahq")
+zoom = Vector2(0.245, 0.245)
 tween_resource = SubResource("Resource_gs7m4")
+draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="BigRoomArea2D" type="Area2D" parent="BigRoomPhantomCamera2D" unique_id=746410169]
@@ -123,36 +150,39 @@ debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
 [node name="Tutorial" type="Node2D" parent="." unique_id=1424404589]
 
 [node name="ArmControlsLabel" type="Label" parent="Tutorial" unique_id=779207502]
-offset_left = -960.0
-offset_top = -448.0
-offset_right = -312.0
-offset_bottom = -297.0
+offset_left = -384.0
+offset_top = -896.0
+offset_right = 264.0
+offset_bottom = -745.0
 text = "MOVE ARM"
 label_settings = SubResource("LabelSettings_dga24")
+metadata/_edit_use_anchors_ = true
 
 [node name="MouseMove" type="Sprite2D" parent="Tutorial/ArmControlsLabel" unique_id=579485011]
 position = Vector2(496, 32)
 texture = ExtResource("5_8cjxf")
 
 [node name="GrabControlsLabel" type="Label" parent="Tutorial" unique_id=1604684280]
-offset_left = -960.0
-offset_top = -352.0
-offset_right = -378.0
-offset_bottom = -278.0
+offset_left = -384.0
+offset_top = -800.0
+offset_right = 198.0
+offset_bottom = -726.0
 text = "GRAB STUFF"
 label_settings = SubResource("LabelSettings_dga24")
+metadata/_edit_use_anchors_ = true
 
 [node name="MouseLeftOutline" type="Sprite2D" parent="Tutorial/GrabControlsLabel" unique_id=391561161]
 position = Vector2(560, 32)
 texture = ExtResource("10_gc5je")
 
 [node name="RotateControlsLabel" type="Label" parent="Tutorial" unique_id=343700172]
-offset_left = -960.0
-offset_top = -256.0
-offset_right = -353.0
-offset_bottom = -182.0
+offset_left = -384.0
+offset_top = -704.0
+offset_right = 223.0
+offset_bottom = -630.0
 text = "ROTATE STUFF"
 label_settings = SubResource("LabelSettings_dga24")
+metadata/_edit_use_anchors_ = true
 
 [node name="MouseRightOutline" type="Sprite2D" parent="Tutorial/RotateControlsLabel" unique_id=1332750445]
 position = Vector2(656, 32)
@@ -190,9 +220,14 @@ script = ExtResource("12_xidr1")
 [node name="StartingRoomStaticBody2D" type="StaticBody2D" parent="Level" unique_id=2039238143]
 
 [node name="Polygon2D" type="Polygon2D" parent="Level/StartingRoomStaticBody2D" unique_id=200513074]
-polygon = PackedVector2Array(-6656, 512, 1024, 512, 1024, -1536, -2540.3936, -1536, -3071.9998, -2058.1948, -3072, -3840, -2048, -5152, -2880, -5152, -3584, -3840, -3584, -1536.5172, -3069.9268, -1023.99976, 512, -1024, 512, 0, -5376, 0, -5888, -512, -5888, -3840, -6432, -5280, -7840, -5920, -7776, -9344, 96, -9248, 16.098633, -5945.4146, -2880, -5152, 992, -5184, 1056, -6464, 960, -9888, -7808, -9888, -8832, -9920, -8960, -5888, -7360, -5312, -6656, -3840)
+polygon = PackedVector2Array(-512, 0, -512, -6272, -1536, -6272, -1536, -9216, -512, -9216, -512, -17792, -2048, -18432, -2048, -22400, -4096, -22400, -4096, -17792, -4096, -10240, -4096, -6144, -4096, 2048, 4096, 2048, 4096, -22400, 2048, -22400, 2048, -18432, 512, -17792, 512, -9216, 1536, -9216, 1536, -6272, 512, -6272, 512, 0)
+
+[node name="BigRoomStaticBody2D" type="StaticBody2D" parent="Level" unique_id=823941324]
+
+[node name="Polygon2D" type="Polygon2D" parent="Level/BigRoomStaticBody2D" unique_id=250115376]
 
 [node name="Lights" type="Node2D" parent="." unique_id=474948773]
+visible = false
 
 [node name="PointLight2D" type="PointLight2D" parent="Lights" unique_id=887699486]
 visible = false
@@ -202,25 +237,30 @@ texture = SubResource("GradientTexture2D_gs7m4")
 [node name="Entities" type="Node2D" parent="." unique_id=2010477121 groups=["entities"]]
 
 [node name="KnifeHazard" parent="Entities" unique_id=1795594906 instance=ExtResource("14_q418o")]
-position = Vector2(-5088, -1376)
+position = Vector2(104, -2090)
+rotation = -0.3247841
 
-[node name="KnifeHazard2" parent="Entities" unique_id=2092081537 instance=ExtResource("14_q418o")]
-position = Vector2(-4256, -2016)
+[node name="KnifeHazard2" parent="Entities" unique_id=572877417 instance=ExtResource("14_q418o")]
+position = Vector2(-10, -5376)
+rotation = 5.8611298
 
 [node name="KnifeHazard3" parent="Entities" unique_id=631695891 instance=ExtResource("14_q418o")]
-position = Vector2(-5184, -2688)
+position = Vector2(-206, -2889.9998)
+rotation = 0.4567117
 
 [node name="KnifeHazard4" parent="Entities" unique_id=1894840994 instance=ExtResource("14_q418o")]
-position = Vector2(-4128, -3360)
+position = Vector2(232.00049, -3625.9995)
+rotation = -0.46401826
 
-[node name="KnifeHazard5" parent="Entities" unique_id=2107353092 instance=ExtResource("14_q418o")]
-position = Vector2(-5248, -4352)
+[node name="KnifeHazard5" parent="Entities" unique_id=1945272646 instance=ExtResource("14_q418o")]
+position = Vector2(-173.99951, -4408)
+rotation = 3.7247899
 
 [node name="EggSpawner" parent="." unique_id=636781217 node_paths=PackedStringArray("entities") instance=ExtResource("14_y40x4")]
 unique_name_in_owner = true
-position = Vector2(-640, -96)
+position = Vector2(0, -138)
 entities = NodePath("../Entities")
 
 [node name="Hand" parent="." unique_id=1833399177 instance=ExtResource("17_rm5ru")]
 unique_name_in_owner = true
-position = Vector2(0, -416)
+position = Vector2(0, -512)

@@ -8,8 +8,11 @@ signal cracked
 
 @onready var sprite: Sprite2D = $EggSprite2D
 @onready var crack_particles: CPUParticles2D = $CrackParticles
+@onready var impact_audio_stream_player_2d: AudioStreamPlayer2D = $ImpactAudioStreamPlayer2D
+@onready var crack_audio_stream_player_2d: AudioStreamPlayer2D = $CrackAudioStreamPlayer2D
 
-const CRACK_VELOCITY_THRESHOLD: float = 800.0
+const IMPACT_VELOCITY_THRESHOLD: float = 300.0
+const CRACK_VELOCITY_THRESHOLD: float = 950.0
 var last_velocity := Vector2.ZERO
 var is_cracked := false
 
@@ -24,6 +27,8 @@ func _physics_process(_delta: float) -> void:
 	if get_contact_count() > 0:
 		# If the difference between last velocity and current velocity is huge, we hit something hard
 		var velocity_change := (linear_velocity - last_velocity).length()
+		if velocity_change > 200.0:
+			impact_audio_stream_player_2d.play()
 		if velocity_change > CRACK_VELOCITY_THRESHOLD:
 			_trigger_crack_effects()
 			return
@@ -43,6 +48,7 @@ func _trigger_crack_effects() -> void:
 	cracked.emit()
 	crack_particles.restart()
 	crack_particles.emitting = true
+	crack_audio_stream_player_2d.play()
 	
 	# Spawn egg shells
 	for shell_scene in [shell_1, shell_2]:
