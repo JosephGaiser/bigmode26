@@ -14,14 +14,10 @@
 [ext_resource type="Script" uid="uid://bhmh7mmr0ku8n" path="res://scripts/util/level.gd" id="12_xidr1"]
 [ext_resource type="PackedScene" uid="uid://d1jjwqmovdqhr" path="res://scenes/util/knife_hazard.tscn" id="14_q418o"]
 [ext_resource type="PackedScene" uid="uid://dvqerl13je6gx" path="res://scenes/entities/egg_spawner.tscn" id="14_y40x4"]
-[ext_resource type="PackedScene" uid="uid://mmwts5tfjifk" path="res://scenes/entities/egg.tscn" id="15_pj0xw"]
 [ext_resource type="PackedScene" uid="uid://bsudjx8p0hxtu" path="res://scenes/entities/hand.tscn" id="17_rm5ru"]
 
 [sub_resource type="Environment" id="Environment_q418o"]
 glow_enabled = true
-
-[sub_resource type="Resource" id="Resource_q418o"]
-script = ExtResource("4_px3xn")
 
 [sub_resource type="Resource" id="Resource_pj0xw"]
 script = ExtResource("4_px3xn")
@@ -79,8 +75,7 @@ position = Vector2(-64, -240)
 script = ExtResource("3_btahq")
 priority = 10
 follow_mode = 3
-follow_targets = [NodePath("../Hand"), NodePath("../Entities/Egg")]
-tween_resource = SubResource("Resource_q418o")
+follow_targets = [NodePath("../Hand"), NodePath("")]
 follow_damping = true
 follow_damping_value = Vector2(0.135, 0.135)
 auto_zoom = true
@@ -206,9 +201,6 @@ texture = SubResource("GradientTexture2D_gs7m4")
 
 [node name="Entities" type="Node2D" parent="." unique_id=2010477121 groups=["entities"]]
 
-[node name="Egg" parent="Entities" unique_id=2087478349 instance=ExtResource("15_pj0xw")]
-position = Vector2(-128, -64)
-
 [node name="KnifeHazard" parent="Entities" unique_id=1795594906 instance=ExtResource("14_q418o")]
 position = Vector2(-5088, -1376)
 
@@ -225,6 +217,7 @@ position = Vector2(-4128, -3360)
 position = Vector2(-5248, -4352)
 
 [node name="EggSpawner" parent="." unique_id=636781217 node_paths=PackedStringArray("entities") instance=ExtResource("14_y40x4")]
+unique_name_in_owner = true
 position = Vector2(-640, -96)
 entities = NodePath("../Entities")
 

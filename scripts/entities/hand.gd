@@ -29,7 +29,9 @@ extends CharacterBody2D
 @export var grab_reject_shake_pixels: float = 3.5
 @export var grab_reject_cooldown: float = 0.12
 
-var is_grabbing: bool = false
+enum State { IDLE, GRABBING, HOLDING, REJECTING }
+var current_state: State = State.IDLE
+
 var held_body: RigidBody2D = null
 var held_interactable: Node = null
 var hold_offset: Vector2 = Vector2.ZERO
@@ -37,7 +39,6 @@ var held_body_was_frozen: bool = false
 var held_body_freeze_mode: RigidBody2D.FreezeMode = RigidBody2D.FREEZE_MODE_STATIC
 var held_body_had_collision_exception: bool = false
 
-var _rejecting_grab: bool = false
 var _reject_cooldown_until_ms: int = 0
 var _closed_hand_base_pos: Vector2 = Vector2.ZERO
 var _mouse_delta: Vector2 = Vector2.ZERO
@@ -45,58 +46,69 @@ var _held_body_velocity: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	_closed_hand_base_pos = closed_hand_sprite_2d.position
+	_set_state(State.IDLE)
 
-func _process(delta: float) -> void:
-	if _rejecting_grab:
-		return
+func _set_state(new_state: State) -> void:
+	# Exit logic for current state
+	match current_state:
+		State.HOLDING:
+			_restore_held_body()
+			if held_interactable and held_interactable.has_method("on_release"):
+				held_interactable.on_release(self)
+			held_body = null
+			held_interactable = null
+		State.REJECTING:
+			closed_hand_sprite_2d.position = _closed_hand_base_pos
+	
+	current_state = new_state
+	
+	# Entry logic for new state
+	match current_state:
+		State.IDLE:
+			_update_hand_sprite(false)
+		State.GRABBING, State.HOLDING, State.REJECTING:
+			_update_hand_sprite(true)
+	
+	if current_state == State.IDLE:
+		if drop_audio_stream_player_2d and not drop_audio_stream_player_2d.is_playing():
+			drop_audio_stream_player_2d.play()
 
 func _physics_process(delta: float) -> void:
-	if _rejecting_grab:
-		velocity = Vector2.ZERO
-		move_and_slide()
-		# We still want to reset _mouse_delta even during rejection
-		_mouse_delta = Vector2.ZERO
-		return
-
-	if is_grabbing:
-		if held_body:
+	match current_state:
+		State.IDLE, State.GRABBING:
+			_update_velocity_towards_mouse(delta)
+		State.HOLDING:
 			if !is_instance_valid(held_body):
-				print("[DEBUG_LOG] Hand _physics_process: held_body is INVALID while holding. Releasing.")
-				release()
+				print("[DEBUG_LOG] Hand: held_body is INVALID. Releasing.")
+				_set_state(State.IDLE)
 			else:
 				if Input.is_action_pressed("hand_alt"):
-					# Articulate the held object
-					var rotation_amount: float = _mouse_delta.x * articulation_rotation_speed
-					
-					var pivot: Marker2D = held_body.get_node_or_null(^"PivotMarker2D")
-					if pivot:
-						var pivot_global_pos := pivot.global_position
-						held_body.global_position = pivot_global_pos + (held_body.global_position - pivot_global_pos).rotated(rotation_amount)
-						held_body.rotation += rotation_amount
-						# Update hold_offset so the object stays in its new relative position to the hand
-						hold_offset = held_body.global_position - global_position
-					else:
-						held_body.rotation += rotation_amount
-					
-					# We still want to apply hold force to keep it in place relative to hand
-					# But we don't move the hand itself
-					velocity = Vector2.ZERO
+					_articulate_held_body()
 				else:
 					_update_velocity_towards_mouse(delta)
-		else:
-			# Not holding anything but hand is closed (e.g. grabbing air or during rejection)
-			_update_velocity_towards_mouse(delta)
-	else:
-		_update_velocity_towards_mouse(delta)
-	
-	_mouse_delta = Vector2.ZERO # reset for next frame
-	_apply_hold_force(delta)
+				_apply_hold_force(delta)
+		State.REJECTING:
+			velocity = Vector2.ZERO
+
+	_mouse_delta = Vector2.ZERO
 	_apply_collision_impulses()
 	move_and_slide()
 	
-	# If mouse is released, ensure we release even if we didn't get the InputEvent
-	if not Input.is_action_pressed("hand_grab") and is_grabbing:
-		release()
+	# Fail-safe release
+	if not Input.is_action_pressed("hand_grab") and current_state != State.IDLE and current_state != State.REJECTING:
+		_set_state(State.IDLE)
+
+func _articulate_held_body() -> void:
+	var rotation_amount: float = _mouse_delta.x * articulation_rotation_speed
+	var pivot: Marker2D = held_body.get_node_or_null(^"PivotMarker2D")
+	if pivot:
+		var pivot_global_pos := pivot.global_position
+		held_body.global_position = pivot_global_pos + (held_body.global_position - pivot_global_pos).rotated(rotation_amount)
+		held_body.rotation += rotation_amount
+		hold_offset = held_body.global_position - global_position
+	else:
+		held_body.rotation += rotation_amount
+	velocity = Vector2.ZERO
 
 func _update_velocity_towards_mouse(delta: float) -> void:
 	var target: Vector2 = get_global_mouse_position()
@@ -117,77 +129,75 @@ func _apply_collision_impulses() -> void:
 				var impulse : Vector2 = impulse_direction * push_force * body.mass * 0.05
 				body.apply_central_impulse(impulse)
 
-
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		_mouse_delta = event.relative
 	
 	if event.is_action_released("hand_grab"):
-		release()
+		if current_state != State.REJECTING:
+			_set_state(State.IDLE)
 	elif event.is_action_pressed("hand_grab"):
-		grab()
+		_try_grab()
 
-func release() -> void:
-	# Always ensure these are reset
-	_rejecting_grab = false
-	is_grabbing = false
-	
-	if drop_audio_stream_player_2d and not drop_audio_stream_player_2d.is_playing():
-		drop_audio_stream_player_2d.play()
-	
-	_restore_held_body()
-	
-	if held_interactable and held_interactable.has_method("on_release"):
-		held_interactable.on_release(self)
-		
-	held_body = null
-	held_interactable = null
-	_update_hand_sprite()
-	closed_hand_sprite_2d.position = _closed_hand_base_pos
-
-func grab() -> void:
-	if _rejecting_grab:
+func _try_grab() -> void:
+	if current_state == State.REJECTING or Time.get_ticks_msec() < _reject_cooldown_until_ms:
 		return
-	if Time.get_ticks_msec() < _reject_cooldown_until_ms:
-		return
+	
 	if !grab_audio_stream_player_2d.is_playing():
 		grab_audio_stream_player_2d.play()
 	
-	# If we're already holding something, release it first (though release() is usually called by input)
-	if held_body:
-		release()
-
-	# Optimistically show the closed hand
-	is_grabbing = true
-	_update_hand_sprite()
-
 	var candidate := _find_grabbable_body()
 	if not candidate:
-		# Just keeping the hand closed is fine, no need to return early if we want to allow "grabbing air"
+		_set_state(State.GRABBING)
 		return
 
 	var interactable := _get_interactable(candidate)
-
-	# Validation checks
-	var cannot_grab = false
-	if interactable and interactable.has_method(&"can_grab") and not interactable.can_grab(self):
-		cannot_grab = true
-	elif not interactable and candidate.has_method(&"can_grab") and not candidate.call(&"can_grab", self):
-		cannot_grab = true
-
-	if cannot_grab:
-		if interactable and interactable.has_method(&"on_grab_rejected"):
-			interactable.on_grab_rejected(self)
-		elif not interactable and candidate.has_method(&"on_grab_rejected"):
-			candidate.call(&"on_grab_rejected", self)
-		
-		_play_grab_rejected_feedback()
+	if _is_grab_rejected(candidate, interactable):
+		_start_rejection(candidate, interactable)
 		return
 
-	# Success: commit the grab.
+	# Success
 	held_body = candidate
 	held_interactable = interactable
 	hold_offset = held_body.global_position - global_position
+	_prepare_held_body()
+	_set_state(State.HOLDING)
+	
+	if held_interactable and held_interactable.has_method(&"on_grab"):
+		held_interactable.on_grab(self)
+	elif held_body.has_method(&"grab"):
+		held_body.call(&"grab", self)
+
+func _is_grab_rejected(body: RigidBody2D, interactable: Node) -> bool:
+	if interactable and interactable.has_method(&"can_grab"):
+		return not interactable.can_grab(self)
+	if body.has_method(&"can_grab"):
+		return not body.call(&"can_grab", self)
+	return false
+
+func _start_rejection(body: RigidBody2D, interactable: Node) -> void:
+	if interactable and interactable.has_method(&"on_grab_rejected"):
+		interactable.on_grab_rejected(self)
+	elif body.has_method(&"on_grab_rejected"):
+		body.call(&"on_grab_rejected", self)
+	
+	_set_state(State.REJECTING)
+	_reject_cooldown_until_ms = Time.get_ticks_msec() + int((grab_reject_shake_time + grab_reject_hold_time + grab_reject_cooldown) * 1000.0)
+	
+	# Shake feedback
+	var end_time_ms := Time.get_ticks_msec() + int(grab_reject_shake_time * 1000.0)
+	while Time.get_ticks_msec() < end_time_ms:
+		if current_state != State.REJECTING: break
+		closed_hand_sprite_2d.position = _closed_hand_base_pos + Vector2(randf_range(-grab_reject_shake_pixels, grab_reject_shake_pixels), randf_range(-grab_reject_shake_pixels, grab_reject_shake_pixels))
+		await get_tree().process_frame
+	
+	if current_state == State.REJECTING:
+		closed_hand_sprite_2d.position = _closed_hand_base_pos
+		await get_tree().create_timer(grab_reject_hold_time).timeout
+		if current_state == State.REJECTING:
+			_set_state(State.IDLE)
+
+func _prepare_held_body() -> void:
 	held_body_was_frozen = held_body.freeze
 	held_body_freeze_mode = held_body.freeze_mode
 	held_body.freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
@@ -196,54 +206,10 @@ func grab() -> void:
 	if not held_body_had_collision_exception:
 		held_body.add_collision_exception_with(self)
 		add_collision_exception_with(held_body)
-	
-	if held_interactable and held_interactable.has_method(&"on_grab"):
-		held_interactable.on_grab(self)
-	elif held_body.has_method(&"grab"): # fallback for old pattern
-		held_body.call(&"grab", self)
 
-func _play_grab_rejected_feedback() -> void:
-	if _rejecting_grab:
-		return
-		
-	_rejecting_grab = true
-	_reject_cooldown_until_ms = Time.get_ticks_msec() + int((grab_reject_shake_time + grab_reject_hold_time + grab_reject_cooldown) * 1000.0)
-
-	is_grabbing = true
-	_update_hand_sprite()
-
-	# Shake effect
-	var shake_timer = get_tree().create_timer(grab_reject_shake_time)
-	var end_time_ms := Time.get_ticks_msec() + int(grab_reject_shake_time * 1000.0)
-	
-	while Time.get_ticks_msec() < end_time_ms:
-		if not _rejecting_grab:
-			break
-		var offset := Vector2(
-			randf_range(-grab_reject_shake_pixels, grab_reject_shake_pixels),
-			randf_range(-grab_reject_shake_pixels, grab_reject_shake_pixels)
-		)
-		closed_hand_sprite_2d.position = _closed_hand_base_pos + offset
-		await get_tree().process_frame
-
-	if not _rejecting_grab:
-		return
-
-	closed_hand_sprite_2d.position = _closed_hand_base_pos
-	
-	# Wait for the hold time
-	await get_tree().create_timer(grab_reject_hold_time).timeout
-	
-	if _rejecting_grab:
-		release()
-
-func _update_hand_sprite() -> void:
-	if is_grabbing:
-		open_hand_sprite_2d.visible = false
-		closed_hand_sprite_2d.visible = true
-	else:
-		open_hand_sprite_2d.visible = true
-		closed_hand_sprite_2d.visible = false
+func _update_hand_sprite(closed: bool) -> void:
+	open_hand_sprite_2d.visible = !closed
+	closed_hand_sprite_2d.visible = closed
 
 func _find_grabbable_body() -> RigidBody2D:
 	var closest_body: RigidBody2D = null
@@ -275,19 +241,13 @@ func _get_interactable(body: Node) -> Node:
 	return null
 
 func _apply_hold_force(delta: float) -> void:
-	if not is_grabbing or not held_body:
-		return
-		
 	if not is_instance_valid(held_body):
-		print("[DEBUG_LOG] Hand _apply_hold_force: held_body is INVALID. Releasing.")
-		release()
 		return
 	
 	if held_interactable and held_interactable.has_method(&"on_hold_process"):
 		held_interactable.on_hold_process(self, delta)
 	
-	# Check again as on_hold_process might have triggered a release or invalidated it
-	if not is_grabbing or not is_instance_valid(held_body):
+	if not is_instance_valid(held_body) or current_state != State.HOLDING:
 		return
 	
 	var target_position := global_position + hold_offset
@@ -295,7 +255,7 @@ func _apply_hold_force(delta: float) -> void:
 	var grip_multiplier := _get_grip_multiplier(held_body)
 	
 	if to_target.length() > max_hold_distance * grip_multiplier:
-		release()
+		_set_state(State.IDLE)
 		return
 		
 	var mass : float = max(held_body.mass, 0.01)
@@ -324,8 +284,7 @@ func _restore_held_body() -> void:
 
 
 func _on_vulnerable_area_2d_area_entered(_area: Area2D) -> void:
-	# Force a clean state reset
-	release()
+	_set_state(State.IDLE)
 	
 	if drop_audio_stream_player_2d and not drop_audio_stream_player_2d.is_playing():
 		drop_audio_stream_player_2d.play()

@@ -1,6 +1,8 @@
 class_name EggSpawner
 extends Node2D
 
+signal egg_spawned
+
 @export var egg_scene: PackedScene
 @export var entities: Node2D
 
@@ -14,9 +16,10 @@ func _process(delta: float) -> void:
 
 func spawn_egg() -> void:
 	current_egg = egg_scene.instantiate()
-	entities.add_child(current_egg)
 	current_egg.global_position = global_position
 	current_egg.cracked.connect(_on_egg_cracked)
+	entities.add_child(current_egg)
+	egg_spawned.emit(current_egg)
 	
 func _on_egg_cracked() -> void:
 	spawn_egg()
