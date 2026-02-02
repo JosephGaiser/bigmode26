@@ -25,6 +25,10 @@ closed_hand_sprite_2d = NodePath("Sprites/ClosedHandSprite2D")
 grab_area_2d = NodePath("GrabArea2D")
 grab_audio_stream_player_2d = NodePath("SFX/GrabAudioStreamPlayer2D")
 drop_audio_stream_player_2d = NodePath("SFX/DropAudioStreamPlayer2D")
+follow_speed = 36.0
+min_follow_speed = 12.0
+speed = 1800.0
+grab_reject_shake_pixels = 25.0
 
 [node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=1133269688]
 current = true

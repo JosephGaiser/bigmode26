@@ -2,31 +2,45 @@ class_name Hand
 extends CharacterBody2D
 
 @export_category("Node References")
+## Sprite used when the hand is open (idle)
 @export var open_hand_sprite_2d: Sprite2D
+## Sprite used when the hand is closed (grabbing/holding)
 @export var closed_hand_sprite_2d: Sprite2D
+## Area used to detect grabbable objects
 @export var grab_area_2d: Area2D
 
 @export_category("FX Node References")
 @onready var blood_particles: CPUParticles2D = $FX/BloodParticles
 
 @export_category("SFX Node References")
+## Audio player for the grab sound effect
 @export var grab_audio_stream_player_2d: AudioStreamPlayer2D
+## Audio player for the drop sound effect
 @export var drop_audio_stream_player_2d: AudioStreamPlayer2D
 @onready var injured_audio_player: AudioStreamPlayer2D = $SFX/InjuredAudioPlayer
 
 @export_category("Hand Settings")
+## Maximum distance the hand can be from the held object before it's released
 @export var max_hold_distance: float = 300.0
+## Friction multiplier for objects in the "slippery" group
 @export var slippery_grip_multiplier: float = 0.35
+## Base speed at which the held object follows the hand
 @export var follow_speed: float = 18.0
+## Minimum follow speed to prevent items from lagging too far behind
 @export var min_follow_speed: float = 6.0
+## Movement speed of the hand towards the mouse
 @export var speed: float = 2200.0
+## Rotation speed when articulating a held body (alt action)
 @export var articulation_rotation_speed: float = 0.01
 
 @export_category("Grab Feedback")
 ## how long the hand stays "closed" after a failed grab
 @export var grab_reject_hold_time: float = 0.18
+## duration of the shake effect on grab rejection
 @export var grab_reject_shake_time: float = 0.18
+## intensity of the shake effect in pixels
 @export var grab_reject_shake_pixels: float = 3.5
+## cooldown period before another grab can be attempted after a rejection
 @export var grab_reject_cooldown: float = 0.12
 
 enum State { IDLE, GRABBING, HOLDING, REJECTING }
@@ -41,11 +55,14 @@ var held_body_had_collision_exception: bool = false
 
 var _reject_cooldown_until_ms: int = 0
 var _closed_hand_base_pos: Vector2 = Vector2.ZERO
+var _original_spawn_pos: Vector2 = Vector2.ZERO
 var _mouse_delta: Vector2 = Vector2.ZERO
 var _held_body_velocity: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	_closed_hand_base_pos = closed_hand_sprite_2d.position
+	_original_spawn_pos = global_position
 	_set_state(State.IDLE)
 
 func _set_state(new_state: State) -> void:
@@ -134,6 +151,9 @@ func _apply_collision_impulses() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		_mouse_delta = event.relative
+	
+	if event.is_action_pressed("player_reset"):
+		reset_to_spawn()
 	
 	if event.is_action_released("hand_grab"):
 		if current_state != State.REJECTING:
@@ -290,6 +310,13 @@ func _restore_held_body() -> void:
 	if not held_body_had_collision_exception:
 		held_body.remove_collision_exception_with(self)
 		remove_collision_exception_with(held_body)
+
+
+func reset_to_spawn() -> void:
+	print("[DEBUG_LOG] Hand: Resetting to spawn: ", _original_spawn_pos)
+	_set_state(State.IDLE)
+	global_position = _original_spawn_pos
+	velocity = Vector2.ZERO
 
 
 func _on_vulnerable_area_2d_area_entered(_area: Area2D) -> void:

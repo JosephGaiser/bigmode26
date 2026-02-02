@@ -25,6 +25,7 @@ script = ExtResource("4_px3xn")
 
 [sub_resource type="Resource" id="Resource_pj0xw"]
 script = ExtResource("4_px3xn")
+transition = 1
 metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q418o"]
@@ -40,7 +41,7 @@ point_count = 2
 script = ExtResource("4_px3xn")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pj0xw"]
-size = Vector2(3584, 3200)
+size = Vector2(3584, 2816)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dga24"]
 font_size = 64
@@ -104,14 +105,15 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="UpSectionPhantomCamera2D" type="Node2D" parent="." unique_id=328015239 node_paths=PackedStringArray("follow_target", "follow_path")]
 unique_name_in_owner = true
 top_level = true
-position = Vector2(0, -512)
+position = Vector2(0, -762)
 script = ExtResource("3_btahq")
 follow_mode = 4
 follow_target = NodePath("../Hand")
 follow_path = NodePath("../UpPathPath2D")
-zoom = Vector2(0.4, 0.4)
+zoom = Vector2(0.5, 0.5)
 tween_resource = SubResource("Resource_pj0xw")
 tween_on_load = false
+follow_offset = Vector2(0, -250)
 follow_damping = true
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
@@ -134,7 +136,7 @@ curve = SubResource("Curve2D_q418o")
 unique_name_in_owner = true
 position = Vector2(0, -7808)
 script = ExtResource("3_btahq")
-zoom = Vector2(0.27, 0.27)
+zoom = Vector2(0.29, 0.29)
 tween_resource = SubResource("Resource_gs7m4")
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
@@ -145,7 +147,6 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigRoomPhantomCamera2D/BigRoomArea2D" unique_id=129260396]
-position = Vector2(0, 64)
 shape = SubResource("RectangleShape2D_pj0xw")
 debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
 
@@ -227,7 +228,7 @@ polygon = PackedVector2Array(-512, 0, -512, -6272, -1536, -6272, -1536, -9216, -
 [node name="BigRoomStaticBody2D" type="StaticBody2D" parent="Level" unique_id=823941324]
 
 [node name="Polygon2D" type="Polygon2D" parent="Level/BigRoomStaticBody2D" unique_id=250115376]
-polygon = PackedVector2Array(640, -6656, -640, -6656, -1152, -7296, -1152, -8832, -896, -8832, -896, -7424, -512, -6912, 511.1211, -6911.999, 896, -7424, 896, -8832, 1152, -8832, 1152, -7296)
+polygon = PackedVector2Array(-1152, -7296, -1152, -7552, 1152, -7552, 1152, -7296)
 
 [node name="Lights" type="Node2D" parent="." unique_id=474948773]
 visible = false
@@ -260,8 +261,8 @@ position = Vector2(-173.99951, -4408)
 rotation = 3.7247899
 
 [node name="KnifeHazard6" parent="Entities" unique_id=422320202 instance=ExtResource("14_q418o")]
-position = Vector2(99, -10183)
-rotation = -0.3247841
+position = Vector2(-256.00024, -14208)
+rotation = 0.40565804
 
 [node name="KnifeHazard7" parent="Entities" unique_id=1583579051 instance=ExtResource("14_q418o")]
 position = Vector2(-15, -13469)
@@ -289,4 +290,4 @@ unique_name_in_owner = true
 position = Vector2(0, -512)
 
 [node name="Boombox" parent="." unique_id=2129106258 instance=ExtResource("5_pj0xw")]
-position = Vector2(3072, -22912)
+position = Vector2(0, -7936)

@@ -15,6 +15,7 @@ const IMPACT_VELOCITY_THRESHOLD: float = 300.0
 const CRACK_VELOCITY_THRESHOLD: float = 950.0
 var last_velocity := Vector2.ZERO
 var is_cracked := false
+var is_held := false
 
 func _ready() -> void:
 	contact_monitor = true
@@ -23,6 +24,11 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if is_cracked:
 		return
+
+	if is_held:
+		is_held = false  # Reset flag, will be set again by hand if still held
+		return
+
 	# Check for hard impact (cracking)
 	if get_contact_count() > 0:
 		# If the difference between last velocity and current velocity is huge, we hit something hard
@@ -35,6 +41,7 @@ func _physics_process(_delta: float) -> void:
 	last_velocity = linear_velocity
 
 func _on_hold_process(_hand: Node2D, _delta: float) -> void:
+	is_held = true
 	# and prevent velocity buildup
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0.0
