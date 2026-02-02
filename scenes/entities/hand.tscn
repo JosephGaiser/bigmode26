@@ -3,14 +3,18 @@
 [ext_resource type="Script" uid="uid://ugwpx0ejurcm" path="res://scripts/entities/hand.gd" id="1_c0igx"]
 [ext_resource type="Texture2D" uid="uid://c6m4re43b863m" path="res://assets/sprites/hand/closed_hand.png" id="1_r87o2"]
 [ext_resource type="Texture2D" uid="uid://bnfwskw7jtmmi" path="res://assets/sprites/hand/open_hand.png" id="2_c0igx"]
+[ext_resource type="AudioStream" uid="uid://bb3l0rsqufjfs" path="res://assets/sfx/Unrecorder F.wav" id="4_fworh"]
 [ext_resource type="AudioStream" uid="uid://cmloob8h8fjvs" path="res://assets/sfx/Token Place Soft 001.wav" id="4_hgv3r"]
 [ext_resource type="AudioStream" uid="uid://dwehhynvchi8v" path="res://assets/sfx/Silly Whistle C.wav" id="5_kjao4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c0igx"]
-radius = 56.0
+radius = 44.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hgv3r"]
 radius = 92.086914
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kjao4"]
+radius = 48.166378
 
 [node name="Hand" type="CharacterBody2D" unique_id=1833399177 node_paths=PackedStringArray("open_hand_sprite_2d", "closed_hand_sprite_2d", "grab_area_2d", "grab_audio_stream_player_2d", "drop_audio_stream_player_2d")]
 collision_layer = 4
@@ -25,6 +29,23 @@ drop_audio_stream_player_2d = NodePath("SFX/DropAudioStreamPlayer2D")
 [node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=1133269688]
 current = true
 
+[node name="FX" type="Node2D" parent="." unique_id=1896041785]
+
+[node name="BloodParticles" type="CPUParticles2D" parent="FX" unique_id=701192896]
+position = Vector2(0, 1)
+emitting = false
+amount = 32
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+spread = 180.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(0.8, 0, 0, 1)
+
 [node name="SFX" type="Node2D" parent="." unique_id=1885763702]
 
 [node name="GrabAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=1969587995]
@@ -32,6 +53,9 @@ stream = ExtResource("4_hgv3r")
 
 [node name="DropAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=1350776346]
 stream = ExtResource("5_kjao4")
+
+[node name="InjuredAudioPlayer" type="AudioStreamPlayer2D" parent="SFX" unique_id=1617114269]
+stream = ExtResource("4_fworh")
 
 [node name="Sprites" type="Node2D" parent="." unique_id=1727911056]
 
@@ -58,3 +82,13 @@ collision_mask = 9
 position = Vector2(0, 52)
 shape = SubResource("CircleShape2D_hgv3r")
 debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
+
+[node name="VulnerableArea2D" type="Area2D" parent="." unique_id=1894338882]
+collision_layer = 4
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VulnerableArea2D" unique_id=1563371941]
+shape = SubResource("CircleShape2D_kjao4")
+debug_color = Color(0.9882353, 0, 0, 0.2)
+
+[connection signal="area_entered" from="VulnerableArea2D" to="." method="_on_vulnerable_area_2d_area_entered"]

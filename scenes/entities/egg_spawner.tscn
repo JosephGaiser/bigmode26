@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dvqerl13je6gx"]
+
+[ext_resource type="Script" uid="uid://y2u6l6jgi08p" path="res://scripts/entities/egg_spawner.gd" id="1_2w8sc"]
+[ext_resource type="PackedScene" uid="uid://mmwts5tfjifk" path="res://scenes/entities/egg.tscn" id="2_2w8sc"]
+
+[node name="EggSpawner" type="Node2D" unique_id=636781217]
+script = ExtResource("1_2w8sc")
+egg_scene = ExtResource("2_2w8sc")

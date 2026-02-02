@@ -1,15 +1,21 @@
 class_name Hand
 extends CharacterBody2D
 
-
 @export_category("Node References")
 @export var open_hand_sprite_2d: Sprite2D
 @export var closed_hand_sprite_2d: Sprite2D
 @export var grab_area_2d: Area2D
-@export var grab_audio_stream_player_2d: AudioStreamPlayer2D
-@export var drop_audio_stream_player_2d: AudioStreamPlayer2D
 @export var phantom_camera: PhantomCamera2D
 @export var camera: Camera2D
+
+@export_category("FX Node References")
+@onready var blood_particles: CPUParticles2D = $FX/BloodParticles
+
+@export_category("SFX Node References")
+@export var grab_audio_stream_player_2d: AudioStreamPlayer2D
+@export var drop_audio_stream_player_2d: AudioStreamPlayer2D
+@onready var injured_audio_player: AudioStreamPlayer2D = $SFX/InjuredAudioPlayer
+
 
 @export_category("Hand Settings")
 @export var max_hold_distance: float = 300.0
@@ -18,10 +24,13 @@ extends CharacterBody2D
 @export var min_follow_speed: float = 6.0
 @export var speed: float = 2200.0
 @export var camera_pan_speed: float = 1000.0
+@export var lookahead_distance: float = 200.0
+@export var lookahead_speed: float = 2.0
 @export var articulation_rotation_speed: float = 0.01
 
 @export_category("Grab Feedback")
-@export var grab_reject_hold_time: float = 0.18 # how long the hand stays "closed" after a failed grab
+## how long the hand stays "closed" after a failed grab
+@export var grab_reject_hold_time: float = 0.18
 @export var grab_reject_shake_time: float = 0.18
 @export var grab_reject_shake_pixels: float = 3.5
 @export var grab_reject_cooldown: float = 0.12
@@ -38,11 +47,8 @@ var _rejecting_grab: bool = false
 var _reject_cooldown_until_ms: int = 0
 var _closed_hand_base_pos: Vector2 = Vector2.ZERO
 var _mouse_delta: Vector2 = Vector2.ZERO
-var _last_held_body_pos: Vector2 = Vector2.ZERO
 var _held_body_velocity: Vector2 = Vector2.ZERO
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_closed_hand_base_pos = closed_hand_sprite_2d.position
 
@@ -56,29 +62,52 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	if is_grabbing and held_body and Input.is_action_pressed(&"hand_alt"):
-		# Articulate the held object
-		var rotation_amount: float = _mouse_delta.x * articulation_rotation_speed
-		
-		var pivot: Marker2D = held_body.get_node_or_null(^"PivotMarker2D")
-		if pivot:
-			var pivot_global_pos := pivot.global_position
-			held_body.global_position = pivot_global_pos + (held_body.global_position - pivot_global_pos).rotated(rotation_amount)
-			held_body.rotation += rotation_amount
-			# Update hold_offset so the object stays in its new relative position to the hand
-			hold_offset = held_body.global_position - global_position
+	var is_holding: bool = is_grabbing and held_body != null
+	if is_holding:
+		if !is_instance_valid(held_body):
+			print("[DEBUG_LOG] Hand _physics_process: held_body is INVALID while is_grabbing=true. Releasing.")
+			release()
 		else:
-			held_body.rotation += rotation_amount
-		
-		# We still want to apply hold force to keep it in place relative to hand
-		# But we don't move the hand itself
-		velocity = Vector2.ZERO
+			if Input.is_action_pressed("hand_alt"):
+				# Articulate the held object
+				var rotation_amount: float = _mouse_delta.x * articulation_rotation_speed
+				
+				var pivot: Marker2D = held_body.get_node_or_null(^"PivotMarker2D")
+				if pivot:
+					var pivot_global_pos := pivot.global_position
+					held_body.global_position = pivot_global_pos + (held_body.global_position - pivot_global_pos).rotated(rotation_amount)
+					held_body.rotation += rotation_amount
+					# Update hold_offset so the object stays in its new relative position to the hand
+					hold_offset = held_body.global_position - global_position
+				else:
+					held_body.rotation += rotation_amount
+				
+				# We still want to apply hold force to keep it in place relative to hand
+				# But we don't move the hand itself
+				velocity = Vector2.ZERO
+			else:
+				var target: Vector2 = get_global_mouse_position()
+				if phantom_camera:
+					var view_size := get_viewport_rect().size * phantom_camera.zoom
+					var phantom_cam_2d: PhantomCamera2D = phantom_camera as PhantomCamera2D
+					var limits := phantom_cam_2d.get_limit_sides()
+					
+					var view_rect := Rect2(camera.get_screen_center_position() - view_size * 0.5, view_size)
+					
+					# Further constrain view_rect by camera limits to prevent hand from going off-screen 
+					# when camera is at the edge of its limits
+					var limit_rect := Rect2(Vector2(limits.x, limits.y), Vector2(limits.z - limits.x, limits.w - limits.y))
+					var effective_rect := view_rect.intersection(limit_rect)
+					
+					target = target.clamp(effective_rect.position, effective_rect.position + effective_rect.size)
+				var target_direction: Vector2 = (target - global_position)
+				velocity = target_direction.normalized() * min(speed, target_direction.length() / delta)
 	else:
 		var target: Vector2 = get_global_mouse_position()
 		if phantom_camera:
 			var view_size := get_viewport_rect().size * phantom_camera.zoom
 			var phantom_cam_2d: PhantomCamera2D = phantom_camera as PhantomCamera2D
-			var limits := phantom_cam_2d.get_limit_sides()
+			var limits := phantom_camera.get_limit_sides()
 			
 			var view_rect := Rect2(camera.get_screen_center_position() - view_size * 0.5, view_size)
 			
@@ -92,28 +121,73 @@ func _physics_process(delta: float) -> void:
 		velocity = target_direction.normalized() * min(speed, target_direction.length() / delta)
 	
 	_mouse_delta = Vector2.ZERO # reset for next frame
+	_update_camera_lookahead(delta)
 	_apply_hold_force(delta)
+	_apply_collision_impulses()
 	move_and_slide()
+
+
+func _update_camera_lookahead(delta: float) -> void:
+	if not phantom_camera:
+		return
+	
+	var viewport_size := get_viewport_rect().size
+	if viewport_size.x == 0 or viewport_size.y == 0:
+		return
+	
+	var mouse_pos := get_viewport().get_mouse_position()
+	var screen_center := viewport_size * 0.5
+	
+	# Calculate normalized offset from center (-1 to 1)
+	var offset := (mouse_pos - screen_center) / screen_center
+	
+	# Target follow offset
+	var target_offset := offset * lookahead_distance
+	
+	# Smoothly lerp the phantom camera's follow_offset
+	# We use the raw property since the setter might not be exposed as a method easily or might have side effects we want
+	phantom_camera.follow_offset = phantom_camera.follow_offset.lerp(target_offset, lookahead_speed * delta)
+
+
+func _apply_collision_impulses() -> void:
+	for i in get_slide_collision_count():
+		var collision := get_slide_collision(i)
+		var body := collision.get_collider()
+		
+		if body is RigidBody2D and body != held_body:
+			var impulse_direction := -collision.get_normal()
+			var push_force := velocity.dot(impulse_direction)
+			
+			if push_force > 0:
+				var impulse : Vector2 = impulse_direction * push_force * body.mass * 0.05
+				body.apply_central_impulse(impulse)
 
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		_mouse_delta = event.relative
 	
-	if event.is_action_released(&"hand_grab"):
+	if event.is_action_released("hand_grab"):
 		release()
-	if event.is_action_pressed(&"hand_grab"):
+	if event.is_action_pressed("hand_grab"):
 		grab()
 
 func release() -> void:
-	if _rejecting_grab:
+	# Check if we are holding something OR if we are in a rejection state
+	# We want to be able to "interrupt" rejection if needed
+	if held_body == null and not _rejecting_grab and not is_grabbing:
 		return
+	
+	_rejecting_grab = false
 	is_grabbing = false
 	if drop_audio_stream_player_2d and not drop_audio_stream_player_2d.is_playing():
 		drop_audio_stream_player_2d.play()
+	
 	_restore_held_body()
-	if held_interactable and held_interactable.has_method(&"on_release"):
+	
+	if held_interactable and held_interactable.has_method("on_release"):
 		held_interactable.on_release(self)
+		
 	held_body = null
 	held_interactable = null
 	_update_hand_sprite()
@@ -126,6 +200,9 @@ func grab() -> void:
 
 	if !grab_audio_stream_player_2d.is_playing():
 		grab_audio_stream_player_2d.play()
+
+	if held_body:
+		release()
 
 	# We optimistically close the hand for responsiveness,
 	# but we won't "attach" unless the target accepts the grab.
@@ -181,6 +258,8 @@ func _play_grab_rejected_feedback() -> void:
 
 	var end_time_ms := Time.get_ticks_msec() + int(grab_reject_shake_time * 1000.0)
 	while Time.get_ticks_msec() < end_time_ms:
+		if not _rejecting_grab:
+			break
 		var offset := Vector2(
 			randf_range(-grab_reject_shake_pixels, grab_reject_shake_pixels),
 			randf_range(-grab_reject_shake_pixels, grab_reject_shake_pixels)
@@ -192,7 +271,12 @@ func _play_grab_rejected_feedback() -> void:
 
 	await get_tree().create_timer(grab_reject_hold_time).timeout
 
+	if not _rejecting_grab:
+		return
+
 	is_grabbing = false
+	if held_body:
+		_restore_held_body()
 	held_body = null
 	_update_hand_sprite()
 	_rejecting_grab = false
@@ -239,9 +323,12 @@ func _apply_hold_force(delta: float) -> void:
 	if not is_grabbing:
 		return
 	if not is_instance_valid(held_body):
+		print("[DEBUG_LOG] Hand _apply_hold_force: held_body is INVALID. Releasing.")
 		_restore_held_body()
 		held_body = null
 		held_interactable = null
+		is_grabbing = false
+		_update_hand_sprite()
 		return
 	
 	if held_interactable and held_interactable.has_method(&"on_hold_process"):
@@ -266,12 +353,29 @@ func _apply_hold_force(delta: float) -> void:
 func _restore_held_body() -> void:
 	if not is_instance_valid(held_body):
 		return
+	
 	held_body.freeze = held_body_was_frozen
 	held_body.freeze_mode = held_body_freeze_mode
 	
 	if not held_body.freeze:
 		held_body.linear_velocity = _held_body_velocity
+		# Wake up the body if it's sleeping
+		if held_body.has_method(&"set_sleeping"):
+			held_body.sleeping = false
 	
 	if not held_body_had_collision_exception:
 		held_body.remove_collision_exception_with(self)
 		remove_collision_exception_with(held_body)
+
+
+func _on_vulnerable_area_2d_area_entered(_area: Area2D) -> void:
+	# Force a clean state reset
+	_rejecting_grab = false
+	is_grabbing = false
+	_restore_held_body()
+	held_body = null
+	held_interactable = null
+	_update_hand_sprite()
+	
+	if drop_audio_stream_player_2d and not drop_audio_stream_player_2d.is_playing():
+		drop_audio_stream_player_2d.play()

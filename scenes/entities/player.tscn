@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dq1q8uit23s2f" path="res://scripts/entities/player.gd" id="1_08t41"]
 [ext_resource type="Script" uid="uid://whw5l4jx3igt" path="res://scripts/entities/interactable.gd" id="2_1ie0h"]
+[ext_resource type="PackedScene" uid="uid://d30q5jmyskd4w" path="res://scenes/entities/egg_shell_1.tscn" id="2_5u6hq"]
 [ext_resource type="Texture2D" uid="uid://begvcd3r0w5ws" path="res://assets/sprites/entities/egg.png" id="2_08t41"]
+[ext_resource type="PackedScene" uid="uid://dn3wwljaq45pf" path="res://scenes/entities/egg_shell_2.tscn" id="3_d4qa6"]
 
 [node name="Player" type="RigidBody2D" unique_id=2087478349]
 collision_layer = 8
@@ -11,16 +13,33 @@ lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 4
 script = ExtResource("1_08t41")
+shell_1 = ExtResource("2_5u6hq")
+shell_2 = ExtResource("3_d4qa6")
 
 [node name="Interactable" type="Node2D" parent="." unique_id=1782672010]
 script = ExtResource("2_1ie0h")
 metadata/_custom_type_script = "uid://whw5l4jx3igt"
 
 [node name="PlayerSprite2D" type="Sprite2D" parent="." unique_id=498699195]
-position = Vector2(3.9999995, -4)
-rotation = -0.4257934
-scale = Vector2(0.053, 0.053)
+scale = Vector2(0.07, 0.07)
 texture = ExtResource("2_08t41")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1947950366]
-polygon = PackedVector2Array(-2, -42, -7, -40, -12, -37, -16, -33, -20, -29, -23, -24, -26, -18, -28, -12, -29, -6, -30, 0, -29.305702, 6.2486153, -29, 9, -27, 18, -24, 25, -19, 32, -14, 36, -10, 39, -5, 41, 1, 42, 7, 41, 13, 39, 18, 37, 21, 34, 24, 31, 27, 26, 29, 22, 31, 16, 32, 11, 33, 6, 33, 1, 33, -3, 32, -7, 31, -12, 29, -17, 27, -21, 25, -25, 23, -29, 20, -33, 17, -36, 12, -39, 7, -41, 3, -42)
+position = Vector2(-0.47916412, 0)
+scale = Vector2(1.3194444, 1.3194443)
+polygon = PackedVector2Array(-32.22632, -12.126316, -25.405264, -21.221054, -17.068422, -28.800001, -5.7000017, -35.62105, 6.4263134, -37.894737, 16.278944, -34.86316, 23.099997, -26.526316, 26.88947, -15.91579, 28.405258, -3.7894738, 26.88947, 7.5789475, 23.857891, 18.189474, 19.310522, 25.768421, 14.00526, 31.83158, 4.1526294, 40.168423, -4.184212, 43.2, -14.794738, 41.68421, -25.405264, 37.136845, -32.22632, 28.042107, -36.01579, 16.673685, -36.773685, 6.8210526, -35.257896, -5.3052635)
+
+[node name="CrackParticles" type="CPUParticles2D" parent="." unique_id=121212121]
+emitting = false
+amount = 30
+lifetime = 1.2
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 60.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 100.0
+initial_velocity_max = 300.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+color = Color(1, 1, 0.94, 1)

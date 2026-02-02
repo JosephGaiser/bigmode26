@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://hu6jf4baapas" path="res://misc/steinberg.gdshader" id="2_sugp2"]
 [ext_resource type="Shader" uid="uid://bv5ns8mrvlt5y" path="res://misc/ditherpalette.gdshader" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://d1cddqunbhqx0" path="res://scenes/levels/level_2.tscn" id="3_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://b6cubpy1h0dkw" path="res://scenes/levels/world.tscn" id="4_tefeu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tbgi4"]
 shader = ExtResource("2_sugp2")
@@ -23,12 +24,11 @@ script = ExtResource("1_jyhfs")
 Level1 = ExtResource("1_sugp2")
 Level2 = ExtResource("3_tbgi4")
 
-[node name="Level" type="Node2D" parent="." unique_id=812408097]
+[node name="LevelContainer" type="Node2D" parent="." unique_id=812408097]
 
-[node name="Level1" parent="Level" unique_id=867132284 instance=ExtResource("1_sugp2")]
+[node name="World" parent="LevelContainer" unique_id=867132284 instance=ExtResource("4_tefeu")]
 
 [node name="Dither" type="CanvasLayer" parent="." unique_id=967476094]
-visible = false
 
 [node name="Steinberg" type="ColorRect" parent="Dither" unique_id=1599416567]
 material = SubResource("ShaderMaterial_tbgi4")
@@ -39,7 +39,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Palette" type="CanvasLayer" parent="." unique_id=1299449972]
-visible = false
 
 [node name="DitherColor" type="ColorRect" parent="Palette" unique_id=813817281]
 material = SubResource("ShaderMaterial_tefeu")

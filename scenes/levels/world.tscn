@@ -1,0 +1,196 @@
+[gd_scene format=3 uid="uid://b6cubpy1h0dkw"]
+
+[ext_resource type="Script" uid="uid://tamhdftxxv7h" path="res://scripts/levels/level_1.gd" id="1_pj0xw"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_gs7m4"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_btahq"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_px3xn"]
+[ext_resource type="Texture2D" uid="uid://coasudnxy3is3" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_move.png" id="5_8cjxf"]
+[ext_resource type="Texture2D" uid="uid://bmpqpi2o6v06e" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_w_outline.png" id="6_jtmcs"]
+[ext_resource type="Texture2D" uid="uid://4wyvmum3c8u1" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_a_outline.png" id="7_3lsws"]
+[ext_resource type="Texture2D" uid="uid://d2isfb765x2br" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_s_outline.png" id="8_yywnm"]
+[ext_resource type="Texture2D" uid="uid://c4umd06xuedjn" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_d_outline.png" id="9_rny25"]
+[ext_resource type="Texture2D" uid="uid://dhhvf43vchjke" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_left_outline.png" id="10_gc5je"]
+[ext_resource type="Texture2D" uid="uid://cmowacmla3via" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_right_outline.png" id="11_yxm4g"]
+[ext_resource type="Script" uid="uid://bhmh7mmr0ku8n" path="res://scripts/util/level.gd" id="12_xidr1"]
+[ext_resource type="PackedScene" uid="uid://d1jjwqmovdqhr" path="res://scenes/util/knife_hazard.tscn" id="14_q418o"]
+[ext_resource type="PackedScene" uid="uid://dvqerl13je6gx" path="res://scenes/entities/egg_spawner.tscn" id="14_y40x4"]
+[ext_resource type="PackedScene" uid="uid://mmwts5tfjifk" path="res://scenes/entities/egg.tscn" id="15_pj0xw"]
+[ext_resource type="PackedScene" uid="uid://bsudjx8p0hxtu" path="res://scenes/entities/hand.tscn" id="17_rm5ru"]
+
+[sub_resource type="Environment" id="Environment_q418o"]
+glow_enabled = true
+
+[sub_resource type="Resource" id="Resource_s8va5"]
+script = ExtResource("4_px3xn")
+transition = 9
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xidr1"]
+size = Vector2(9696, 1728)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dga24"]
+font_size = 64
+
+[sub_resource type="Gradient" id="Gradient_pj0xw"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.2488372, 0.5116279, 0.6604651, 0.9395349, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.90990674, 0.90990674, 0.90990674, 0.90990674, 0.700416, 0.700416, 0.700416, 0.700416, 0.526616, 0.526616, 0.526616, 0.526616, 0.016279042, 0.016279042, 0.016279042, 0.016279042, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gs7m4"]
+gradient = SubResource("Gradient_pj0xw")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.1, 0.1)
+metadata/_snap_enabled = true
+
+[node name="World" type="Node2D" unique_id=867132284]
+script = ExtResource("1_pj0xw")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=510379104]
+environment = SubResource("Environment_q418o")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=864754509]
+physics_interpolation_mode = 1
+top_level = true
+position = Vector2(-64, -276)
+process_callback = 0
+limit_left = -1344
+limit_top = -1536
+limit_right = 8352
+limit_bottom = 192
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=1746791582]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_gs7m4")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=1541733472 node_paths=PackedStringArray("follow_target", "follow_targets")]
+top_level = true
+position = Vector2(-64, -276)
+script = ExtResource("3_btahq")
+follow_mode = 3
+follow_target = NodePath("../Entities/Egg")
+follow_targets = [NodePath("../Hand"), NodePath("../Entities/Egg")]
+tween_resource = SubResource("Resource_s8va5")
+follow_damping = true
+follow_damping_value = Vector2(0.135, 0.135)
+auto_zoom = true
+auto_zoom_max = 1.0
+dead_zone_width = 0.153
+dead_zone_height = 0.144
+draw_limits = true
+limit_target = NodePath("../CameraBounds")
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="CameraBounds" type="CollisionShape2D" parent="." unique_id=956252547]
+position = Vector2(3504, -672)
+shape = SubResource("RectangleShape2D_xidr1")
+disabled = true
+
+[node name="Tutorial" type="Node2D" parent="." unique_id=1424404589]
+
+[node name="ArmControlsLabel" type="Label" parent="Tutorial" unique_id=779207502]
+offset_left = -960.0
+offset_top = -448.0
+offset_right = -312.0
+offset_bottom = -297.0
+text = "MOVE ARM"
+label_settings = SubResource("LabelSettings_dga24")
+
+[node name="MouseMove" type="Sprite2D" parent="Tutorial/ArmControlsLabel" unique_id=579485011]
+position = Vector2(496, 32)
+texture = ExtResource("5_8cjxf")
+
+[node name="GrabControlsLabel" type="Label" parent="Tutorial" unique_id=1604684280]
+offset_left = -960.0
+offset_top = -352.0
+offset_right = -378.0
+offset_bottom = -278.0
+text = "GRAB STUFF"
+label_settings = SubResource("LabelSettings_dga24")
+
+[node name="MouseLeftOutline" type="Sprite2D" parent="Tutorial/GrabControlsLabel" unique_id=391561161]
+position = Vector2(560, 32)
+texture = ExtResource("10_gc5je")
+
+[node name="RotateControlsLabel" type="Label" parent="Tutorial" unique_id=343700172]
+offset_left = -960.0
+offset_top = -256.0
+offset_right = -353.0
+offset_bottom = -182.0
+text = "ROTATE STUFF"
+label_settings = SubResource("LabelSettings_dga24")
+
+[node name="MouseRightOutline" type="Sprite2D" parent="Tutorial/RotateControlsLabel" unique_id=1332750445]
+position = Vector2(656, 32)
+texture = ExtResource("11_yxm4g")
+
+[node name="EggControlsLabel" type="Label" parent="Tutorial" unique_id=413893909]
+visible = false
+offset_left = -1664.0
+offset_top = 416.0
+offset_right = -1016.0
+offset_bottom = 567.0
+text = "MOVE EGG
+"
+label_settings = SubResource("LabelSettings_dga24")
+
+[node name="KeyboardWOutline" type="Sprite2D" parent="Tutorial/EggControlsLabel" unique_id=564149899]
+position = Vector2(480, 32)
+texture = ExtResource("6_jtmcs")
+
+[node name="KeyboardAOutline" type="Sprite2D" parent="Tutorial/EggControlsLabel" unique_id=148766334]
+position = Vector2(592, 32)
+texture = ExtResource("7_3lsws")
+
+[node name="KeyboardSOutline" type="Sprite2D" parent="Tutorial/EggControlsLabel" unique_id=1191447529]
+position = Vector2(704, 32)
+texture = ExtResource("8_yywnm")
+
+[node name="KeyboardDOutline" type="Sprite2D" parent="Tutorial/EggControlsLabel" unique_id=893469492]
+position = Vector2(816, 32)
+texture = ExtResource("9_rny25")
+
+[node name="Level" type="Node2D" parent="." unique_id=1898035121]
+script = ExtResource("12_xidr1")
+
+[node name="StartingRoomStaticBody2D" type="StaticBody2D" parent="Level" unique_id=2039238143]
+position = Vector2(1056, -640)
+
+[node name="Polygon2D" type="Polygon2D" parent="Level/StartingRoomStaticBody2D" unique_id=200513074]
+polygon = PackedVector2Array(-2080, 640, 3040, 640, 3232, 576, 3392, 480, 3552, 352, 3680, 192, 3776, 0, 3808, -128, 4096, -128, 4096, 1152, -2592, 1152, -2592, -1152, -32, -1152, 4096, -1152, 4096, -384, 3808, -384, 3776, -512, 3712, -608, 3616, -704, 3488, -800, 3296, -864, 3040, -896, 224, -896, -128, -864, -576, -800, -992, -704, -1376, -576, -1696, -448, -1952, -320, -2048, -224, -2080, -128)
+
+[node name="SecondRoomStaticBody2D" type="StaticBody2D" parent="Level" unique_id=950129890]
+
+[node name="Polygon2D" type="Polygon2D" parent="Level/SecondRoomStaticBody2D" unique_id=1442770151]
+polygon = PackedVector2Array(5152, -1024, 5152, -1792, 5824, -1792, 8480, -1824, 8480, 512, 5152, 512, 5152, -768, 5504, -768, 5536, -608, 5600, -480, 5856, -224, 6176, 0, 6496, 128, 6784, 192, 7040, 192, 7552, 192, 8080.3438, 192, 8160, 160, 8192, 130.71765, 8192, 32, 8160, 0, 8096, -32, 7072, -32, 6784, -32, 6560, -96, 6304, -192, 6144, -288, 5952, -416, 5824, -576, 5760, -672, 5736.7344, -741.79596, 5728, -768, 5764.3203, -768, 8192, -768, 8192, -1536, 5733.616, -1536, 5472, -1536, 5472, -1288.3435, 5472, -1024)
+
+[node name="Lights" type="Node2D" parent="." unique_id=474948773]
+
+[node name="PointLight2D" type="PointLight2D" parent="Lights" unique_id=887699486]
+visible = false
+position = Vector2(1728, -640)
+texture = SubResource("GradientTexture2D_gs7m4")
+
+[node name="Entities" type="Node2D" parent="." unique_id=2010477121 groups=["entities"]]
+
+[node name="KnifeHazard" parent="Entities" unique_id=1795594906 instance=ExtResource("14_q418o")]
+position = Vector2(2944, -672)
+rotation = 0.34027508
+
+[node name="Egg" parent="Entities" unique_id=2087478349 instance=ExtResource("15_pj0xw")]
+position = Vector2(-128, -64)
+
+[node name="EggSpawner" parent="." unique_id=636781217 node_paths=PackedStringArray("entities") instance=ExtResource("14_y40x4")]
+position = Vector2(-640, -96)
+entities = NodePath("../Entities")
+
+[node name="Hand" parent="." unique_id=1833399177 node_paths=PackedStringArray("phantom_camera", "camera") instance=ExtResource("17_rm5ru")]
+position = Vector2(0, -416)
+phantom_camera = NodePath("../PhantomCamera2D")
+camera = NodePath("../Camera2D")
+lookahead_distance = 800.0
+lookahead_speed = 20.0

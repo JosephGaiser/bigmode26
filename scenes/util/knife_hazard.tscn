@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://d1jjwqmovdqhr"]
+
+[ext_resource type="Texture2D" uid="uid://7pv807xcn11d" path="res://assets/sprites/entities/knife.png" id="1_c732d"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l2ved"]
+radius = 28.15297
+height = 295.81616
+
+[node name="KnifeHazard" type="Node2D" unique_id=1795594906]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=890636118]
+rotation = -1.5707964
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_c732d")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=477158405]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1058434326]
+polygon = PackedVector2Array(-15, -26, 147, -37, 308, -40, 323, -17, 298, 2, 205, -7, 60, -4, 26, -1, 24, 52, -148, 45, -303, 16, -257, -13, -121, -21)
+
+[node name="DangerArea2D" type="Area2D" parent="." unique_id=924465332]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DangerArea2D" unique_id=549120546]
+position = Vector2(-125, 17)
+rotation = -1.4868189
+shape = SubResource("CapsuleShape2D_l2ved")
+debug_color = Color(0.9882353, 0, 0, 0.2)

@@ -6,12 +6,10 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_sk5k4"]
 [ext_resource type="Texture2D" uid="uid://coasudnxy3is3" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_move.png" id="4_mm8aj"]
 [ext_resource type="PackedScene" uid="uid://bsudjx8p0hxtu" path="res://scenes/entities/hand.tscn" id="4_oc4kc"]
-[ext_resource type="PackedScene" uid="uid://kq1sac2inidw" path="res://scenes/entities/orange.tscn" id="9_dga24"]
 [ext_resource type="Texture2D" uid="uid://cmowacmla3via" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_right_outline.png" id="11_wtwp4"]
 [ext_resource type="Texture2D" uid="uid://bmpqpi2o6v06e" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_w_outline.png" id="12_iwr0g"]
 [ext_resource type="Texture2D" uid="uid://4wyvmum3c8u1" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_a_outline.png" id="13_bahl2"]
 [ext_resource type="Texture2D" uid="uid://dhhvf43vchjke" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_left_outline.png" id="13_iwr0g"]
-[ext_resource type="PackedScene" uid="uid://c564rdmi35lbv" path="res://scenes/entities/soap.tscn" id="13_mm8aj"]
 [ext_resource type="PackedScene" uid="uid://b1u0ioja5ej5w" path="res://scenes/entities/knife.tscn" id="13_wtwp4"]
 [ext_resource type="Texture2D" uid="uid://d2isfb765x2br" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_s_outline.png" id="14_np2pn"]
 [ext_resource type="PackedScene" uid="uid://67kd3ocy0cfp" path="res://scenes/entities/tray.tscn" id="14_wtwp4"]
@@ -77,8 +75,8 @@ follow_mode = 5
 follow_target = NodePath("../Hand")
 zoom = Vector2(0.8, 0.8)
 tween_resource = SubResource("Resource_s8va5")
-follow_offset = Vector2(0, 200)
 follow_damping = true
+follow_damping_value = Vector2(0.4, 0.4)
 auto_zoom_max = 1.0
 dead_zone_width = 0.366
 dead_zone_height = 0.195
@@ -95,9 +93,9 @@ disabled = true
 
 [node name="ArmControlsLabel" type="Label" parent="Tutorial" unique_id=779207502]
 offset_left = -1664.0
-offset_top = 288.0
+offset_top = 128.0
 offset_right = -1016.0
-offset_bottom = 439.0
+offset_bottom = 279.0
 text = "MOVE ARM
 "
 label_settings = SubResource("LabelSettings_dga24")
@@ -106,35 +104,36 @@ label_settings = SubResource("LabelSettings_dga24")
 position = Vector2(496, 32)
 texture = ExtResource("4_mm8aj")
 
-[node name="CameraControlsLabel" type="Label" parent="Tutorial" unique_id=413893909]
+[node name="EggControlsLabel" type="Label" parent="Tutorial" unique_id=413893909]
 offset_left = -1664.0
-offset_top = 384.0
+offset_top = 240.0
 offset_right = -1016.0
-offset_bottom = 535.0
-text = "MOVE CAMERA
+offset_bottom = 391.0
+text = "MOVE EGG
 "
 label_settings = SubResource("LabelSettings_dga24")
 
-[node name="KeyboardWOutline" type="Sprite2D" parent="Tutorial/CameraControlsLabel" unique_id=564149899]
-position = Vector2(656, 32)
+[node name="KeyboardWOutline" type="Sprite2D" parent="Tutorial/EggControlsLabel" unique_id=564149899]
+position = Vector2(480, 32)
 texture = ExtResource("12_iwr0g")
 
-[node name="KeyboardAOutline" type="Sprite2D" parent="Tutorial/CameraControlsLabel" unique_id=148766334]
-position = Vector2(768, 32)
+[node name="KeyboardAOutline" type="Sprite2D" parent="Tutorial/EggControlsLabel" unique_id=148766334]
+position = Vector2(592, 32)
 texture = ExtResource("13_bahl2")
 
-[node name="KeyboardSOutline" type="Sprite2D" parent="Tutorial/CameraControlsLabel" unique_id=1191447529]
-position = Vector2(880, 32)
+[node name="KeyboardSOutline" type="Sprite2D" parent="Tutorial/EggControlsLabel" unique_id=1191447529]
+position = Vector2(704, 32)
 texture = ExtResource("14_np2pn")
 
-[node name="KeyboardDOutline" type="Sprite2D" parent="Tutorial/CameraControlsLabel" unique_id=893469492]
-position = Vector2(992, 32)
+[node name="KeyboardDOutline" type="Sprite2D" parent="Tutorial/EggControlsLabel" unique_id=893469492]
+position = Vector2(816, 32)
 texture = ExtResource("15_v6ha0")
 
 [node name="GrabControlsLabel" type="Label" parent="Tutorial" unique_id=1604684280]
-offset_top = 288.0
-offset_right = 582.0
-offset_bottom = 362.0
+offset_left = -1664.0
+offset_top = 352.0
+offset_right = -1082.0
+offset_bottom = 426.0
 text = "GRAB STUFF"
 label_settings = SubResource("LabelSettings_dga24")
 
@@ -142,24 +141,17 @@ label_settings = SubResource("LabelSettings_dga24")
 position = Vector2(560, 32)
 texture = ExtResource("13_iwr0g")
 
-[node name="RotateControlsLabel" type="Label" parent="Tutorial" unique_id=343700172]
-offset_top = 384.0
+[node name="RotateControlsLabel" type="Label" parent="Tutorial/GrabControlsLabel" unique_id=343700172]
+layout_mode = 0
+offset_top = 96.0
 offset_right = 607.0
-offset_bottom = 458.0
+offset_bottom = 170.0
 text = "ROTATE STUFF"
 label_settings = SubResource("LabelSettings_dga24")
 
-[node name="MouseRightOutline" type="Sprite2D" parent="Tutorial/RotateControlsLabel" unique_id=1332750445]
+[node name="MouseRightOutline" type="Sprite2D" parent="Tutorial/GrabControlsLabel/RotateControlsLabel" unique_id=1332750445]
 position = Vector2(656, 32)
 texture = ExtResource("11_wtwp4")
-
-[node name="SlipperyControlsLabel" type="Label" parent="Tutorial" unique_id=1206104926]
-offset_left = 1664.0
-offset_top = 288.0
-offset_right = 2271.0
-offset_bottom = 362.0
-text = "SOME STUFF IS SLICK"
-label_settings = SubResource("LabelSettings_dga24")
 
 [node name="Level" type="Node2D" parent="." unique_id=1898035121]
 
@@ -252,19 +244,7 @@ offset_bottom = 512.0
 position = Vector2(80, 66.5)
 shape = SubResource("RectangleShape2D_bahl2")
 
-[node name="Entities" type="Node2D" parent="." unique_id=2010477121]
-
-[node name="Orange" parent="Entities" unique_id=189717667 instance=ExtResource("9_dga24")]
-position = Vector2(864, 672)
-
-[node name="Orange2" parent="Entities" unique_id=909949953 instance=ExtResource("9_dga24")]
-position = Vector2(752, 512)
-
-[node name="Orange3" parent="Entities" unique_id=1125098528 instance=ExtResource("9_dga24")]
-position = Vector2(640, 672)
-
-[node name="Soap" parent="Entities" unique_id=1531947227 instance=ExtResource("13_mm8aj")]
-position = Vector2(2032, 560)
+[node name="Entities" type="Node2D" parent="." unique_id=2010477121 groups=["entities"]]
 
 [node name="Knife" parent="Entities" unique_id=1977731433 instance=ExtResource("13_wtwp4")]
 position = Vector2(4672, 448)
@@ -293,6 +273,9 @@ position = Vector2(0, -272)
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_np2pn")
 debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
+
+[node name="PlayerSpawnMarker" type="Marker2D" parent="." unique_id=123456789 groups=["spawn_marker"]]
+position = Vector2(-1520, 640)
 
 [node name="Player" parent="." unique_id=2087478349 instance=ExtResource("16_bahl2")]
 position = Vector2(-1520, 640)

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://d30q5jmyskd4w"]
+
+[ext_resource type="Texture2D" uid="uid://cgq0idpk2w6f6" path="res://assets/sprites/entities/egg_shell_1.png" id="1_tpqrd"]
+
+[node name="EggShell1" type="RigidBody2D" unique_id=1752392915]
+collision_mask = 15
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1187678828]
+scale = Vector2(0.30776057, 0.30776057)
+texture = ExtResource("1_tpqrd")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1720161372]
+polygon = PackedVector2Array(-29, -32, -38, -23, -38, 2, -27, 23, -8, 28, 13, 26, 32, 6, 38, -8, 18, -19, -6, -27)
