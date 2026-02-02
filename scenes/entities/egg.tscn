@@ -6,24 +6,18 @@
 [ext_resource type="Script" uid="uid://whw5l4jx3igt" path="res://scripts/entities/interactable.gd" id="4_1wfw8"]
 [ext_resource type="Texture2D" uid="uid://begvcd3r0w5ws" path="res://assets/sprites/entities/egg.png" id="5_ecf5f"]
 
-[node name="Egg" type="Node2D" unique_id=2087478349]
+[node name="Egg" type="RigidBody2D" unique_id=1155435445]
+collision_layer = 8
+collision_mask = 31
+contact_monitor = true
+max_contacts_reported = 4
 script = ExtResource("1_idowc")
 shell_1 = ExtResource("2_07f1p")
 shell_2 = ExtResource("3_4fjc5")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1155435445]
-collision_mask = 15
-contact_monitor = true
-max_contacts_reported = 4
-
-[node name="EggSprite2D" type="Sprite2D" parent="RigidBody2D" unique_id=498699195]
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("5_ecf5f")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D" unique_id=1947950366]
-position = Vector2(-0.47916412, 0)
-scale = Vector2(1.3194444, 1.3194443)
-polygon = PackedVector2Array(-32.22632, -12.126316, -25.405264, -21.221054, -17.068422, -28.800001, -5.7000017, -35.62105, 6.4263134, -37.894737, 16.278944, -34.86316, 23.099997, -26.526316, 26.88947, -15.91579, 28.405258, -3.7894738, 26.88947, 7.5789475, 23.857891, 18.189474, 19.310522, 25.768421, 14.00526, 31.83158, 4.1526294, 40.168423, -4.184212, 43.2, -14.794738, 41.68421, -25.405264, 37.136845, -32.22632, 28.042107, -36.01579, 16.673685, -36.773685, 6.8210526, -35.257896, -5.3052635)
+[node name="Interactable" type="Node2D" parent="." unique_id=1782672010]
+script = ExtResource("4_1wfw8")
+metadata/_custom_type_script = "uid://whw5l4jx3igt"
 
 [node name="CrackParticles" type="CPUParticles2D" parent="." unique_id=121212121]
 emitting = false
@@ -40,6 +34,11 @@ scale_amount_min = 2.0
 scale_amount_max = 5.0
 color = Color(1, 1, 0.94, 1)
 
-[node name="Interactable" type="Node2D" parent="." unique_id=1782672010]
-script = ExtResource("4_1wfw8")
-metadata/_custom_type_script = "uid://whw5l4jx3igt"
+[node name="EggSprite2D" type="Sprite2D" parent="." unique_id=498699195]
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("5_ecf5f")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1947950366]
+position = Vector2(-0.47916412, 0)
+scale = Vector2(1.3194444, 1.3194443)
+polygon = PackedVector2Array(-32.22632, -12.126316, -25.405264, -21.221054, -17.068422, -28.800001, -5.7000017, -35.62105, 6.4263134, -37.894737, 16.278944, -34.86316, 23.099997, -26.526316, 26.88947, -15.91579, 28.405258, -3.7894738, 26.88947, 7.5789475, 23.857891, 18.189474, 19.310522, 25.768421, 14.00526, 31.83158, 4.1526294, 40.168423, -4.184212, 43.2, -14.794738, 41.68421, -25.405264, 37.136845, -32.22632, 28.042107, -36.01579, 16.673685, -36.773685, 6.8210526, -35.257896, -5.3052635)
