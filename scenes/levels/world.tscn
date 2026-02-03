@@ -6,12 +6,10 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_px3xn"]
 [ext_resource type="Texture2D" uid="uid://coasudnxy3is3" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_move.png" id="5_8cjxf"]
 [ext_resource type="PackedScene" uid="uid://bsjjsrttyqmuj" path="res://scenes/entities/boombox.tscn" id="5_pj0xw"]
-[ext_resource type="Texture2D" uid="uid://bmpqpi2o6v06e" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_w_outline.png" id="6_jtmcs"]
-[ext_resource type="Texture2D" uid="uid://4wyvmum3c8u1" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_a_outline.png" id="7_3lsws"]
-[ext_resource type="Texture2D" uid="uid://d2isfb765x2br" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_s_outline.png" id="8_yywnm"]
-[ext_resource type="Texture2D" uid="uid://c4umd06xuedjn" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/keyboard_d_outline.png" id="9_rny25"]
+[ext_resource type="Shader" uid="uid://pct1l84vyoh4" path="res://misc/ripple.gdshader" id="9_xidr1"]
 [ext_resource type="Texture2D" uid="uid://dhhvf43vchjke" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_left_outline.png" id="10_gc5je"]
 [ext_resource type="Texture2D" uid="uid://cmowacmla3via" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_right_outline.png" id="11_yxm4g"]
+[ext_resource type="PackedScene" uid="uid://w28yycscp7xp" path="res://scripts/entities/scissors.tscn" id="12_8c33x"]
 [ext_resource type="Script" uid="uid://bhmh7mmr0ku8n" path="res://scripts/util/level.gd" id="12_xidr1"]
 [ext_resource type="PackedScene" uid="uid://d1jjwqmovdqhr" path="res://scenes/util/knife_hazard.tscn" id="14_q418o"]
 [ext_resource type="PackedScene" uid="uid://dvqerl13je6gx" path="res://scenes/entities/egg_spawner.tscn" id="14_y40x4"]
@@ -22,6 +20,7 @@ glow_enabled = true
 
 [sub_resource type="Resource" id="Resource_q418o"]
 script = ExtResource("4_px3xn")
+transition = 1
 
 [sub_resource type="Resource" id="Resource_pj0xw"]
 script = ExtResource("4_px3xn")
@@ -29,7 +28,7 @@ transition = 1
 metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q418o"]
-size = Vector2(5632, 28928)
+size = Vector2(5632, 27274)
 
 [sub_resource type="Curve2D" id="Curve2D_q418o"]
 _data = {
@@ -41,7 +40,7 @@ point_count = 2
 script = ExtResource("4_px3xn")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pj0xw"]
-size = Vector2(3584, 2816)
+size = Vector2(3584, 3408)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dga24"]
 font_size = 64
@@ -60,6 +59,33 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.1, 0.1)
 metadata/_snap_enabled = true
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xidr1"]
+shader = ExtResource("9_xidr1")
+shader_parameter/frequency = 4.0
+shader_parameter/amplitude = 2.0
+shader_parameter/ripple_rate = 5.0
+shader_parameter/wave_amplitude = 0.05
+shader_parameter/wave_frequency = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8c33x"]
+size = Vector2(1024, 1024)
+
+[sub_resource type="Curve2D" id="Curve2D_8c33x"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 382.80008, 36, 404.43756, 1, -404.43756, -1, -53.925007, -272, 0, 0, 0, 0, -480.00003, 36)
+}
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_8c33x"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_y40x4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 382.80008, 36, 288.00858, 1.0413224, -288.00858, -1.0413224, -17.97503, 288, 0, 0, 0, 0, -480.00003, 36)
+}
+point_count = 3
+
 [node name="World" type="Node2D" unique_id=867132284]
 script = ExtResource("1_q418o")
 
@@ -69,10 +95,9 @@ environment = SubResource("Environment_q418o")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=864754509]
 physics_interpolation_mode = 1
 top_level = true
-position = Vector2(0, -512)
+position = Vector2(16, -288)
 zoom = Vector2(0.8, 0.8)
 process_callback = 0
-editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=1746791582]
 process_priority = 300
@@ -83,7 +108,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 [node name="PlayerPhantomCamera2D" type="Node2D" parent="." unique_id=1541733472 node_paths=PackedStringArray("follow_targets")]
 unique_name_in_owner = true
 top_level = true
-position = Vector2(0, -512)
+position = Vector2(16, -288)
 script = ExtResource("3_btahq")
 priority = 10
 follow_mode = 3
@@ -93,38 +118,37 @@ tween_resource = SubResource("Resource_q418o")
 follow_damping = true
 follow_damping_value = Vector2(0.135, 0.135)
 auto_zoom = true
-auto_zoom_min = 0.01
-auto_zoom_max = 0.8
+auto_zoom_min = 0.1
+auto_zoom_max = 1.0
 auto_zoom_margin = Vector4(250, 250, 250, 250)
 dead_zone_width = 0.153
 dead_zone_height = 0.144
 show_viewfinder_in_play = true
-draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="UpSectionPhantomCamera2D" type="Node2D" parent="." unique_id=328015239 node_paths=PackedStringArray("follow_target", "follow_path")]
 unique_name_in_owner = true
 top_level = true
-position = Vector2(0, -762)
+position = Vector2(0, -638)
 script = ExtResource("3_btahq")
 follow_mode = 4
 follow_target = NodePath("../Hand")
 follow_path = NodePath("../UpPathPath2D")
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.45, 0.45)
 tween_resource = SubResource("Resource_pj0xw")
 tween_on_load = false
-follow_offset = Vector2(0, -250)
+follow_offset = Vector2(0, -350)
 follow_damping = true
-draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="UpSectionArea2D" type="Area2D" parent="UpSectionPhantomCamera2D" unique_id=718962424]
+[node name="UpSectionArea2D" type="Area2D" parent="." unique_id=718962424]
 unique_name_in_owner = true
+position = Vector2(0, -762)
 collision_layer = 0
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UpSectionPhantomCamera2D/UpSectionArea2D" unique_id=1252109002]
-position = Vector2(0, -13184)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpSectionArea2D" unique_id=1252109002]
+position = Vector2(0, -14011)
 shape = SubResource("RectangleShape2D_q418o")
 debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
 
@@ -136,27 +160,29 @@ curve = SubResource("Curve2D_q418o")
 unique_name_in_owner = true
 position = Vector2(0, -7808)
 script = ExtResource("3_btahq")
-zoom = Vector2(0.29, 0.29)
+zoom = Vector2(0.215, 0.215)
 tween_resource = SubResource("Resource_gs7m4")
-draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="BigRoomArea2D" type="Area2D" parent="BigRoomPhantomCamera2D" unique_id=746410169]
+[node name="BigRoomArea2D" type="Area2D" parent="." unique_id=746410169]
 unique_name_in_owner = true
+position = Vector2(0, -7808)
 collision_layer = 0
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BigRoomPhantomCamera2D/BigRoomArea2D" unique_id=129260396]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BigRoomArea2D" unique_id=129260396]
+position = Vector2(16, 184)
 shape = SubResource("RectangleShape2D_pj0xw")
 debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
 
 [node name="Tutorial" type="Node2D" parent="." unique_id=1424404589]
+metadata/_edit_lock_ = true
 
 [node name="ArmControlsLabel" type="Label" parent="Tutorial" unique_id=779207502]
 offset_left = -384.0
-offset_top = -896.0
+offset_top = -512.0
 offset_right = 264.0
-offset_bottom = -745.0
+offset_bottom = -361.0
 text = "MOVE ARM"
 label_settings = SubResource("LabelSettings_dga24")
 metadata/_edit_use_anchors_ = true
@@ -167,9 +193,9 @@ texture = ExtResource("5_8cjxf")
 
 [node name="GrabControlsLabel" type="Label" parent="Tutorial" unique_id=1604684280]
 offset_left = -384.0
-offset_top = -800.0
+offset_top = -416.0
 offset_right = 198.0
-offset_bottom = -726.0
+offset_bottom = -342.0
 text = "GRAB STUFF"
 label_settings = SubResource("LabelSettings_dga24")
 metadata/_edit_use_anchors_ = true
@@ -180,9 +206,9 @@ texture = ExtResource("10_gc5je")
 
 [node name="RotateControlsLabel" type="Label" parent="Tutorial" unique_id=343700172]
 offset_left = -384.0
-offset_top = -704.0
+offset_top = -320.0
 offset_right = 223.0
-offset_bottom = -630.0
+offset_bottom = -246.0
 text = "ROTATE STUFF"
 label_settings = SubResource("LabelSettings_dga24")
 metadata/_edit_use_anchors_ = true
@@ -191,94 +217,101 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(656, 32)
 texture = ExtResource("11_yxm4g")
 
-[node name="EggControlsLabel" type="Label" parent="Tutorial" unique_id=413893909]
-visible = false
-offset_left = -1664.0
-offset_top = 416.0
-offset_right = -1016.0
-offset_bottom = 567.0
-text = "MOVE EGG
-"
-label_settings = SubResource("LabelSettings_dga24")
-
-[node name="KeyboardWOutline" type="Sprite2D" parent="Tutorial/EggControlsLabel" unique_id=564149899]
-position = Vector2(480, 32)
-texture = ExtResource("6_jtmcs")
-
-[node name="KeyboardAOutline" type="Sprite2D" parent="Tutorial/EggControlsLabel" unique_id=148766334]
-position = Vector2(592, 32)
-texture = ExtResource("7_3lsws")
-
-[node name="KeyboardSOutline" type="Sprite2D" parent="Tutorial/EggControlsLabel" unique_id=1191447529]
-position = Vector2(704, 32)
-texture = ExtResource("8_yywnm")
-
-[node name="KeyboardDOutline" type="Sprite2D" parent="Tutorial/EggControlsLabel" unique_id=893469492]
-position = Vector2(816, 32)
-texture = ExtResource("9_rny25")
-
 [node name="Level" type="Node2D" parent="." unique_id=1898035121]
 script = ExtResource("12_xidr1")
+metadata/_edit_lock_ = true
 
 [node name="StartingRoomStaticBody2D" type="StaticBody2D" parent="Level" unique_id=2039238143]
 
 [node name="Polygon2D" type="Polygon2D" parent="Level/StartingRoomStaticBody2D" unique_id=200513074]
-polygon = PackedVector2Array(-512, 0, -512, -6272, -1536, -6272, -1536, -9216, -512, -9216, -512, -18432, -2048, -18432, -2048, -22400, -4096, -22400, -4096, -17792, -4096, -10240, -4096, -6144, -4096, 2048, 4096, 2048, 4096, -22400, 2048, -22400, 2048, -18432, 512, -18432, 512, -9216, 1536, -9216, 1536, -6272, 512, -6272, 512, 0)
+position = Vector2(0, 1)
+polygon = PackedVector2Array(-512, 0, -512, -6017, -128, -6273, -1536, -6272, -1536, -9216, -512, -9216, -511.99976, -18304.691, -512, -18432, -2048, -18432, -2048, -22400, -4096, -22400, -4096, -17792, -4096, -10240, -4096, -6144, -4096, 2048, 4096, 2048, 4096, -22400, 2048, -22400, 2048, -18432, 512, -18432, 512, -9216, 1536, -9216, 1536, -6272, 128, -6273, 512, -6017, 512, 0)
 
 [node name="BigRoomStaticBody2D" type="StaticBody2D" parent="Level" unique_id=823941324]
 
 [node name="Polygon2D" type="Polygon2D" parent="Level/BigRoomStaticBody2D" unique_id=250115376]
-polygon = PackedVector2Array(-1152, -7296, -1152, -7552, 1152, -7552, 1152, -7296)
+polygon = PackedVector2Array(-128, -6272, -128, -6528, -128, -6608, -192, -6720, -313, -6768, -496, -6736, -688, -6704, -856, -6704, -1024, -6784, -1103, -6905, -1120, -7088, -1046, -7228, -896, -7312, -704, -7344, -288, -7328, 10, -7308, 112, -7328, 192, -7376, 240, -7424, 288, -7520, 272, -7616, 224, -7712, 160, -7824, 56, -7885, -128, -7936, -304, -7920, -432, -7872, -624, -7760, -890, -7691, -1120, -7760, -1239, -7908, -1264, -8128, -1216, -8256, -1118, -8329, -912, -8448, -571, -8508, -304, -8480, -16, -8384, 208, -8288, 496, -8224, 832, -8224, 992, -8272, 1104, -8352, 1152, -8512, 1136, -8640, 1072, -8736, 992, -8784, 816, -8848, 544, -8880, 160, -8912, -160, -8976, -416, -9104, -512, -9216, -2112, -9808, -2000, -6016)
+
+[node name="BigRoomStaticBody2D2" type="StaticBody2D" parent="Level" unique_id=2135683665]
+
+[node name="Polygon2D" type="Polygon2D" parent="Level/BigRoomStaticBody2D2" unique_id=1501174569]
+polygon = PackedVector2Array(2288, -5984, 128, -6272, 144, -6544, 144, -6736, 80, -6864, -64, -6928, -240, -6960, -384, -6976, -512, -6944, -608, -6944, -672, -6960, -688, -7040, -672, -7104, -624, -7136, -512, -7152, -384, -7136, -240, -7120, -64, -7088, 64, -7056, 224, -7024, 378, -7042, 544, -7088, 640, -7168, 720, -7248, 768, -7376, 800, -7488, 768, -7616, 713, -7718, 608, -7840, 512, -7920, 352, -7984, 208, -8048, 64, -8080, -64, -8112, -304, -8128, -416, -8096, -560, -8016, -670, -7938, -800, -7904, -913, -7942, -1008, -8016, -993, -8143, -880, -8272, -674, -8299, -448, -8320, -229, -8284, 64, -8160, 288, -8080, 544, -8000, 816, -7952, 1062, -7972, 1216, -8000, 1328, -8048, 1424, -8128, 1472, -8208, 1520, -8320, 1536, -8432, 1536, -8592, 1504, -8720, 1440, -8848, 1312, -8944, 1120, -9008, 880, -9072, 624, -9120, 512, -9216, 1936, -9968)
 
 [node name="Lights" type="Node2D" parent="." unique_id=474948773]
 visible = false
+metadata/_edit_lock_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="Lights" unique_id=887699486]
 visible = false
 position = Vector2(1728, -640)
 texture = SubResource("GradientTexture2D_gs7m4")
 
-[node name="Entities" type="Node2D" parent="." unique_id=2010477121 groups=["entities"]]
+[node name="GravArea2D" type="Area2D" parent="." unique_id=825808621]
+position = Vector2(128, -30720)
+priority = 5
+gravity_space_override = 2
+gravity_point = true
+gravity_point_unit_distance = 1.885
+gravity_point_center = Vector2(0, -1)
+gravity_direction = Vector2(0, -1)
 
-[node name="KnifeHazard" parent="Entities" unique_id=1795594906 instance=ExtResource("14_q418o")]
-position = Vector2(104, -2090)
-rotation = -0.3247841
+[node name="ColorRect" type="ColorRect" parent="GravArea2D" unique_id=1986689007]
+material = SubResource("ShaderMaterial_xidr1")
+offset_left = -640.0
+offset_top = -640.0
+offset_right = 384.0
+offset_bottom = 384.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GravArea2D" unique_id=1859561682]
+position = Vector2(-128, -128)
+shape = SubResource("RectangleShape2D_8c33x")
+
+[node name="Entities" type="Node2D" parent="." unique_id=2010477121 groups=["entities"]]
+metadata/_edit_lock_ = true
 
 [node name="KnifeHazard2" parent="Entities" unique_id=572877417 instance=ExtResource("14_q418o")]
-position = Vector2(-10, -5376)
+position = Vector2(-16, -4720)
 rotation = 5.8611298
 
-[node name="KnifeHazard3" parent="Entities" unique_id=631695891 instance=ExtResource("14_q418o")]
-position = Vector2(-206, -2889.9998)
-rotation = 0.4567117
+[node name="KnifeHazard3" parent="Entities" unique_id=1795594906 instance=ExtResource("14_q418o")]
+position = Vector2(0, -2864)
+rotation = 5.493437
 
 [node name="KnifeHazard4" parent="Entities" unique_id=1894840994 instance=ExtResource("14_q418o")]
-position = Vector2(232.00049, -3625.9995)
-rotation = -0.46401826
+position = Vector2(-79.99994, -3808)
+rotation = -2.635068
+scale = Vector2(1, -1)
 
-[node name="KnifeHazard5" parent="Entities" unique_id=1945272646 instance=ExtResource("14_q418o")]
-position = Vector2(-173.99951, -4408)
-rotation = 3.7247899
+[node name="Boombox" parent="Entities" unique_id=2129106258 instance=ExtResource("5_pj0xw")]
+position = Vector2(3072, -22784)
 
-[node name="KnifeHazard6" parent="Entities" unique_id=422320202 instance=ExtResource("14_q418o")]
-position = Vector2(-256.00024, -14208)
-rotation = 0.40565804
+[node name="ScissorsPath2D" type="Path2D" parent="Entities" unique_id=808864014]
+position = Vector2(0, -12304)
+scale = Vector2(0.8901251, 1)
+curve = SubResource("Curve2D_8c33x")
 
-[node name="KnifeHazard7" parent="Entities" unique_id=1583579051 instance=ExtResource("14_q418o")]
-position = Vector2(-15, -13469)
-rotation = 5.8611298
+[node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D" unique_id=2025941926]
+position = Vector2(382.80008, 36)
+rotates = false
+loop = false
 
-[node name="KnifeHazard8" parent="Entities" unique_id=1563312163 instance=ExtResource("14_q418o")]
-position = Vector2(-211, -10983)
-rotation = 0.4567117
+[node name="Scissors" parent="Entities/ScissorsPath2D/PathFollow2D" unique_id=535226177 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+position_curve = SubResource("Curve_8c33x")
+path_follow = NodePath("..")
 
-[node name="KnifeHazard9" parent="Entities" unique_id=1987859821 instance=ExtResource("14_q418o")]
-position = Vector2(227.00049, -11719)
-rotation = -0.46401826
+[node name="ScissorsPath2D3" type="Path2D" parent="Entities" unique_id=1104259645]
+position = Vector2(16.000027, -11611.429)
+scale = Vector2(0.8901251, 0.8730159)
+curve = SubResource("Curve2D_y40x4")
 
-[node name="KnifeHazard10" parent="Entities" unique_id=138234455 instance=ExtResource("14_q418o")]
-position = Vector2(-178.99951, -12501)
-rotation = 3.7247899
+[node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D3" unique_id=680328592]
+position = Vector2(382.80008, 36)
+rotates = false
+loop = false
+
+[node name="Scissors" parent="Entities/ScissorsPath2D3/PathFollow2D" unique_id=160449552 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+position_curve = SubResource("Curve_8c33x")
+path_follow = NodePath("..")
 
 [node name="EggSpawner" parent="." unique_id=636781217 node_paths=PackedStringArray("entities") instance=ExtResource("14_y40x4")]
 unique_name_in_owner = true
@@ -287,7 +320,4 @@ entities = NodePath("../Entities")
 
 [node name="Hand" parent="." unique_id=1833399177 instance=ExtResource("17_rm5ru")]
 unique_name_in_owner = true
-position = Vector2(0, -512)
-
-[node name="Boombox" parent="." unique_id=2129106258 instance=ExtResource("5_pj0xw")]
-position = Vector2(0, -7936)
+position = Vector2(16, -288)

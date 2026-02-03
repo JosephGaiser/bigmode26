@@ -29,12 +29,15 @@ func _on_egg_spawned(egg: Egg):
 	player_phantom_camera_2d.set_follow_targets([hand, egg])
 
 func _on_body_entered(body: Node2D, pcam: PhantomCamera2D) -> void:
+	print("I see ", body)
 	if body is Hand:
+		print("[DEBUG_LOG] Switching to camera ", pcam)
 		pcam.set_follow_target(hand)
 		pcam.set_priority(20)
 
 
 func _on_body_exited(body: Node2D, pcam: PhantomCamera2D) -> void:
 	if body is Hand:
+		print("[DEBUG_LOG] Switching to camera ", pcam)
 		pcam.set_priority(0)
 		pcam.set_follow_target(null)

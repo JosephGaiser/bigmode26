@@ -1,0 +1,73 @@
+class_name Scissors
+extends AnimatableBody2D
+
+
+@export_category("Settings")
+@export var travel_time: float = 2.0
+
+@export_category("Node References")
+@export var position_curve: Curve
+@export var path_follow: PathFollow2D
+@export var sprites: Node2D
+@export var open_sprite: Sprite2D
+@export var closed_sprite: Sprite2D
+@export var hazard_collider: CollisionShape2D
+
+var sample_point : float = 0.0
+var direction : int = 1
+var toggle_timer : float = 0.0
+var is_open : bool = false
+
+func _ready() -> void:
+	_update_state()
+
+func _physics_process(delta: float) -> void:
+	if not path_follow or not position_curve:
+		return
+		
+	sample_point += (delta / travel_time) * direction
+	
+	if sample_point >= 1.0:
+		direction = -1
+		sample_point = 1.0
+	elif sample_point <= 0.0:
+		direction = 1
+		sample_point = 0.0
+	
+	path_follow.progress_ratio = position_curve.sample(sample_point)
+	
+	if sprites:
+		var move_vec = (path_follow.global_position - global_position).rotated(-global_rotation)
+		if abs(move_vec.x) > 0.1:
+			sprites.scale.x = -sign(move_vec.x)
+		else:
+			# Fallback for when the scissors haven't moved yet (e.g. first frame)
+			# or the movement is too small to determine direction accurately.
+			# We look ahead on the path to see which way we're about to move.
+			var current_progress = path_follow.progress
+			# Look ahead by a small amount in the current movement direction
+			path_follow.progress += 2.0 * direction 
+			var look_ahead_pos = path_follow.global_position
+			path_follow.progress = current_progress # Restore original position
+			
+			var tangent_vec = (look_ahead_pos - global_position).rotated(-global_rotation)
+			if abs(tangent_vec.x) > 0.1:
+				sprites.scale.x = -sign(tangent_vec.x)
+	
+	global_position = path_follow.global_position
+	
+	# Open/close toggle logic
+	toggle_timer += delta
+	if toggle_timer >= 0.5: # Toggle every 0.5 seconds
+		toggle_timer = 0.0
+		is_open = !is_open
+		_update_state()
+
+func _update_state() -> void:
+	if open_sprite:
+		open_sprite.visible = is_open
+	if closed_sprite:
+		closed_sprite.visible = !is_open
+	if hazard_collider:
+		# Hazard is active when scissors are NOT open (i.e. closed)
+		hazard_collider.set_deferred("disabled", is_open)

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cphlt0v3dluag"
+path="res://.godot/imported/Dial Turn A.wav-16b379120a86871b10a3ca9c34c2180a.sample"
+
+[deps]
+
+source_file="res://assets/sfx/egg/Dial Turn A.wav"
+dest_files=["res://.godot/imported/Dial Turn A.wav-16b379120a86871b10a3ca9c34c2180a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

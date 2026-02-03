@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://ba8awxdmqq75c"
+
 [autoload]
 
 PhantomCameraManager="*uid://duq6jhf6unyis"
@@ -23,9 +27,54 @@ Dialogic="*uid://ds2q0uclmolvu"
 
 [dialogic]
 
-directories/dch_directory={}
-directories/dtl_directory={}
-layout/style_directory={}
+directories/dch_directory={
+"egg": "res://assets/dialogic/egg.dch"
+}
+directories/dtl_directory={
+"egg_intro": "res://assets/dialogic/egg_intro.dtl"
+}
+layout/style_directory={
+"": "res://assets/dialogic/theme.tres",
+"theme": "res://assets/dialogic/theme.tres"
+}
+glossary/default_case_sensitive=true
+layout/style_list=["res://assets/dialogic/theme.tres"]
+layout/default_style="res://assets/dialogic/theme.tres"
+variables={}
+extensions_folder="res://addons/dialogic_additions"
+text/letter_speed=0.01
+text/initial_text_reveal_skippable=true
+text/text_reveal_skip_delay=0.1
+text/advance_delay=0.1
+text/autoadvance_per_character_delay=0.1
+text/autoadvance_ignored_characters_enabled=true
+animations/join_default_length=0.5
+animations/join_default_wait=true
+animations/leave_default_length=0.5
+animations/leave_default_wait=true
+animations/cross_fade_default_length=0.5
+choices/autofocus_first=true
+choices/delay=0.2
+choices/reveal_delay=0
+choices/reveal_by_input=false
+save/autosave_delay=60.0
+save/encryption_on_exports_only=true
+text/autopauses={}
+audio/channel_defaults={
+"": {
+"audio_bus": "",
+"fade_length": 0.0,
+"loop": false,
+"volume": 0.0
+},
+"music": {
+"audio_bus": "",
+"fade_length": 0.0,
+"loop": true,
+"volume": 0.0
+}
+}
+audio/type_sound_bus="dialogic"
 
 [display]
 

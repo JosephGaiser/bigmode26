@@ -8,6 +8,7 @@ extends CharacterBody2D
 @export var closed_hand_sprite_2d: Sprite2D
 ## Area used to detect grabbable objects
 @export var grab_area_2d: Area2D
+@export var grab_center_marker_2d: Marker2D
 
 @export_category("FX Node References")
 @onready var blood_particles: CPUParticles2D = $FX/BloodParticles
@@ -221,6 +222,7 @@ func _start_rejection(body: RigidBody2D = null, interactable: Node = null) -> vo
 			_set_state(State.IDLE)
 
 func _prepare_held_body() -> void:
+	held_body.global_position = grab_center_marker_2d.global_position # TODO FIX
 	held_body_was_frozen = held_body.freeze
 	held_body_freeze_mode = held_body.freeze_mode
 	print("[DEBUG_LOG] Hand: Preparing body. Original freeze: ", held_body_was_frozen, " freeze_mode: ", held_body_freeze_mode)
@@ -323,14 +325,16 @@ func _on_vulnerable_area_2d_area_entered(_area: Area2D) -> void:
 	print("[DEBUG_LOG] Hand: Vulnerable area entered. Held body: ", held_body)
 	if current_state == State.HOLDING:
 		print("[DEBUG_LOG] Hand: Was holding, transitioning to REJECTING")
+		# Zero out momentum so the egg falls gently and can be caught
+		_held_body_velocity = Vector2.ZERO
 	_start_rejection()
-	
+
 	if blood_particles:
 		blood_particles.restart()
 		blood_particles.emitting = true
-	
+
 	if injured_audio_player:
 		injured_audio_player.play()
-	
+
 	if drop_audio_stream_player_2d and not drop_audio_stream_player_2d.is_playing():
 		drop_audio_stream_player_2d.play()

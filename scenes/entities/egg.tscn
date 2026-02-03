@@ -9,7 +9,12 @@
 [ext_resource type="AudioStream" uid="uid://b2nemfpm5svsh" path="res://assets/sfx/Token Place Soft 004.wav" id="7_4fjc5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_idowc"]
-bounce = 0.06
+bounce = 0.4
+
+[sub_resource type="Curve" id="Curve_4fjc5"]
+_limits = [0.0, 1.0, 1.0, 20.0]
+_data = [Vector2(1, 0.10235584), 0.0, 0.7, 0, 0, Vector2(3, 0.978879), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Egg" type="RigidBody2D" unique_id=1155435445]
 collision_layer = 8
@@ -23,6 +28,7 @@ max_contacts_reported = 4
 script = ExtResource("1_idowc")
 shell_1 = ExtResource("2_07f1p")
 shell_2 = ExtResource("3_4fjc5")
+bounce_crack_chance_curve = SubResource("Curve_4fjc5")
 
 [node name="Interactable" type="Node2D" parent="." unique_id=1782672010]
 script = ExtResource("4_1wfw8")
