@@ -1,3 +1,19 @@
 join egg center
-egg: Wassup
-egg: Im egg
+if {egg_intro} == false:
+	set {egg_intro} = true
+	egg: Hey!
+	egg: Its me, the egg
+	egg: Think you could help me out?
+	egg: I need to get back with my dozen
+	egg: Can you pick me up and take me to the top
+else:
+	if {egg_deaths} == 1.0:
+		egg: Whoops, dropped me!
+	elif {egg_deaths} == 2.0:
+		egg: Mistakes happen, its cool
+	elif {egg_deaths} == 3.0:
+		egg: Please be careful man
+	elif {egg_deaths} == 4.0:
+		egg: Ain't no way
+	else:
+		egg: No more, please

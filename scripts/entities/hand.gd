@@ -18,6 +18,7 @@ extends CharacterBody2D
 @export var grab_audio_stream_player_2d: AudioStreamPlayer2D
 ## Audio player for the drop sound effect
 @export var drop_audio_stream_player_2d: AudioStreamPlayer2D
+## Audio player for the injured sound effect
 @onready var injured_audio_player: AudioStreamPlayer2D = $SFX/InjuredAudioPlayer
 
 @export_category("Hand Settings")

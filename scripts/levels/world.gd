@@ -13,27 +13,15 @@ extends Node2D
 
 @onready var hand: Hand = %Hand
 @onready var egg_spawner: EggSpawner = %EggSpawner
-@onready var pause: Control = %Pause
-
-var is_paused := false
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("game_pause"):
-		is_paused = !is_paused
-		pause.visible = is_paused
-		if !is_paused:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _ready() -> void:
 	egg_spawner.egg_spawned.connect(_on_egg_spawned)
 	if egg_spawner.current_egg != null:
 		_on_egg_spawned(egg_spawner.current_egg)
-	
+
 	up_section_area_2d.body_entered.connect(_on_body_entered.bind(up_section_pcam))
 	up_section_area_2d.body_exited.connect(_on_body_exited.bind(up_section_pcam))
-	
+
 	big_room_area_2d.body_entered.connect(_on_body_entered.bind(big_room_pcam))
 	big_room_area_2d.body_exited.connect(_on_body_exited.bind(big_room_pcam))
 

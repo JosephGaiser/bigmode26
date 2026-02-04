@@ -40,7 +40,10 @@ layout/style_directory={
 glossary/default_case_sensitive=true
 layout/style_list=["res://assets/dialogic/theme.tres"]
 layout/default_style="res://assets/dialogic/theme.tres"
-variables={}
+variables={
+"egg_deaths": 0,
+"egg_intro": false
+}
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true
