@@ -8,17 +8,18 @@
 [ext_resource type="AudioStream" uid="uid://dwehhynvchi8v" path="res://assets/sfx/Silly Whistle C.wav" id="5_kjao4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c0igx"]
-radius = 44.0
+radius = 40.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hgv3r"]
 radius = 80.09994
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kjao4"]
-radius = 52.0
+radius = 40.1995
 
 [node name="Hand" type="CharacterBody2D" unique_id=1833399177 node_paths=PackedStringArray("open_hand_sprite_2d", "closed_hand_sprite_2d", "grab_area_2d", "grab_center_marker_2d", "grab_audio_stream_player_2d", "drop_audio_stream_player_2d")]
 collision_layer = 4
 collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_c0igx")
 open_hand_sprite_2d = NodePath("Sprites/OpenHandSprite2D")
 closed_hand_sprite_2d = NodePath("Sprites/ClosedHandSprite2D")
@@ -26,9 +27,7 @@ grab_area_2d = NodePath("GrabArea2D")
 grab_center_marker_2d = NodePath("GrabCenterMarker2D")
 grab_audio_stream_player_2d = NodePath("SFX/GrabAudioStreamPlayer2D")
 drop_audio_stream_player_2d = NodePath("SFX/DropAudioStreamPlayer2D")
-follow_speed = 36.0
-min_follow_speed = 12.0
-speed = 1800.0
+mouse_sensitivity = 9.0
 grab_reject_shake_pixels = 25.0
 
 [node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=1133269688]
@@ -37,12 +36,12 @@ current = true
 [node name="Sprites" type="Node2D" parent="." unique_id=1727911056]
 
 [node name="OpenHandSprite2D" type="Sprite2D" parent="Sprites" unique_id=1131973141]
-visible = false
-position = Vector2(56, -176)
+position = Vector2(56, -227.22)
 texture = ExtResource("2_c0igx")
 
 [node name="ClosedHandSprite2D" type="Sprite2D" parent="Sprites" unique_id=130110019]
-position = Vector2(48, -124.00001)
+visible = false
+position = Vector2(48, -227.22)
 scale = Vector2(0.895, 0.895)
 texture = ExtResource("1_r87o2")
 
@@ -80,12 +79,11 @@ shape = SubResource("CircleShape2D_c0igx")
 debug_color = Color(0, 0.6, 0.69803923, 0.13333334)
 
 [node name="GrabArea2D" type="Area2D" parent="." unique_id=660925185]
-position = Vector2(0, 48)
+position = Vector2(0, 56)
 collision_layer = 4
 collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea2D" unique_id=302673080]
-position = Vector2(0, 52)
 shape = SubResource("CircleShape2D_hgv3r")
 debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
 

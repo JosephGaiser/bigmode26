@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://by3q2q8rm2bnn"]
+
+[ext_resource type="Shader" uid="uid://eiweh32ugl02" path="res://misc/checker.gdshader" id="1_xld5c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k23cl"]
+shader = ExtResource("1_xld5c")
+shader_parameter/size = 39.9290018491275
+shader_parameter/color1 = Color(1, 1, 1, 0.1764706)
+shader_parameter/color2 = Color(0.69803923, 0.69803923, 0.69803923, 0)
+shader_parameter/speed = 0.750000035625
+shader_parameter/direction_x = 1.0
+shader_parameter/direction_y = -1.0
+
+[sub_resource type="Theme" id="Theme_iwpmq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xld5c"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="Theme" id="Theme_k23cl"]
+Panel/styles/panel = SubResource("StyleBoxFlat_xld5c")
+
+[sub_resource type="LabelSettings" id="LabelSettings_iwpmq"]
+font_size = 64
+
+[node name="Pause" type="Control" unique_id=149030048]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1305499177]
+material = SubResource("ShaderMaterial_k23cl")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_iwpmq")
+
+[node name="Panel2" type="Panel" parent="." unique_id=1509956363]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -60.0
+offset_right = 192.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_k23cl")
+
+[node name="Label" type="Label" parent="." unique_id=51161737]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -156.0
+offset_top = -37.0
+offset_right = 156.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_iwpmq")

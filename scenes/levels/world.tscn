@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://bhmh7mmr0ku8n" path="res://scripts/util/level.gd" id="12_xidr1"]
 [ext_resource type="PackedScene" uid="uid://d1jjwqmovdqhr" path="res://scenes/util/knife_hazard.tscn" id="14_q418o"]
 [ext_resource type="PackedScene" uid="uid://dvqerl13je6gx" path="res://scenes/entities/egg_spawner.tscn" id="14_y40x4"]
+[ext_resource type="PackedScene" uid="uid://by3q2q8rm2bnn" path="res://scenes/ui/pause.tscn" id="15_y40x4"]
 [ext_resource type="PackedScene" uid="uid://bsudjx8p0hxtu" path="res://scenes/entities/hand.tscn" id="17_rm5ru"]
 
 [sub_resource type="Environment" id="Environment_q418o"]
@@ -28,19 +29,27 @@ transition = 1
 metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q418o"]
-size = Vector2(5632, 27274)
+size = Vector2(5632, 28426)
 
 [sub_resource type="Curve2D" id="Curve2D_q418o"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -4608, -512, 0, 0, 0, 0, -4608, -61850.387)
+"points": PackedVector2Array(0, 0, 0, 0, 0, -512, 0, 0, 0, 0, 0, -61850.387)
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_gs7m4"]
+[sub_resource type="Resource" id="Resource_y40x4"]
 script = ExtResource("4_px3xn")
+transition = 1
+metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pj0xw"]
 size = Vector2(3584, 3408)
+
+[sub_resource type="Curve2D" id="Curve2D_pj0xw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 129.23232, 421.5509, 0, 0, 0, 0, 136.9229, 371.95667, 0, 0, 0, 0, 136.9229, 318.2296, 0, 0, 0, 0, 121.54174, 281.03394, 0, 0, 0, 0, 90.779434, 256.23682, 0, 0, 0, 0, 13.873657, 239.70544, 0, 0, 0, 0, -70.72269, 239.70544, 0, 0, 0, 0, -178.39076, 256.23682, 0, 0, 0, 0, -262.98712, 256.23682, 0, 0, 0, 0, -324.51172, 231.4397, 0, 0, 0, 0, -339.89288, 202.50977, 0, 0, 0, 0, -309.13055, 165.31409, 0, 0, 0, 0, -239.91539, 148.7826, 0, 0, 0, 0, -124.55673, 144.64978, 0, 0, 0, 0, -32.269806, 148.7826, 0, 0, 0, 0, 52.326546, 161.18115, 0, 0, 0, 0, 159.99463, 169.4469, 0, 0, 0, 0, 236.90039, 169.4469, 0, 0, 0, 0, 306.1156, 157.04834, 0, 0, 0, 0, 367.6402, 140.51697, 0, 0, 0, 0, 398.40253, 115.71985, 0, 0, 0, 0, 398.40253, 78.52417, 0, 0, 0, 0, 375.33078, 41.32849, 0, 0, 0, 0, 336.8779, 12.39856, 0, 0, 0, 0, 275.35327, -16.531494, 0, 0, 0, 0, 183.06635, -45.461426, 0, 0, 0, 0, 52.326546, -57.859863, 0, 0, 0, 0, -93.79442, -41.328613, 0, 0, 0, 0, -201.46251, -8.265747, 0, 0, 0, 0, -286.05884, 4.1328125, 0, 0, 0, 0, -355.27405, -4.1329346, 0, 0, 0, 0, -409.1081, -28.929932, 0, 0, 0, 0, -416.79865, -53.72705, 0, 0, 0, 0, -409.1081, -95.055664, 0, 0, 0, 0, -339.89288, -132.25122, 0, 0, 0, 0, -247.60597, -148.78271, 0, 0, 0, 0, -170.70018, -157.04834, 0, 0, 0, 0, -63.032104, -157.04834, 0, 0, 0, 0, 52.326546, -140.51709, 0, 0, 0, 0, 183.06635, -107.4541, 0, 0, 0, 0, 313.80615, -78.52417, 0, 0, 0, 0, 459.92712, -70.258545, 0, 0, 0, 0, 575.28577, -66.12573, 0, 0, 0, 0, 636.8104, -70.258545, 0, 0, 0, 0, 690.6444, -86.79004, 0, 0, 0, 0, 759.8596, -115.71997, 0, 0, 0, 0, 782.93134, -152.91553, 0, 0, 0, 0, 790.62195, -190.11133, 0, 0, 0, 0, 775.2408, -210.77539, 0, 0, 0, 0, 713.7161, -256.23682, 0, 0, 0, 0, 652.1915, -276.90112, 0, 0, 0, 0, 559.9046, -297.56543, 0, 0, 0, 0, 429.1648, -309.96387, 0, 0, 0, 0, 283.04385, -318.22974, 0, 0, 0, 0, 206.13809, -318.22974, 0, 0, 0, 0, 144.61346, -334.761, 0, 0, 0, 0, 129.23232, -359.5581, 0, 0, 0, 0, 129.23232, -384.35522)
+}
+point_count = 58
 
 [sub_resource type="LabelSettings" id="LabelSettings_dga24"]
 font_size = 64
@@ -72,9 +81,9 @@ size = Vector2(1024, 1024)
 
 [sub_resource type="Curve2D" id="Curve2D_8c33x"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 382.80008, 36, 404.43756, 1, -404.43756, -1, -53.925007, -272, 0, 0, 0, 0, -480.00003, 36)
+"points": PackedVector2Array(0, 0, 0, 0, 431.40005, 16, 0, 0, 0, 0, -461.4, -368, 0, 0, 0, 0, 431.40005, -752, 0, 0, -404.43756, -1, -461.4, -1136)
 }
-point_count = 3
+point_count = 4
 
 [sub_resource type="Curve" id="Curve_8c33x"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -82,9 +91,9 @@ point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_y40x4"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 382.80008, 36, 288.00858, 1.0413224, -288.00858, -1.0413224, -17.97503, 288, 0, 0, 0, 0, -480.00003, 36)
+"points": PackedVector2Array(0, 0, 0, 0, 413.425, 31.417969, 0, 0, -288.00858, -1.0413224, -449.37506, 31.417969)
 }
-point_count = 3
+point_count = 2
 
 [node name="World" type="Node2D" unique_id=867132284]
 script = ExtResource("1_q418o")
@@ -95,7 +104,7 @@ environment = SubResource("Environment_q418o")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=864754509]
 physics_interpolation_mode = 1
 top_level = true
-position = Vector2(16, -288)
+position = Vector2(0, -208)
 zoom = Vector2(0.8, 0.8)
 process_callback = 0
 
@@ -108,7 +117,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 [node name="PlayerPhantomCamera2D" type="Node2D" parent="." unique_id=1541733472 node_paths=PackedStringArray("follow_targets")]
 unique_name_in_owner = true
 top_level = true
-position = Vector2(16, -288)
+position = Vector2(0, -208)
 script = ExtResource("3_btahq")
 priority = 10
 follow_mode = 3
@@ -129,7 +138,7 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="UpSectionPhantomCamera2D" type="Node2D" parent="." unique_id=328015239 node_paths=PackedStringArray("follow_target", "follow_path")]
 unique_name_in_owner = true
 top_level = true
-position = Vector2(0, -638)
+position = Vector2(0, -743.1367)
 script = ExtResource("3_btahq")
 follow_mode = 4
 follow_target = NodePath("../Hand")
@@ -148,20 +157,27 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UpSectionArea2D" unique_id=1252109002]
-position = Vector2(0, -14011)
+position = Vector2(0, -13435)
 shape = SubResource("RectangleShape2D_q418o")
 debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
 
 [node name="UpPathPath2D" type="Path2D" parent="." unique_id=790152286]
-position = Vector2(4608, 0)
+position = Vector2(0, -231.13672)
+scale = Vector2(1, 0.5485635)
 curve = SubResource("Curve2D_q418o")
 
-[node name="BigRoomPhantomCamera2D" type="Node2D" parent="." unique_id=1152866720]
+[node name="BigRoomPhantomCamera2D" type="Node2D" parent="." unique_id=1152866720 node_paths=PackedStringArray("follow_target", "follow_path")]
 unique_name_in_owner = true
-position = Vector2(0, -7808)
+top_level = true
+position = Vector2(0, -208)
 script = ExtResource("3_btahq")
-zoom = Vector2(0.215, 0.215)
-tween_resource = SubResource("Resource_gs7m4")
+follow_mode = 2
+follow_target = NodePath("../Hand")
+follow_path = NodePath("../BigRoomPath2D")
+zoom = Vector2(0.7, 0.7)
+tween_resource = SubResource("Resource_y40x4")
+tween_on_load = false
+follow_damping = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="BigRoomArea2D" type="Area2D" parent="." unique_id=746410169]
@@ -174,6 +190,12 @@ collision_mask = 4
 position = Vector2(16, 184)
 shape = SubResource("RectangleShape2D_pj0xw")
 debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
+
+[node name="BigRoomPath2D" type="Path2D" parent="." unique_id=1186818218]
+visible = false
+position = Vector2(-268.8637, -7808)
+scale = Vector2(2.0804682, 3.8714187)
+curve = SubResource("Curve2D_pj0xw")
 
 [node name="Tutorial" type="Node2D" parent="." unique_id=1424404589]
 metadata/_edit_lock_ = true
@@ -227,15 +249,17 @@ metadata/_edit_lock_ = true
 position = Vector2(0, 1)
 polygon = PackedVector2Array(-512, 0, -512, -6017, -128, -6273, -1536, -6272, -1536, -9216, -512, -9216, -511.99976, -18304.691, -512, -18432, -2048, -18432, -2048, -22400, -4096, -22400, -4096, -17792, -4096, -10240, -4096, -6144, -4096, 2048, 4096, 2048, 4096, -22400, 2048, -22400, 2048, -18432, 512, -18432, 512, -9216, 1536, -9216, 1536, -6272, 128, -6273, 512, -6017, 512, 0)
 
-[node name="BigRoomStaticBody2D" type="StaticBody2D" parent="Level" unique_id=823941324]
+[node name="BigRoomStaticBody2D" type="StaticBody2D" parent="Level" unique_id=823941324 groups=["hazard"]]
 
-[node name="Polygon2D" type="Polygon2D" parent="Level/BigRoomStaticBody2D" unique_id=250115376]
+[node name="Polygon2D" type="Polygon2D" parent="Level/BigRoomStaticBody2D" unique_id=250115376 groups=["hazard"]]
+antialiased = true
 polygon = PackedVector2Array(-128, -6272, -128, -6528, -128, -6608, -192, -6720, -313, -6768, -496, -6736, -688, -6704, -856, -6704, -1024, -6784, -1103, -6905, -1120, -7088, -1046, -7228, -896, -7312, -704, -7344, -288, -7328, 10, -7308, 112, -7328, 192, -7376, 240, -7424, 288, -7520, 272, -7616, 224, -7712, 160, -7824, 56, -7885, -128, -7936, -304, -7920, -432, -7872, -624, -7760, -890, -7691, -1120, -7760, -1239, -7908, -1264, -8128, -1216, -8256, -1118, -8329, -912, -8448, -571, -8508, -304, -8480, -16, -8384, 208, -8288, 496, -8224, 832, -8224, 992, -8272, 1104, -8352, 1152, -8512, 1136, -8640, 1072, -8736, 992, -8784, 816, -8848, 544, -8880, 160, -8912, -160, -8976, -416, -9104, -512, -9216, -2112, -9808, -2000, -6016)
 
-[node name="BigRoomStaticBody2D2" type="StaticBody2D" parent="Level" unique_id=2135683665]
+[node name="BigRoomStaticBody2D2" type="StaticBody2D" parent="Level" unique_id=2135683665 groups=["hazard"]]
 
-[node name="Polygon2D" type="Polygon2D" parent="Level/BigRoomStaticBody2D2" unique_id=1501174569]
-polygon = PackedVector2Array(2288, -5984, 128, -6272, 144, -6544, 144, -6736, 80, -6864, -64, -6928, -240, -6960, -384, -6976, -512, -6944, -608, -6944, -672, -6960, -688, -7040, -672, -7104, -624, -7136, -512, -7152, -384, -7136, -240, -7120, -64, -7088, 64, -7056, 224, -7024, 378, -7042, 544, -7088, 640, -7168, 720, -7248, 768, -7376, 800, -7488, 768, -7616, 713, -7718, 608, -7840, 512, -7920, 352, -7984, 208, -8048, 64, -8080, -64, -8112, -304, -8128, -416, -8096, -560, -8016, -670, -7938, -800, -7904, -913, -7942, -1008, -8016, -993, -8143, -880, -8272, -674, -8299, -448, -8320, -229, -8284, 64, -8160, 288, -8080, 544, -8000, 816, -7952, 1062, -7972, 1216, -8000, 1328, -8048, 1424, -8128, 1472, -8208, 1520, -8320, 1536, -8432, 1536, -8592, 1504, -8720, 1440, -8848, 1312, -8944, 1120, -9008, 880, -9072, 624, -9120, 512, -9216, 1936, -9968)
+[node name="Polygon2D" type="Polygon2D" parent="Level/BigRoomStaticBody2D2" unique_id=1501174569 groups=["hazard"]]
+antialiased = true
+polygon = PackedVector2Array(2288, -5984, 128, -6272, 128, -6544, 128, -6736, 112, -6816, 80, -6864, -64, -6928, -240, -6960, -368, -6976, -432, -6960, -512, -6944, -608, -6944, -672, -6960, -688, -7040, -672, -7104, -624, -7136, -512, -7152, -384, -7136, -240, -7120, -64, -7088, 64, -7056, 224, -7024, 378, -7042, 544, -7088, 640, -7168, 720, -7248, 768, -7376, 800, -7488, 768, -7616, 713, -7718, 608, -7840, 512, -7920, 352, -7984, 208, -8048, 64, -8080, -64, -8112, -304, -8128, -416, -8096, -560, -8016, -670, -7938, -800, -7904, -913, -7942, -1008, -8016, -993, -8143, -880, -8272, -674, -8299, -448, -8320, -229, -8284, 64, -8160, 288, -8080, 544, -8000, 816, -7952, 1062, -7972, 1216, -8000, 1328, -8048, 1424, -8128, 1472, -8208, 1520, -8320, 1536, -8432, 1536, -8592, 1504, -8720, 1440, -8848, 1312, -8944, 1120, -9008, 880, -9072, 624, -9120, 512, -9216, 1936, -9968)
 
 [node name="Lights" type="Node2D" parent="." unique_id=474948773]
 visible = false
@@ -283,19 +307,21 @@ rotation = -2.635068
 scale = Vector2(1, -1)
 
 [node name="Boombox" parent="Entities" unique_id=2129106258 instance=ExtResource("5_pj0xw")]
-position = Vector2(3072, -22784)
+position = Vector2(1472, -18848)
+mass = 1.5
 
 [node name="ScissorsPath2D" type="Path2D" parent="Entities" unique_id=808864014]
-position = Vector2(0, -12304)
-scale = Vector2(0.8901251, 1)
+position = Vector2(12.903201, -12304)
+scale = Vector2(0.860215, 1)
 curve = SubResource("Curve2D_8c33x")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D" unique_id=2025941926]
-position = Vector2(382.80008, 36)
+position = Vector2(431.40005, 16)
 rotates = false
 loop = false
 
 [node name="Scissors" parent="Entities/ScissorsPath2D/PathFollow2D" unique_id=535226177 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+travel_time = 7.0
 position_curve = SubResource("Curve_8c33x")
 path_follow = NodePath("..")
 
@@ -305,7 +331,7 @@ scale = Vector2(0.8901251, 0.8730159)
 curve = SubResource("Curve2D_y40x4")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D3" unique_id=680328592]
-position = Vector2(382.80008, 36)
+position = Vector2(413.425, 31.417969)
 rotates = false
 loop = false
 
@@ -320,4 +346,11 @@ entities = NodePath("../Entities")
 
 [node name="Hand" parent="." unique_id=1833399177 instance=ExtResource("17_rm5ru")]
 unique_name_in_owner = true
-position = Vector2(16, -288)
+position = Vector2(0, -208)
+mouse_sensitivity = 4.1
+
+[node name="UICanvasLayer" type="CanvasLayer" parent="." unique_id=445386051]
+
+[node name="Pause" parent="UICanvasLayer" unique_id=149030048 instance=ExtResource("15_y40x4")]
+unique_name_in_owner = true
+visible = false

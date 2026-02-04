@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cjllogme6iomi"
+path="res://.godot/imported/Sharp Slice B.wav-71e17aac3c5d85f0293c2cc0f49d4d99.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Sharp Slice B.wav"
+dest_files=["res://.godot/imported/Sharp Slice B.wav-71e17aac3c5d85f0293c2cc0f49d4d99.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

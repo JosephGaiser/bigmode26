@@ -13,6 +13,18 @@ extends Node2D
 
 @onready var hand: Hand = %Hand
 @onready var egg_spawner: EggSpawner = %EggSpawner
+@onready var pause: Control = %Pause
+
+var is_paused := false
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("game_pause"):
+		is_paused = !is_paused
+		pause.visible = is_paused
+		if !is_paused:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _ready() -> void:
 	egg_spawner.egg_spawned.connect(_on_egg_spawned)

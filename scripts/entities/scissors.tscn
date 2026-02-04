@@ -3,29 +3,42 @@
 [ext_resource type="Script" uid="uid://bg6rxmg1nfi2q" path="res://scripts/entities/scissors.gd" id="1_eoshw"]
 [ext_resource type="Texture2D" uid="uid://c62gvdpvrx37p" path="res://assets/sprites/entities/scissors_open.png" id="1_ooqsx"]
 [ext_resource type="Texture2D" uid="uid://cd8lypol3ojck" path="res://assets/sprites/entities/scissors_closed.png" id="2_eoshw"]
+[ext_resource type="AudioStream" uid="uid://cjllogme6iomi" path="res://assets/sfx/Sharp Slice B.wav" id="3_y7a7q"]
+[ext_resource type="AudioStream" uid="uid://rs3is3csi13h" path="res://assets/sfx/Sharp Slice A.wav" id="4_v0uay"]
 
 [sub_resource type="Curve" id="Curve_eoshw"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ooqsx"]
-radius = 16.0
-height = 258.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eoshw"]
-radius = 16.0
-height = 150.0
+radius = 66.0
+height = 168.0
 
-[node name="Scissors" type="AnimatableBody2D" unique_id=535226177 node_paths=PackedStringArray("sprites", "open_sprite", "closed_sprite", "hazard_collider")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_v0uay"]
+radius = 38.327538
+
+[node name="Scissors" type="AnimatableBody2D" unique_id=535226177 node_paths=PackedStringArray("sprites", "open_sprite", "closed_sprite", "hazard_collider", "snip_audio_stream_player")]
 collision_mask = 15
 script = ExtResource("1_eoshw")
 position_curve = SubResource("Curve_eoshw")
 sprites = NodePath("Sprites")
 open_sprite = NodePath("Sprites/OpenSprite2D")
 closed_sprite = NodePath("Sprites/ClosedSprite2D")
-hazard_collider = NodePath("HazardArea2D/CollisionShape2D")
+hazard_collider = NodePath("Sprites/HazardArea2D/CollisionShape2D")
+snip_audio_stream_player = NodePath("SFX/SnipAudioStreamPlayer2D")
+snip_sounds = Array[AudioStream]([ExtResource("4_v0uay"), ExtResource("3_y7a7q")])
 
 [node name="Sprites" type="Node2D" parent="." unique_id=1848684356]
+
+[node name="HazardArea2D" type="Area2D" parent="Sprites" unique_id=1477350409]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites/HazardArea2D" unique_id=1990505421]
+position = Vector2(-81, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_eoshw")
+debug_color = Color(0.9882353, 0, 0, 0.2)
 
 [node name="OpenSprite2D" type="Sprite2D" parent="Sprites" unique_id=2064953818]
 visible = false
@@ -40,17 +53,10 @@ rotation = -1.5707964
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_eoshw")
 
+[node name="SFX" type="Node2D" parent="." unique_id=1476614504]
+
+[node name="SnipAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=821180555]
+stream = ExtResource("4_v0uay")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1428355285]
-position = Vector2(24, 0)
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_ooqsx")
-
-[node name="HazardArea2D" type="Area2D" parent="." unique_id=1477350409]
-collision_layer = 16
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea2D" unique_id=1990505421]
-position = Vector2(-60, 0)
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_eoshw")
-debug_color = Color(0.9882353, 0, 0, 0.2)
+shape = SubResource("CircleShape2D_v0uay")

@@ -29,8 +29,12 @@ extends CharacterBody2D
 @export var follow_speed: float = 18.0
 ## Minimum follow speed to prevent items from lagging too far behind
 @export var min_follow_speed: float = 6.0
-## Movement speed of the hand towards the mouse
-@export var speed: float = 2200.0
+## Sensitivity multiplier for mouse delta movement
+@export var mouse_sensitivity: float = 1.2
+## Maximum speed the hand can move per frame
+@export var max_speed: float = 3000.0
+## Damping factor to smooth hand movement (0-1, higher = more damping)
+@export var movement_damping: float = 0.85
 ## Rotation speed when articulating a held body (alt action)
 @export var articulation_rotation_speed: float = 0.01
 
@@ -61,7 +65,7 @@ var _mouse_delta: Vector2 = Vector2.ZERO
 var _held_body_velocity: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	_closed_hand_base_pos = closed_hand_sprite_2d.position
 	_original_spawn_pos = global_position
 	_set_state(State.IDLE)
@@ -131,9 +135,16 @@ func _articulate_held_body() -> void:
 	velocity = Vector2.ZERO
 
 func _update_velocity_towards_mouse(delta: float) -> void:
-	var target: Vector2 = get_global_mouse_position()
-	var target_direction: Vector2 = (target - global_position)
-	velocity = target_direction.normalized() * min(speed, target_direction.length() / delta)
+	# Apply mouse delta as velocity, scaled by sensitivity
+	var delta_velocity := _mouse_delta * mouse_sensitivity
+	velocity += delta_velocity
+
+	# Clamp to max speed
+	if velocity.length() > max_speed:
+		velocity = velocity.normalized() * max_speed
+
+	# Apply damping for smooth deceleration
+	velocity *= movement_damping
 
 
 func _apply_collision_impulses() -> void:

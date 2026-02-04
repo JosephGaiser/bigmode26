@@ -12,6 +12,8 @@ extends AnimatableBody2D
 @export var open_sprite: Sprite2D
 @export var closed_sprite: Sprite2D
 @export var hazard_collider: CollisionShape2D
+@export var snip_audio_stream_player: AudioStreamPlayer2D
+@export var snip_sounds: Array[AudioStream]
 
 var sample_point : float = 0.0
 var direction : int = 1
@@ -41,11 +43,7 @@ func _physics_process(delta: float) -> void:
 		if abs(move_vec.x) > 0.1:
 			sprites.scale.x = -sign(move_vec.x)
 		else:
-			# Fallback for when the scissors haven't moved yet (e.g. first frame)
-			# or the movement is too small to determine direction accurately.
-			# We look ahead on the path to see which way we're about to move.
 			var current_progress = path_follow.progress
-			# Look ahead by a small amount in the current movement direction
 			path_follow.progress += 2.0 * direction 
 			var look_ahead_pos = path_follow.global_position
 			path_follow.progress = current_progress # Restore original position
@@ -59,6 +57,9 @@ func _physics_process(delta: float) -> void:
 	# Open/close toggle logic
 	toggle_timer += delta
 	if toggle_timer >= 0.5: # Toggle every 0.5 seconds
+		if snip_audio_stream_player and snip_sounds.size() > 0:
+			snip_audio_stream_player.stream = snip_sounds[randi() % snip_sounds.size()]
+			snip_audio_stream_player.play()
 		toggle_timer = 0.0
 		is_open = !is_open
 		_update_state()
