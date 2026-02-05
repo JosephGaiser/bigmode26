@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://csub2pntvdkqm"]
+
+[ext_resource type="Script" uid="uid://c67j0luay48nr" path="res://scripts/util/finish.gd" id="1_8nqo0"]
+[ext_resource type="AudioStream" uid="uid://cyyiomosvcihg" path="res://assets/sfx/Trombone Expression D.wav" id="2_wkmnk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tsva6"]
+radius = 160.0
+
+[node name="Finish" type="Node2D" unique_id=1695939229]
+script = ExtResource("1_8nqo0")
+
+[node name="SFX" type="Node2D" parent="." unique_id=1517643301]
+
+[node name="GoalAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=1697183891]
+unique_name_in_owner = true
+stream = ExtResource("2_wkmnk")
+
+[node name="FX" type="Node2D" parent="." unique_id=300950534]
+
+[node name="GoalArea2D" type="Area2D" parent="." unique_id=2118573155]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalArea2D" unique_id=1634928479]
+shape = SubResource("CircleShape2D_tsva6")
+debug_color = Color(0, 0.6509804, 0.101960786, 0.17254902)

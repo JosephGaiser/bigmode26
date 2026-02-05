@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bsjjsrttyqmuj" path="res://scenes/entities/boombox.tscn" id="5_pj0xw"]
 [ext_resource type="Shader" uid="uid://pct1l84vyoh4" path="res://misc/ripple.gdshader" id="9_xidr1"]
 [ext_resource type="Texture2D" uid="uid://dhhvf43vchjke" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_left_outline.png" id="10_gc5je"]
+[ext_resource type="PackedScene" uid="uid://csub2pntvdkqm" path="res://scenes/util/finish.tscn" id="11_pj0xw"]
 [ext_resource type="Texture2D" uid="uid://cmowacmla3via" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_right_outline.png" id="11_yxm4g"]
 [ext_resource type="PackedScene" uid="uid://w28yycscp7xp" path="res://scripts/entities/scissors.tscn" id="12_8c33x"]
 [ext_resource type="Script" uid="uid://bhmh7mmr0ku8n" path="res://scripts/util/level.gd" id="12_xidr1"]
@@ -259,7 +260,7 @@ metadata/_edit_lock_ = true
 
 [node name="Polygon2D" type="Polygon2D" parent="Level/StartingRoomStaticBody2D" unique_id=200513074]
 position = Vector2(0, 1)
-polygon = PackedVector2Array(-512, 0, -512, -6017, -128, -6273, -1536, -6272, -1536, -9216, -512, -9216, -511.99976, -18304.691, -512, -18432, -2048, -18432, -2048, -22400, -4096, -22400, -4096, -17792, -4096, -10240, -4096, -6144, -4096, 2048, 4096, 2048, 4096, -22400, 2048, -22400, 2048, -18432, 512, -18432, 512, -9216, 1536, -9216, 1536.0005, -8736.26, 1536, -6272, 128, -6273, 512, -6017, 512, 0)
+polygon = PackedVector2Array(-512, 0, -512, -6017, -128, -6273, -1536, -6272, -1536, -9216, -512, -9216, -512, -17665, -1280, -17665, -1280, -18945, -512, -18945, -512, -22401, -2048, -22400, -4096, -22400, -4096, -17792, -4096, -10240, -4096, -6144, -4096, 2048, 4096, 2048, 4096, -22400, 2048, -22400, 512, -22401, 512, -18945, 1280, -18945, 1280, -17665, 512, -17665, 512, -9216, 1536, -9216, 1536.0005, -8736.26, 1536, -6272, 128, -6273, 512, -6017, 512, 0)
 
 [node name="BigRoomStaticBody2D" type="StaticBody2D" parent="Level" unique_id=823941324 groups=["hazard"]]
 
@@ -283,7 +284,7 @@ position = Vector2(1728, -640)
 texture = SubResource("GradientTexture2D_gs7m4")
 
 [node name="GravArea2D" type="Area2D" parent="." unique_id=825808621]
-position = Vector2(128, -30720)
+position = Vector2(160, -1056)
 priority = 5
 gravity_space_override = 2
 gravity_point = true
@@ -297,10 +298,14 @@ offset_left = -640.0
 offset_top = -640.0
 offset_right = 384.0
 offset_bottom = 384.0
+metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GravArea2D" unique_id=1859561682]
 position = Vector2(-128, -128)
 shape = SubResource("RectangleShape2D_8c33x")
+
+[node name="Finish" parent="GravArea2D" unique_id=1695939229 instance=ExtResource("11_pj0xw")]
+position = Vector2(-128, -128)
 
 [node name="Entities" type="Node2D" parent="." unique_id=2010477121 groups=["entities"]]
 metadata/_edit_lock_ = true
@@ -350,7 +355,7 @@ rotation = -3.421124
 scale = Vector2(1, -1)
 
 [node name="Boombox" parent="Entities" unique_id=2129106258 instance=ExtResource("5_pj0xw")]
-position = Vector2(1184, -18784)
+position = Vector2(2944, -22752)
 mass = 1.5
 
 [node name="ScissorsPath2D" type="Path2D" parent="Entities" unique_id=808864014]

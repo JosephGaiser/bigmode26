@@ -32,6 +32,7 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "egg_bounce": "res://assets/dialogic/egg_bounce.dtl",
+"egg_goal": "res://assets/dialogic/egg_goal.dtl",
 "egg_intro": "res://assets/dialogic/egg_intro.dtl"
 }
 layout/style_directory={

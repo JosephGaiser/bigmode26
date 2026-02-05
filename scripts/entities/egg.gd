@@ -13,9 +13,10 @@ signal cracked
 @export var bounce_velocity_threshold: float = 500.0
 
 @onready var sprite: Sprite2D = $EggSprite2D
-@onready var crack_particles: CPUParticles2D = $CrackParticles
-@onready var impact_audio_stream_player_2d: AudioStreamPlayer2D = $ImpactAudioStreamPlayer2D
-@onready var crack_audio_stream_player_2d: AudioStreamPlayer2D = $CrackAudioStreamPlayer2D
+@onready var crack_particles: CPUParticles2D = %CrackParticles
+@onready var impact_audio_stream_player_2d: AudioStreamPlayer2D = %ImpactAudioStreamPlayer2D
+@onready var crack_audio_stream_player_2d: AudioStreamPlayer2D = %CrackAudioStreamPlayer2D
+@onready var floor_ray_cast_2d: RayCast2D = %FloorRayCast2D
 
 const IMPACT_VELOCITY_THRESHOLD: float = 300.0
 const CRACK_VELOCITY_THRESHOLD: float = 950.0
