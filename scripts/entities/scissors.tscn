@@ -57,6 +57,7 @@ texture = ExtResource("2_eoshw")
 
 [node name="SnipAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=821180555]
 stream = ExtResource("4_v0uay")
+bus = &"sfx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1428355285]
 shape = SubResource("CircleShape2D_v0uay")

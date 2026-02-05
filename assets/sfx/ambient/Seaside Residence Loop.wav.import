@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d04o6qxub2edy"
+path="res://.godot/imported/Seaside Residence Loop.wav-4a508ed64869418a849cc221da62782c.sample"
+
+[deps]
+
+source_file="res://assets/sfx/ambient/Seaside Residence Loop.wav"
+dest_files=["res://.godot/imported/Seaside Residence Loop.wav-4a508ed64869418a849cc221da62782c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

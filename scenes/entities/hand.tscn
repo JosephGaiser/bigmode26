@@ -49,12 +49,15 @@ texture = ExtResource("1_r87o2")
 
 [node name="GrabAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=1969587995]
 stream = ExtResource("4_hgv3r")
+bus = &"sfx"
 
 [node name="DropAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=1350776346]
 stream = ExtResource("5_kjao4")
+bus = &"sfx"
 
 [node name="InjuredAudioPlayer" type="AudioStreamPlayer2D" parent="SFX" unique_id=1617114269]
 stream = ExtResource("4_fworh")
+bus = &"sfx"
 
 [node name="FX" type="Node2D" parent="." unique_id=1896041785]
 

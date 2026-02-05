@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c7kfxe61kr0vq" path="res://scripts/levels/world.gd" id="1_q418o"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_gs7m4"]
+[ext_resource type="AudioStream" uid="uid://bvduav7ur72hl" path="res://assets/sfx/ambient/Quiet Room Tone Loop.wav" id="2_q418o"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_btahq"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_px3xn"]
 [ext_resource type="Texture2D" uid="uid://coasudnxy3is3" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_move.png" id="5_8cjxf"]
@@ -107,8 +108,10 @@ script = ExtResource("1_q418o")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=510379104]
 environment = SubResource("Environment_q418o")
 
-[node name="AmbientAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1461751894]
+[node name="AmbientAudioStreamPlayer2D" type="AudioStreamPlayer" parent="." unique_id=1327544031]
+stream = ExtResource("2_q418o")
 autoplay = true
+bus = &"ambient"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=864754509]
 physics_interpolation_mode = 1
@@ -361,7 +364,7 @@ rotates = false
 loop = false
 
 [node name="Scissors" parent="Entities/ScissorsPath2D/PathFollow2D" unique_id=535226177 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
-travel_time = 7.0
+travel_time = 5.0
 position_curve = SubResource("Curve_8c33x")
 path_follow = NodePath("..")
 
@@ -377,7 +380,7 @@ rotates = false
 loop = false
 
 [node name="Scissors" parent="Entities/ScissorsPath2D2/PathFollow2D" unique_id=1593386417 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
-travel_time = 7.0
+travel_time = 5.0
 position_curve = SubResource("Curve_8c33x")
 path_follow = NodePath("..")
 
@@ -395,7 +398,17 @@ loop = false
 position_curve = SubResource("Curve_8c33x")
 path_follow = NodePath("..")
 
-[node name="Scissors2" parent="Entities/ScissorsPath2D3/PathFollow2D" unique_id=245868494 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+[node name="ScissorsPath2D14" type="Path2D" parent="Entities" unique_id=1569470312]
+position = Vector2(16.000027, -12480)
+scale = Vector2(0.8901251, 0.8730159)
+curve = SubResource("Curve2D_y40x4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D14" unique_id=1708767901]
+position = Vector2(413.425, 31.417969)
+rotates = false
+loop = false
+
+[node name="Scissors" parent="Entities/ScissorsPath2D14/PathFollow2D" unique_id=429177769 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
 position_curve = SubResource("Curve_8c33x")
 path_follow = NodePath("..")
 
@@ -440,10 +453,6 @@ rotates = false
 loop = false
 
 [node name="Scissors" parent="Entities/ScissorsPath2D6/PathFollow2D" unique_id=2141710685 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
-position_curve = SubResource("Curve_8c33x")
-path_follow = NodePath("..")
-
-[node name="Scissors2" parent="Entities/ScissorsPath2D6/PathFollow2D" unique_id=2084299653 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
 position_curve = SubResource("Curve_8c33x")
 path_follow = NodePath("..")
 
@@ -506,6 +515,7 @@ loop = false
 
 [node name="Scissors" parent="Entities/ScissorsPath2D10/PathFollow2D" unique_id=1735805841 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
 travel_time = 3.0
+path_mode = 1
 position_curve = SubResource("Curve_8c33x")
 path_follow = NodePath("..")
 
@@ -521,6 +531,8 @@ rotates = false
 loop = false
 
 [node name="Scissors" parent="Entities/ScissorsPath2D11/PathFollow2D" unique_id=1200163432 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+travel_time = 3.0
+path_mode = 1
 position_curve = SubResource("Curve_8c33x")
 path_follow = NodePath("..")
 
@@ -537,6 +549,7 @@ loop = false
 
 [node name="Scissors" parent="Entities/ScissorsPath2D12/PathFollow2D" unique_id=1822898651 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
 travel_time = 3.0
+path_mode = 1
 position_curve = SubResource("Curve_8c33x")
 path_follow = NodePath("..")
 
@@ -553,6 +566,7 @@ loop = false
 
 [node name="Scissors" parent="Entities/ScissorsPath2D13/PathFollow2D" unique_id=1887450645 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
 travel_time = 3.0
+path_mode = 1
 position_curve = SubResource("Curve_8c33x")
 path_follow = NodePath("..")
 

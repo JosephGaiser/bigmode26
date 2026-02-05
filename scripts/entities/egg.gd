@@ -24,20 +24,17 @@ var is_cracked := false
 var is_held := false
 var bounce_count: int = 0
 
-var current_timeline := "egg_intro"
-
 func _ready() -> void:
-	_play_dialouge()
+	_play_dialouge("egg_intro")
 	contact_monitor = true
 	max_contacts_reported = 4
 	
-func _play_dialouge() -> void:
-	if Dialogic.current_timeline != null:
+func _play_dialouge(timeline: String, interupt: bool = false) -> void:
+	if !interupt and Dialogic.current_timeline != null:
 		return
 		
-	var layout: Node = Dialogic.start(self.current_timeline)
+	var layout: Node = Dialogic.start(timeline)
 	layout.register_character("egg", sprite)
-	Dialogic.start('egg_intro')
 	get_viewport().set_input_as_handled()
 
 func _physics_process(_delta: float) -> void:
@@ -87,6 +84,7 @@ func _should_bounce() -> bool:
 
 func _trigger_bounce() -> void:
 	bounce_count += 1
+	_play_dialouge("egg_bounce", true)
 	print("[DEBUG_LOG] Egg: Bounced! Count: ", bounce_count)
 
 func _trigger_crack_effects() -> void:

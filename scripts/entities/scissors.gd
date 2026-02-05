@@ -1,9 +1,14 @@
 class_name Scissors
 extends AnimatableBody2D
 
+enum PathMode {
+	PING_PONG,
+	LOOP
+}
 
 @export_category("Settings")
 @export var travel_time: float = 2.0
+@export var path_mode: PathMode = PathMode.PING_PONG
 
 @export_category("Node References")
 @export var position_curve: Curve
@@ -28,13 +33,19 @@ func _physics_process(delta: float) -> void:
 		return
 		
 	sample_point += (delta / travel_time) * direction
-	
-	if sample_point >= 1.0:
-		direction = -1
-		sample_point = 1.0
-	elif sample_point <= 0.0:
-		direction = 1
-		sample_point = 0.0
+
+	if path_mode == PathMode.LOOP:
+		# Loop mode: return to start when reaching end
+		if sample_point >= 1.0:
+			sample_point = 0.0
+	else:
+		# Ping-pong mode: reverse direction at ends
+		if sample_point >= 1.0:
+			direction = -1
+			sample_point = 1.0
+		elif sample_point <= 0.0:
+			direction = 1
+			sample_point = 0.0
 	
 	path_follow.progress_ratio = position_curve.sample(sample_point)
 	

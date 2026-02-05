@@ -15,5 +15,15 @@ else:
 		egg: Please be careful man
 	elif {egg_deaths} == 4.0:
 		egg: Ain't no way
+	elif {egg_deaths} == 5.0:
+		egg: You have to stop dropping me
+	elif {egg_deaths} == 6.0:
+		egg: Maybe I can get someone else to help
+	elif {egg_deaths} == 7.0:
+		egg: You really can just leave me here
+	elif {egg_deaths} == 8.0:
+		egg: I think its fine just to be here, with my thoughts. you go on your own
+	elif {egg_deaths} == 9.0:
+		egg: Please, its not worth it man
 	else:
 		egg: No more, please

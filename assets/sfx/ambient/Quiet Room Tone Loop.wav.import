@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bvduav7ur72hl"
+path="res://.godot/imported/Quiet Room Tone Loop.wav-b14e67f3233f767434c3207572c71da2.sample"
+
+[deps]
+
+source_file="res://assets/sfx/ambient/Quiet Room Tone Loop.wav"
+dest_files=["res://.godot/imported/Quiet Room Tone Loop.wav-b14e67f3233f767434c3207572c71da2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

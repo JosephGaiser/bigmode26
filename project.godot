@@ -31,6 +31,7 @@ directories/dch_directory={
 "egg": "res://assets/dialogic/egg.dch"
 }
 directories/dtl_directory={
+"egg_bounce": "res://assets/dialogic/egg_bounce.dtl",
 "egg_intro": "res://assets/dialogic/egg_intro.dtl"
 }
 layout/style_directory={

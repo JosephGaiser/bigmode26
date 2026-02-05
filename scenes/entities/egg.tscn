@@ -60,6 +60,8 @@ polygon = PackedVector2Array(-32.22632, -12.126316, -25.405264, -21.221054, -17.
 
 [node name="CrackAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=783238279]
 stream = ExtResource("6_07f1p")
+bus = &"sfx"
 
 [node name="ImpactAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=2090127361]
 stream = ExtResource("7_4fjc5")
+bus = &"sfx"
