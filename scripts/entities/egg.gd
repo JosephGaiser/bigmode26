@@ -26,7 +26,7 @@ var is_held := false
 var bounce_count: int = 0
 
 func _ready() -> void:
-	_play_dialouge("egg_intro")
+	_play_dialouge("egg_intro", true)
 	contact_monitor = true
 	max_contacts_reported = 4
 	

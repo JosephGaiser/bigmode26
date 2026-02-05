@@ -6,10 +6,12 @@ extends Node2D
 
 @onready var up_section_pcam: PhantomCamera2D = %UpSectionPhantomCamera2D
 @onready var big_room_pcam: PhantomCamera2D = %BigRoomPhantomCamera2D
+@onready var gravity_pcam: PhantomCamera2D = %GravityPhantomCamera2D
 
 # CAMERA TRIGGER AREAS
 @onready var up_section_area_2d: Area2D = %UpSectionArea2D
 @onready var big_room_area_2d: Area2D = %BigRoomArea2D
+@onready var gravity_area_2d: Area2D = %GravityArea2D
 
 @onready var hand: Hand = %Hand
 @onready var egg_spawner: EggSpawner = %EggSpawner
@@ -21,9 +23,12 @@ func _ready() -> void:
 
 	up_section_area_2d.body_entered.connect(_on_body_entered.bind(up_section_pcam))
 	up_section_area_2d.body_exited.connect(_on_body_exited.bind(up_section_pcam))
-
+	
 	big_room_area_2d.body_entered.connect(_on_body_entered.bind(big_room_pcam))
 	big_room_area_2d.body_exited.connect(_on_body_exited.bind(big_room_pcam))
+	
+	gravity_area_2d.body_entered.connect(_on_body_entered.bind(gravity_pcam))
+	gravity_area_2d.body_exited.connect(_on_body_exited.bind(gravity_pcam))
 
 func _on_egg_spawned(egg: Egg):
 	player_phantom_camera_2d.set_follow_targets([hand, egg])

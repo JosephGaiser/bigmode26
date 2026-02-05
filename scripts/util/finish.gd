@@ -14,6 +14,7 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_goal_entered(body: Node2D) -> void:
-	if body is Egg:
+	if body is Egg and !GlobalData.goal_reached:
+		GlobalData.goal_reached = true
 		goal_audio_stream_player_2d.play()
 		body._play_dialouge("egg_goal")

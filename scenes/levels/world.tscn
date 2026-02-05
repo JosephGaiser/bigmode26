@@ -7,12 +7,17 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_px3xn"]
 [ext_resource type="Texture2D" uid="uid://coasudnxy3is3" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_move.png" id="5_8cjxf"]
 [ext_resource type="PackedScene" uid="uid://bsjjsrttyqmuj" path="res://scenes/entities/boombox.tscn" id="5_pj0xw"]
-[ext_resource type="Shader" uid="uid://pct1l84vyoh4" path="res://misc/ripple.gdshader" id="9_xidr1"]
+[ext_resource type="PackedScene" uid="uid://ce4mry8euxobu" path="res://scenes/util/gravity_puzzle.tscn" id="7_8cjxf"]
+[ext_resource type="PackedScene" uid="uid://cq1oyrd48yo7m" path="res://scenes/util/door.tscn" id="7_jtmcs"]
 [ext_resource type="Texture2D" uid="uid://dhhvf43vchjke" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_left_outline.png" id="10_gc5je"]
+[ext_resource type="PackedScene" uid="uid://f4suophuorci" path="res://scenes/util/switch.tscn" id="11_btahq"]
 [ext_resource type="PackedScene" uid="uid://csub2pntvdkqm" path="res://scenes/util/finish.tscn" id="11_pj0xw"]
 [ext_resource type="Texture2D" uid="uid://cmowacmla3via" path="res://assets/icons/kenney_input-prompts_1.4/Keyboard & Mouse/Double/mouse_right_outline.png" id="11_yxm4g"]
 [ext_resource type="PackedScene" uid="uid://w28yycscp7xp" path="res://scripts/entities/scissors.tscn" id="12_8c33x"]
+[ext_resource type="Theme" uid="uid://cge8ma5mvxw2d" path="res://misc/ui_theme.tres" id="12_gs7m4"]
+[ext_resource type="PackedScene" uid="uid://kq1sac2inidw" path="res://scenes/entities/orange.tscn" id="12_jtmcs"]
 [ext_resource type="Script" uid="uid://bhmh7mmr0ku8n" path="res://scripts/util/level.gd" id="12_xidr1"]
+[ext_resource type="PackedScene" uid="uid://b1u0ioja5ej5w" path="res://scenes/entities/knife.tscn" id="13_3lsws"]
 [ext_resource type="PackedScene" uid="uid://d1jjwqmovdqhr" path="res://scenes/util/knife_hazard.tscn" id="14_q418o"]
 [ext_resource type="PackedScene" uid="uid://dvqerl13je6gx" path="res://scenes/entities/egg_spawner.tscn" id="14_y40x4"]
 [ext_resource type="PackedScene" uid="uid://by3q2q8rm2bnn" path="res://scenes/ui/pause.tscn" id="15_y40x4"]
@@ -20,6 +25,20 @@
 
 [sub_resource type="Environment" id="Environment_q418o"]
 glow_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_pj0xw"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.2488372, 0.5116279, 0.6604651, 0.9395349, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.90990674, 0.90990674, 0.90990674, 0.90990674, 0.700416, 0.700416, 0.700416, 0.700416, 0.526616, 0.526616, 0.526616, 0.526616, 0.016279042, 0.016279042, 0.016279042, 0.016279042, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gs7m4"]
+gradient = SubResource("Gradient_pj0xw")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.1, 0.1)
+metadata/_snap_enabled = true
 
 [sub_resource type="Resource" id="Resource_q418o"]
 script = ExtResource("4_px3xn")
@@ -53,33 +72,12 @@ _data = {
 }
 point_count = 58
 
-[sub_resource type="LabelSettings" id="LabelSettings_dga24"]
-font_size = 64
+[sub_resource type="Resource" id="Resource_jtmcs"]
+script = ExtResource("4_px3xn")
+transition = 1
 
-[sub_resource type="Gradient" id="Gradient_pj0xw"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.2488372, 0.5116279, 0.6604651, 0.9395349, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.90990674, 0.90990674, 0.90990674, 0.90990674, 0.700416, 0.700416, 0.700416, 0.700416, 0.526616, 0.526616, 0.526616, 0.526616, 0.016279042, 0.016279042, 0.016279042, 0.016279042, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_gs7m4"]
-gradient = SubResource("Gradient_pj0xw")
-width = 512
-height = 512
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.1, 0.1)
-metadata/_snap_enabled = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xidr1"]
-shader = ExtResource("9_xidr1")
-shader_parameter/frequency = 4.0
-shader_parameter/amplitude = 2.0
-shader_parameter/ripple_rate = 5.0
-shader_parameter/wave_amplitude = 0.05
-shader_parameter/wave_frequency = 4.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8c33x"]
-size = Vector2(1024, 1024)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3lsws"]
+size = Vector2(2400, 2400)
 
 [sub_resource type="Curve2D" id="Curve2D_8c33x"]
 _data = {
@@ -103,6 +101,9 @@ _data = {
 }
 point_count = 5
 
+[sub_resource type="LabelSettings" id="LabelSettings_dga24"]
+font_size = 64
+
 [node name="World" type="Node2D" unique_id=867132284]
 script = ExtResource("1_q418o")
 
@@ -114,144 +115,6 @@ stream = ExtResource("2_q418o")
 autoplay = true
 bus = &"ambient"
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=864754509]
-physics_interpolation_mode = 1
-top_level = true
-position = Vector2(0, -544)
-zoom = Vector2(0.8, 0.8)
-process_callback = 0
-
-[node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=1746791582]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("2_gs7m4")
-metadata/_custom_type_script = "uid://bd046eokvcnu2"
-
-[node name="PlayerPhantomCamera2D" type="Node2D" parent="." unique_id=1541733472 node_paths=PackedStringArray("follow_targets")]
-unique_name_in_owner = true
-top_level = true
-position = Vector2(0, -544)
-script = ExtResource("3_btahq")
-priority = 10
-follow_mode = 3
-follow_targets = [NodePath("../Hand"), null]
-zoom = Vector2(0.8, 0.8)
-tween_resource = SubResource("Resource_q418o")
-follow_damping = true
-follow_damping_value = Vector2(0.135, 0.135)
-auto_zoom = true
-auto_zoom_min = 0.1
-auto_zoom_max = 1.0
-auto_zoom_margin = Vector4(250, 250, 250, 250)
-dead_zone_width = 0.153
-dead_zone_height = 0.144
-show_viewfinder_in_play = true
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
-
-[node name="UpSectionPhantomCamera2D" type="Node2D" parent="." unique_id=328015239 node_paths=PackedStringArray("follow_target", "follow_path")]
-unique_name_in_owner = true
-top_level = true
-position = Vector2(0, -894)
-script = ExtResource("3_btahq")
-follow_mode = 4
-follow_target = NodePath("../Hand")
-follow_path = NodePath("../UpPathPath2D")
-zoom = Vector2(0.45, 0.45)
-tween_resource = SubResource("Resource_pj0xw")
-tween_on_load = false
-follow_offset = Vector2(0, -350)
-follow_damping = true
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
-
-[node name="UpSectionArea2D" type="Area2D" parent="." unique_id=718962424]
-unique_name_in_owner = true
-position = Vector2(0, -762)
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UpSectionArea2D" unique_id=1252109002]
-position = Vector2(0, -13435)
-shape = SubResource("RectangleShape2D_q418o")
-debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
-
-[node name="UpPathPath2D" type="Path2D" parent="." unique_id=790152286]
-position = Vector2(0, -231.13672)
-scale = Vector2(1, 0.5485635)
-curve = SubResource("Curve2D_q418o")
-
-[node name="BigRoomPhantomCamera2D" type="Node2D" parent="." unique_id=1152866720 node_paths=PackedStringArray("follow_target", "follow_path")]
-unique_name_in_owner = true
-top_level = true
-position = Vector2(0, -544)
-script = ExtResource("3_btahq")
-follow_mode = 2
-follow_target = NodePath("../Hand")
-follow_path = NodePath("../BigRoomPath2D")
-zoom = Vector2(0.7, 0.7)
-tween_resource = SubResource("Resource_y40x4")
-tween_on_load = false
-follow_damping = true
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
-
-[node name="BigRoomArea2D" type="Area2D" parent="." unique_id=746410169]
-unique_name_in_owner = true
-position = Vector2(0, -7808)
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BigRoomArea2D" unique_id=129260396]
-position = Vector2(40, 196)
-shape = SubResource("RectangleShape2D_pj0xw")
-debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
-
-[node name="BigRoomPath2D" type="Path2D" parent="." unique_id=1186818218]
-visible = false
-position = Vector2(-268.8637, -7808)
-scale = Vector2(2.0804682, 3.8714187)
-curve = SubResource("Curve2D_pj0xw")
-
-[node name="Tutorial" type="Node2D" parent="." unique_id=1424404589]
-metadata/_edit_lock_ = true
-
-[node name="ArmControlsLabel" type="Label" parent="Tutorial" unique_id=779207502]
-offset_left = -384.0
-offset_top = -512.0
-offset_right = 264.0
-offset_bottom = -361.0
-text = "MOVE ARM"
-label_settings = SubResource("LabelSettings_dga24")
-metadata/_edit_use_anchors_ = true
-
-[node name="MouseMove" type="Sprite2D" parent="Tutorial/ArmControlsLabel" unique_id=579485011]
-position = Vector2(496, 32)
-texture = ExtResource("5_8cjxf")
-
-[node name="GrabControlsLabel" type="Label" parent="Tutorial" unique_id=1604684280]
-offset_left = -384.0
-offset_top = -416.0
-offset_right = 198.0
-offset_bottom = -342.0
-text = "GRAB STUFF"
-label_settings = SubResource("LabelSettings_dga24")
-metadata/_edit_use_anchors_ = true
-
-[node name="MouseLeftOutline" type="Sprite2D" parent="Tutorial/GrabControlsLabel" unique_id=391561161]
-position = Vector2(560, 32)
-texture = ExtResource("10_gc5je")
-
-[node name="RotateControlsLabel" type="Label" parent="Tutorial" unique_id=343700172]
-offset_left = -384.0
-offset_top = -320.0
-offset_right = 223.0
-offset_bottom = -246.0
-text = "ROTATE STUFF"
-label_settings = SubResource("LabelSettings_dga24")
-metadata/_edit_use_anchors_ = true
-
-[node name="MouseRightOutline" type="Sprite2D" parent="Tutorial/RotateControlsLabel" unique_id=1332750445]
-position = Vector2(656, 32)
-texture = ExtResource("11_yxm4g")
-
 [node name="Level" type="Node2D" parent="." unique_id=1898035121]
 script = ExtResource("12_xidr1")
 metadata/_edit_lock_ = true
@@ -259,8 +122,7 @@ metadata/_edit_lock_ = true
 [node name="StartingRoomStaticBody2D" type="StaticBody2D" parent="Level" unique_id=2039238143]
 
 [node name="Polygon2D" type="Polygon2D" parent="Level/StartingRoomStaticBody2D" unique_id=200513074]
-position = Vector2(0, 1)
-polygon = PackedVector2Array(-512, 0, -512, -6017, -128, -6273, -1536, -6272, -1536, -9216, -512, -9216, -512, -17665, -1280, -17665, -1280, -18945, -512, -18945, -512, -22401, -2048, -22400, -4096, -22400, -4096, -17792, -4096, -10240, -4096, -6144, -4096, 2048, 4096, 2048, 4096, -22400, 2048, -22400, 512, -22401, 512, -18945, 1280, -18945, 1280, -17665, 512, -17665, 512, -9216, 1536, -9216, 1536.0005, -8736.26, 1536, -6272, 128, -6273, 512, -6017, 512, 0)
+polygon = PackedVector2Array(-512, 0, -512, -6017, -128, -6273, -1536, -6272, -1536, -9216, -512, -9216, -512, -17058.08, -704, -17152, -960, -17344, -1216, -17664, -1344, -17984, -1376, -18336, -1344, -18688, -1216, -18944, -992, -19296, -736, -19520, -512, -19609.943, -512, -22401, -2048, -22400, -4096, -22400, -4096, -17792, -4096, -10240, -4096, -6144, -4096, 2048, 4096, 2048, 4096, -22400, 2048, -22400, 512, -22401, 512, -19609.723, 704, -19520, 992, -19296, 1184, -19040, 1344, -18688, 1376, -18336, 1536, -18336, 1440, -18944, 1536, -19424, 1536, -20448, 3424, -20448, 3424, -17760, 1536, -17760, 1536, -17984, 1344, -17984, 1216, -17664, 992, -17376, 768, -17184, 512.00006, -17069.727, 512, -9216, 1536, -9216, 1536.0005, -8736.26, 1536, -6272, 128, -6273, 512, -6017, 512, 0)
 
 [node name="BigRoomStaticBody2D" type="StaticBody2D" parent="Level" unique_id=823941324 groups=["hazard"]]
 
@@ -274,6 +136,11 @@ polygon = PackedVector2Array(-128, -6272, -128, -6528, -128, -6571.4023, -136, -
 antialiased = true
 polygon = PackedVector2Array(2288, -5984, 128, -6272, 128, -6544, 128, -6736, 112, -6816, 80, -6864, 20, -6908, -52, -6932, -112, -6952, -180, -6964, -248, -6972, -308, -6980, -372, -6984, -432, -6980, -476, -6968, -520, -6952, -556, -6936, -616, -6936, -656, -6952, -688, -6980, -704, -7024, -704, -7072, -676, -7108, -624, -7136, -512, -7152, -384, -7136, -240, -7120, -64, -7088, 64, -7056, 176, -7028, 284, -7016, 364, -7024, 452, -7044, 532, -7064, 600, -7104, 640, -7144, 692, -7204, 736, -7260, 768, -7340, 788, -7424, 800, -7488, 804, -7572, 784, -7648, 736, -7724, 668, -7800, 604, -7864, 524, -7924, 408, -7992, 296, -8036, 192, -8072, 92, -8108, -24, -8140, -144, -8144, -304, -8128, -416, -8096, -560, -8016, -670, -7938, -728, -7912, -800, -7904, -860, -7904, -908, -7916, -944, -7932, -980, -7956, -1008, -8004, -1020, -8052, -1020, -8100, -1004, -8144, -976, -8188, -944, -8228, -908, -8260, -864, -8280, -808, -8296, -760, -8308, -708, -8316, -660, -8324, -604, -8332, -560, -8336, -520, -8336, -488, -8332, -424, -8320, -376, -8308, -316, -8292, -260, -8276, -216, -8264, -184, -8256, -128, -8240, -76, -8224, -32, -8212, 12, -8200, 60, -8184, 109.27518, -8162.214, 152, -8148, 200, -8128, 248, -8108, 292, -8088, 319.019, -8078.5654, 380, -8060, 444, -8040, 484, -8028, 524, -8016, 568, -8008, 632, -7996, 712, -7984, 792, -7972, 872, -7976, 976, -7980, 1072, -7992, 1172, -8020, 1244, -8044, 1328, -8080, 1400, -8120, 1452, -8164, 1492, -8232, 1520, -8312, 1532, -8428, 1536, -8592, 1504, -8720, 1440, -8848, 1384, -8900, 1308, -8948, 1224, -8992, 1116, -9028, 1008, -9056, 888, -9080, 780, -9100, 648, -9112, 580, -9124, 540, -9148, 520, -9176, 512, -9216, 1936, -9968)
 
+[node name="SwitchStaticBody2D" type="StaticBody2D" parent="Level" unique_id=1425740137 groups=["hazard"]]
+
+[node name="Polygon2D" type="Polygon2D" parent="Level/SwitchStaticBody2D" unique_id=2015230857 groups=["hazard"]]
+polygon = PackedVector2Array(1376, -17984, 1728, -18016, 1892, -18048, 2032, -18086, 2159, -18132, 2259, -18184, 2379, -18269, 2468, -18369, 2518, -18448, 2565, -18535, 2592, -18611, 2602, -18701, 2588, -18801, 2564, -18880, 2540, -18934, 2520, -18963, 2492, -18992, 2453, -19016, 2418, -19028, 2351, -19034, 2300, -19029, 2244, -19013, 2205, -19005, 2166, -18994, 2125, -18977, 2082, -18951, 2039, -18912, 1984, -18880, 1914, -18867, 1856, -18880, 1799, -18902, 1760, -18944, 1738, -18973, 1728, -19008, 1717, -19048, 1728, -19104, 1759, -19144, 1813, -19192, 1872, -19228, 1942, -19253, 2021, -19267, 2104, -19268, 2153, -19258, 2208, -19237, 2256, -19209, 2316, -19175, 2380, -19145, 2445, -19119, 2526, -19097, 2597, -19093, 2656, -19104, 2718, -19132, 2781, -19171, 2820, -19203, 2856, -19245, 2872, -19281, 2890, -19339, 2884, -19429, 2854, -19522, 2802, -19593, 2752, -19648, 2752, -20160, 2304, -20160, 2304, -19584, 2496, -19584, 2556, -19575, 2612, -19558, 2660, -19526, 2702, -19480, 2726, -19422, 2720, -19360, 2710, -19315, 2689, -19283, 2656, -19269, 2589, -19255, 2525, -19256, 2457, -19274, 2375, -19308, 2297, -19351, 2245, -19379, 2198, -19403, 2142, -19421, 2079, -19431, 2016, -19435, 1958, -19432, 1904, -19429, 1838, -19417, 1796, -19406, 1760, -19392, 1705, -19362, 1660, -19327, 1632, -19296, 1587, -19248, 1557, -19207, 1536, -19168, 1516, -19124, 1507, -19082, 1504, -19040, 1500, -18983, 1504, -18944, 1518, -18876, 1536, -18816, 1563, -18763, 1600, -18720, 1647, -18679, 1698, -18652, 1742, -18634, 1807, -18621, 1877, -18621, 1933, -18632, 1997, -18656, 2049, -18687, 2133, -18757, 2172, -18787, 2210, -18802, 2242, -18804, 2271, -18800, 2299, -18786, 2323, -18768, 2336, -18747, 2340, -18715, 2338, -18687, 2327, -18653, 2304, -18619, 2251, -18564, 2188, -18514, 2123, -18474, 2012, -18425, 1919, -18388, 1824, -18362, 1744, -18343, 1664, -18336, 1504, -18336, 1408, -18336, 1429.3365, -19146.785, 1472, -20704, 3712, -20544, 3648, -17600, 2016, -17600, 1280, -17664)
+
 [node name="Lights" type="Node2D" parent="." unique_id=474948773]
 visible = false
 metadata/_edit_lock_ = true
@@ -283,29 +150,158 @@ visible = false
 position = Vector2(1728, -640)
 texture = SubResource("GradientTexture2D_gs7m4")
 
-[node name="GravArea2D" type="Area2D" parent="." unique_id=825808621]
-position = Vector2(160, -1056)
-priority = 5
-gravity_space_override = 2
+[node name="Cameras" type="Node2D" parent="." unique_id=1120135239]
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="Cameras" unique_id=864754509]
+physics_interpolation_mode = 1
+top_level = true
+position = Vector2(-320, -17504)
+zoom = Vector2(0.8, 0.8)
+process_callback = 0
+metadata/_edit_lock_ = true
+
+[node name="PhantomCameraHost" type="Node" parent="Cameras/Camera2D" unique_id=1746791582]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_gs7m4")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="PlayerPhantomCamera2D" type="Node2D" parent="Cameras" unique_id=1541733472 node_paths=PackedStringArray("follow_targets")]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(-320, -17504)
+script = ExtResource("3_btahq")
+priority = 10
+follow_mode = 3
+follow_targets = [NodePath("../../Hand"), null]
+zoom = Vector2(0.8, 0.8)
+tween_resource = SubResource("Resource_q418o")
+follow_damping = true
+follow_damping_value = Vector2(0.135, 0.135)
+auto_zoom = true
+auto_zoom_min = 0.1
+auto_zoom_max = 1.0
+auto_zoom_margin = Vector4(250, 250, 250, 250)
+dead_zone_width = 0.153
+dead_zone_height = 0.144
+show_viewfinder_in_play = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+metadata/_edit_lock_ = true
+
+[node name="UpSectionPhantomCamera2D" type="Node2D" parent="Cameras" unique_id=328015239 node_paths=PackedStringArray("follow_target", "follow_path")]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(0, -17854)
+script = ExtResource("3_btahq")
+follow_mode = 4
+follow_target = NodePath("../../Hand")
+follow_path = NodePath("../UpPathPath2D")
+zoom = Vector2(0.45, 0.45)
+tween_resource = SubResource("Resource_pj0xw")
+tween_on_load = false
+follow_offset = Vector2(0, -350)
+follow_damping = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+metadata/_edit_lock_ = true
+
+[node name="UpSectionArea2D" type="Area2D" parent="Cameras" unique_id=718962424]
+unique_name_in_owner = true
+position = Vector2(0, -762)
+collision_layer = 0
+collision_mask = 4
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cameras/UpSectionArea2D" unique_id=1252109002]
+position = Vector2(544, -12870)
+shape = SubResource("RectangleShape2D_q418o")
+debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
+metadata/_edit_lock_ = true
+
+[node name="UpPathPath2D" type="Path2D" parent="Cameras" unique_id=790152286]
+position = Vector2(0, -231.13672)
+scale = Vector2(1, 0.5485635)
+curve = SubResource("Curve2D_q418o")
+metadata/_edit_lock_ = true
+
+[node name="BigRoomPhantomCamera2D" type="Node2D" parent="Cameras" unique_id=1152866720 node_paths=PackedStringArray("follow_target", "follow_path")]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(-320, -17504)
+script = ExtResource("3_btahq")
+follow_mode = 2
+follow_target = NodePath("../../Hand")
+follow_path = NodePath("../BigRoomPath2D")
+zoom = Vector2(0.7, 0.7)
+tween_resource = SubResource("Resource_y40x4")
+tween_on_load = false
+follow_damping = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+metadata/_edit_lock_ = true
+
+[node name="BigRoomArea2D" type="Area2D" parent="Cameras" unique_id=746410169]
+unique_name_in_owner = true
+position = Vector2(0, -7808)
+collision_layer = 0
+collision_mask = 4
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cameras/BigRoomArea2D" unique_id=129260396]
+position = Vector2(40, 196)
+shape = SubResource("RectangleShape2D_pj0xw")
+debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
+metadata/_edit_lock_ = true
+
+[node name="BigRoomPath2D" type="Path2D" parent="Cameras" unique_id=1186818218]
+visible = false
+position = Vector2(-268.8637, -7808)
+scale = Vector2(2.0804682, 3.8714187)
+curve = SubResource("Curve2D_pj0xw")
+metadata/_edit_lock_ = true
+
+[node name="GravityPhantomCamera2D" type="Node2D" parent="Cameras" unique_id=1994055810 node_paths=PackedStringArray("follow_target")]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(-320, -17504)
+script = ExtResource("3_btahq")
+follow_mode = 2
+follow_target = NodePath("../../Hand")
+zoom = Vector2(0.7, 0.7)
+tween_resource = SubResource("Resource_jtmcs")
+tween_on_load = false
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+metadata/_edit_lock_ = true
+
+[node name="GravityArea2D" type="Area2D" parent="Cameras" unique_id=1618706760]
+unique_name_in_owner = true
+position = Vector2(-320, -17504)
+collision_layer = 0
+collision_mask = 4
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cameras/GravityArea2D" unique_id=815501417]
+position = Vector2(2872, -1605)
+shape = SubResource("RectangleShape2D_3lsws")
+debug_color = Color(0.6392157, 0.5254902, 0, 0.07058824)
+metadata/_edit_lock_ = true
+
+[node name="Gravity" type="Node2D" parent="." unique_id=1659505899]
+
+[node name="GravityPuzzle" parent="Gravity" unique_id=1851312374 node_paths=PackedStringArray("switch") instance=ExtResource("7_8cjxf")]
+position = Vector2(0, -18336)
 gravity_point = true
-gravity_point_unit_distance = 1.885
-gravity_point_center = Vector2(0, -1)
-gravity_direction = Vector2(0, -1)
+switch = NodePath("../../Entities/Switch")
 
-[node name="ColorRect" type="ColorRect" parent="GravArea2D" unique_id=1986689007]
-material = SubResource("ShaderMaterial_xidr1")
-offset_left = -640.0
-offset_top = -640.0
-offset_right = 384.0
-offset_bottom = 384.0
-metadata/_edit_use_anchors_ = true
+[node name="FloorStaticBody2D" type="StaticBody2D" parent="Gravity" unique_id=1974722423]
+collision_layer = 32
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GravArea2D" unique_id=1859561682]
-position = Vector2(-128, -128)
-shape = SubResource("RectangleShape2D_8c33x")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Gravity/FloorStaticBody2D" unique_id=1740094411]
+polygon = PackedVector2Array(-576, -17088, -320, -16992, 160, -16960, 480, -17056, 928, -17216, 1088, -17472, 1280, -17760, 1344, -18016, 1376, -18400, 1376, -18592, 1312, -18880, 544, -19648, 192, -19712, -256, -19712, -576, -19616, -576, -19968, 512, -19968, 1056, -19488, 1472, -18976, 1600, -18400, 1536, -17696, 928, -16608, -576, -16608)
 
-[node name="Finish" parent="GravArea2D" unique_id=1695939229 instance=ExtResource("11_pj0xw")]
-position = Vector2(-128, -128)
+[node name="Door" parent="Gravity" unique_id=1157463612 node_paths=PackedStringArray("switch") instance=ExtResource("7_jtmcs")]
+position = Vector2(0, -19680)
+switch = NodePath("../../Entities/Switch")
 
 [node name="Entities" type="Node2D" parent="." unique_id=2010477121 groups=["entities"]]
 metadata/_edit_lock_ = true
@@ -355,7 +351,7 @@ rotation = -3.421124
 scale = Vector2(1, -1)
 
 [node name="Boombox" parent="Entities" unique_id=2129106258 instance=ExtResource("5_pj0xw")]
-position = Vector2(2944, -22752)
+position = Vector2(1197, -22752)
 mass = 1.5
 
 [node name="ScissorsPath2D" type="Path2D" parent="Entities" unique_id=808864014]
@@ -575,14 +571,103 @@ path_mode = 1
 position_curve = SubResource("Curve_8c33x")
 path_follow = NodePath("..")
 
-[node name="EggSpawner" parent="." unique_id=636781217 node_paths=PackedStringArray("entities") instance=ExtResource("14_y40x4")]
+[node name="Switch" parent="Entities" unique_id=1050011839 instance=ExtResource("11_btahq")]
+position = Vector2(2528, -19872)
+
+[node name="Orange" parent="Entities" unique_id=189717667 instance=ExtResource("12_jtmcs")]
+position = Vector2(-608, -18848)
+rotation = -1.0085268
+
+[node name="Orange2" parent="Entities" unique_id=2070358688 instance=ExtResource("12_jtmcs")]
+position = Vector2(768, -17664)
+rotation = -1.0085268
+
+[node name="Orange3" parent="Entities" unique_id=404340305 instance=ExtResource("12_jtmcs")]
+position = Vector2(224, -17952)
+rotation = -1.0085268
+
+[node name="Orange4" parent="Entities" unique_id=871260366 instance=ExtResource("12_jtmcs")]
+position = Vector2(-640, -18112)
+rotation = -1.0085268
+
+[node name="Orange5" parent="Entities" unique_id=1412890945 instance=ExtResource("12_jtmcs")]
+position = Vector2(288.0005, -19264)
+rotation = -1.0085268
+
+[node name="Knife" parent="Entities" unique_id=1977731433 instance=ExtResource("13_3lsws")]
+position = Vector2(-672.0005, -17888)
+rotation = -1.0085268
+
+[node name="Knife2" parent="Entities" unique_id=1163765946 instance=ExtResource("13_3lsws")]
+position = Vector2(479.9995, -18848)
+rotation = 1.9104028
+
+[node name="Knife3" parent="Entities" unique_id=137494130 instance=ExtResource("13_3lsws")]
+position = Vector2(575.9995, -17696)
+rotation = 3.8076591
+
+[node name="Tutorial" type="Node2D" parent="." unique_id=1424404589]
+metadata/_edit_lock_ = true
+
+[node name="Panel" type="Panel" parent="Tutorial" unique_id=293695202]
+offset_left = -1344.0
+offset_top = -320.0
+offset_right = -576.0
+theme = ExtResource("12_gs7m4")
+
+[node name="ArmControlsLabel" type="Label" parent="Tutorial" unique_id=779207502]
+offset_left = -1312.0
+offset_top = -288.0
+offset_right = -664.0
+offset_bottom = -137.0
+text = "MOVE ARM"
+label_settings = SubResource("LabelSettings_dga24")
+metadata/_edit_use_anchors_ = true
+
+[node name="MouseMove" type="Sprite2D" parent="Tutorial/ArmControlsLabel" unique_id=579485011]
+position = Vector2(496, 32)
+texture = ExtResource("5_8cjxf")
+
+[node name="GrabControlsLabel" type="Label" parent="Tutorial" unique_id=1604684280]
+offset_left = -1312.0
+offset_top = -192.0
+offset_right = -730.0
+offset_bottom = -118.0
+text = "GRAB STUFF"
+label_settings = SubResource("LabelSettings_dga24")
+metadata/_edit_use_anchors_ = true
+
+[node name="MouseLeftOutline" type="Sprite2D" parent="Tutorial/GrabControlsLabel" unique_id=391561161]
+position = Vector2(560, 32)
+texture = ExtResource("10_gc5je")
+
+[node name="RotateControlsLabel" type="Label" parent="Tutorial" unique_id=343700172]
+offset_left = -1312.0
+offset_top = -96.0
+offset_right = -705.0
+offset_bottom = -22.0
+text = "ROTATE STUFF"
+label_settings = SubResource("LabelSettings_dga24")
+metadata/_edit_use_anchors_ = true
+
+[node name="MouseRightOutline" type="Sprite2D" parent="Tutorial/RotateControlsLabel" unique_id=1332750445]
+position = Vector2(656, 32)
+texture = ExtResource("11_yxm4g")
+
+[node name="Util" type="Node2D" parent="." unique_id=558083481]
+metadata/_edit_lock_ = true
+
+[node name="Finish" parent="Util" unique_id=1695939229 instance=ExtResource("11_pj0xw")]
+position = Vector2(352, -22176)
+
+[node name="EggSpawner" parent="Util" unique_id=636781217 node_paths=PackedStringArray("entities") instance=ExtResource("14_y40x4")]
 unique_name_in_owner = true
 position = Vector2(0, -138)
-entities = NodePath("../Entities")
+entities = NodePath("../../Entities")
 
 [node name="Hand" parent="." unique_id=1833399177 instance=ExtResource("17_rm5ru")]
 unique_name_in_owner = true
-position = Vector2(0, -544)
+position = Vector2(-320, -17504)
 mouse_sensitivity = 4.1
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="." unique_id=445386051]

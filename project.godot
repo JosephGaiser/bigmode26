@@ -24,6 +24,7 @@ buses/default_bus_layout="uid://ba8awxdmqq75c"
 
 PhantomCameraManager="*uid://duq6jhf6unyis"
 Dialogic="*uid://ds2q0uclmolvu"
+GlobalData="*uid://2b2d47bk5tp"
 
 [dialogic]
 
@@ -97,6 +98,7 @@ hazard=""
 
 [gui]
 
+theme/custom="uid://cge8ma5mvxw2d"
 theme/custom_font="uid://d4m2a2yswlijv"
 
 [input]
@@ -184,6 +186,7 @@ toggle_shaders={
 2d_physics/layer_3="Hand"
 2d_physics/layer_4="Egg"
 2d_physics/layer_5="Hazard"
+2d_physics/layer_6="Gravity Block"
 
 [physics]
 

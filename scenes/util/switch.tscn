@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://f4suophuorci"]
+
+[ext_resource type="Script" uid="uid://ctvl5ha4820j6" path="res://scripts/entities/switch.gd" id="1_5fg7c"]
+[ext_resource type="Texture2D" uid="uid://gkcunmtyft24" path="res://assets/sprites/entities/switch_on_big_alt.png" id="2_0u544"]
+[ext_resource type="Texture2D" uid="uid://bvbsj06mhh6if" path="res://assets/sprites/entities/switch_off_big_alt.png" id="3_e8iyj"]
+[ext_resource type="AudioStream" uid="uid://b2nemfpm5svsh" path="res://assets/sfx/Token Place Soft 004.wav" id="4_0u544"]
+
+[sub_resource type="Curve" id="Curve_0u544"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_e8iyj"]
+_data = [Vector2(0, 0.36585367), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_dr15p"]
+offsets = PackedFloat32Array(0.46214098, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0u544"]
+size = Vector2(138, 198)
+
+[node name="Switch" type="Node2D" unique_id=1050011839 groups=["switch"]]
+script = ExtResource("1_5fg7c")
+
+[node name="Sprites" type="Node2D" parent="." unique_id=736992850]
+
+[node name="OnSprite2D" type="Sprite2D" parent="Sprites" unique_id=1709056119]
+unique_name_in_owner = true
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_0u544")
+
+[node name="OffSprite2D" type="Sprite2D" parent="Sprites" unique_id=1017381608]
+unique_name_in_owner = true
+visible = false
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_e8iyj")
+
+[node name="SFX" type="Node2D" parent="." unique_id=1782033124]
+
+[node name="ToggleAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SFX" unique_id=1152319696]
+unique_name_in_owner = true
+stream = ExtResource("4_0u544")
+
+[node name="FX" type="Node2D" parent="." unique_id=838415853]
+
+[node name="SparkParticles" type="CPUParticles2D" parent="FX" unique_id=-370449095]
+unique_name_in_owner = true
+position = Vector2(0, 36)
+emitting = false
+amount = 48
+one_shot = true
+explosiveness = 0.8
+randomness = 0.3
+emission_shape = 3
+emission_rect_extents = Vector2(26.77, 1)
+direction = Vector2(0, 1)
+gravity = Vector2(0, 200)
+initial_velocity_min = 80.0
+initial_velocity_max = 150.0
+angular_velocity_min = -200.0
+angular_velocity_max = 200.0
+damping_max = 1.0
+damping_curve = SubResource("Curve_0u544")
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_e8iyj")
+color = Color(0, 0, 0, 1)
+color_ramp = SubResource("Gradient_dr15p")
+
+[node name="ToggleArea2D" type="Area2D" parent="." unique_id=2056931091]
+unique_name_in_owner = true
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToggleArea2D" unique_id=74099772]
+position = Vector2(-1, 8)
+shape = SubResource("RectangleShape2D_0u544")

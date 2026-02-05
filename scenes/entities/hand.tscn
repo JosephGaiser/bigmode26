@@ -16,7 +16,7 @@ radius = 80.09994
 [sub_resource type="CircleShape2D" id="CircleShape2D_kjao4"]
 radius = 40.1995
 
-[node name="Hand" type="CharacterBody2D" unique_id=1833399177 node_paths=PackedStringArray("open_hand_sprite_2d", "closed_hand_sprite_2d", "grab_area_2d", "grab_center_marker_2d", "grab_audio_stream_player_2d", "drop_audio_stream_player_2d")]
+[node name="Hand" type="CharacterBody2D" unique_id=1833399177 node_paths=PackedStringArray("open_hand_sprite_2d", "closed_hand_sprite_2d", "grab_area_2d", "grab_audio_stream_player_2d", "drop_audio_stream_player_2d")]
 collision_layer = 4
 collision_mask = 3
 motion_mode = 1
@@ -24,7 +24,6 @@ script = ExtResource("1_c0igx")
 open_hand_sprite_2d = NodePath("Sprites/OpenHandSprite2D")
 closed_hand_sprite_2d = NodePath("Sprites/ClosedHandSprite2D")
 grab_area_2d = NodePath("GrabArea2D")
-grab_center_marker_2d = NodePath("GrabCenterMarker2D")
 grab_audio_stream_player_2d = NodePath("SFX/GrabAudioStreamPlayer2D")
 drop_audio_stream_player_2d = NodePath("SFX/DropAudioStreamPlayer2D")
 mouse_sensitivity = 9.0
@@ -97,9 +96,5 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VulnerableArea2D" unique_id=1563371941]
 shape = SubResource("CircleShape2D_kjao4")
 debug_color = Color(0.9882353, 0, 0, 0.2)
-
-[node name="GrabCenterMarker2D" type="Marker2D" parent="." unique_id=774037575]
-unique_name_in_owner = true
-position = Vector2(52, 140)
 
 [connection signal="area_entered" from="VulnerableArea2D" to="." method="_on_vulnerable_area_2d_area_entered"]

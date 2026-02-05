@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://ce4mry8euxobu"]
+
+[ext_resource type="Shader" uid="uid://pct1l84vyoh4" path="res://misc/ripple.gdshader" id="1_vqnv1"]
+[ext_resource type="Script" uid="uid://bmvmnh8owlxx0" path="res://scripts/util/gravity_puzzle.gd" id="1_ydg2s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_px3xn"]
+shader = ExtResource("1_vqnv1")
+shader_parameter/frequency = 4.0
+shader_parameter/amplitude = 2.0
+shader_parameter/ripple_rate = 5.0
+shader_parameter/wave_amplitude = 0.05
+shader_parameter/wave_frequency = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_btahq"]
+radius = 1385.2711
+
+[node name="GravityPuzzle" type="Area2D" unique_id=1851312374]
+collision_layer = 0
+collision_mask = 9
+priority = 5
+gravity_space_override = 3
+gravity = 25.0
+script = ExtResource("1_ydg2s")
+
+[node name="GravityShader" type="ColorRect" parent="." unique_id=915410603]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_px3xn")
+offset_left = -1408.0
+offset_top = -1312.0
+offset_right = 1408.0
+offset_bottom = 1312.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1970934261]
+shape = SubResource("CircleShape2D_btahq")

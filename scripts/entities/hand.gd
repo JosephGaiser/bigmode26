@@ -8,7 +8,6 @@ extends CharacterBody2D
 @export var closed_hand_sprite_2d: Sprite2D
 ## Area used to detect grabbable objects
 @export var grab_area_2d: Area2D
-@export var grab_center_marker_2d: Marker2D
 
 @export_category("FX Node References")
 @onready var blood_particles: CPUParticles2D = $FX/BloodParticles
@@ -72,11 +71,10 @@ func _ready() -> void:
 	_set_state(State.IDLE)
 
 func _set_state(new_state: State) -> void:
-	print("[DEBUG_LOG] Hand: Changing state from ", current_state, " to ", new_state)
 	# Exit logic for current state
+	var was_holding := current_state == State.HOLDING
 	match current_state:
 		State.HOLDING:
-			print("[DEBUG_LOG] Hand: Exiting HOLDING state, restoring held body: ", held_body)
 			_restore_held_body()
 			if held_interactable and held_interactable.has_method(&"on_release"):
 				held_interactable.on_release(self)
@@ -84,17 +82,18 @@ func _set_state(new_state: State) -> void:
 			held_interactable = null
 		State.REJECTING:
 			closed_hand_sprite_2d.position = _closed_hand_base_pos
-	
+
 	current_state = new_state
-	
+
 	# Entry logic for new state
 	match current_state:
 		State.IDLE:
 			_update_hand_sprite(false)
 		State.GRABBING, State.HOLDING, State.REJECTING:
 			_update_hand_sprite(true)
-	
-	if current_state == State.IDLE:
+
+	# Only play drop sound when transitioning from HOLDING to IDLE
+	if current_state == State.IDLE and was_holding:
 		if drop_audio_stream_player_2d and not drop_audio_stream_player_2d.is_playing():
 			drop_audio_stream_player_2d.play()
 
@@ -104,7 +103,6 @@ func _physics_process(delta: float) -> void:
 			_update_velocity_towards_mouse(delta)
 		State.HOLDING:
 			if !is_instance_valid(held_body):
-				print("[DEBUG_LOG] Hand: held_body is INVALID. Releasing.")
 				_set_state(State.IDLE)
 			else:
 				if Input.is_action_pressed("hand_alt"):
@@ -177,12 +175,18 @@ func _input(event: InputEvent) -> void:
 func _try_grab() -> void:
 	if current_state == State.REJECTING or Time.get_ticks_msec() < _reject_cooldown_until_ms:
 		return
-	
+
 	if !grab_audio_stream_player_2d.is_playing():
 		grab_audio_stream_player_2d.play()
-	
+
 	var candidate := _find_grabbable_body()
 	if not candidate:
+		# Check for switches when hand is empty
+		var switch_candidate := _find_switch()
+		if switch_candidate and switch_candidate.has_method(&"can_toggle") and switch_candidate.can_toggle(self):
+			switch_candidate.toggle()
+			_set_state(State.GRABBING)
+			return
 		_set_state(State.GRABBING)
 		return
 
@@ -197,7 +201,7 @@ func _try_grab() -> void:
 	hold_offset = held_body.global_position - global_position
 	_prepare_held_body()
 	_set_state(State.HOLDING)
-	
+
 	if held_interactable and held_interactable.has_method(&"on_grab"):
 		held_interactable.on_grab(self)
 	elif held_body.has_method(&"grab"):
@@ -211,7 +215,6 @@ func _is_grab_rejected(body: RigidBody2D, interactable: Node) -> bool:
 	return false
 
 func _start_rejection(body: RigidBody2D = null, interactable: Node = null) -> void:
-	print("[DEBUG_LOG] Hand: _start_rejection called. current_state: ", current_state)
 	if interactable and interactable.has_method(&"on_grab_rejected"):
 		interactable.on_grab_rejected(self)
 	elif body and body.has_method(&"on_grab_rejected"):
@@ -234,10 +237,8 @@ func _start_rejection(body: RigidBody2D = null, interactable: Node = null) -> vo
 			_set_state(State.IDLE)
 
 func _prepare_held_body() -> void:
-	held_body.global_position = grab_center_marker_2d.global_position # TODO FIX
 	held_body_was_frozen = held_body.freeze
 	held_body_freeze_mode = held_body.freeze_mode
-	print("[DEBUG_LOG] Hand: Preparing body. Original freeze: ", held_body_was_frozen, " freeze_mode: ", held_body_freeze_mode)
 	held_body.freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 	held_body.freeze = true
 	held_body_had_collision_exception = held_body.get_collision_exceptions().has(self)
@@ -258,8 +259,22 @@ func _find_grabbable_body() -> RigidBody2D:
 			if distance < closest_distance:
 				closest_distance = distance
 				closest_body = body
-	print("Grabbing on ", closest_body)
 	return closest_body
+
+func _find_switch() -> Node:
+	# Search for Switch nodes in the scene
+	var switches = get_tree().get_nodes_in_group("switch")
+	var closest_switch: Node = null
+	var closest_distance := INF
+
+	for switch_node in switches:
+		if switch_node.has_method(&"is_hand_in_range") and switch_node.is_hand_in_range():
+			var distance := global_position.distance_to(switch_node.global_position)
+			if distance < closest_distance:
+				closest_distance = distance
+				closest_switch = switch_node
+
+	return closest_switch
 
 func _get_grip_multiplier(body: RigidBody2D) -> float:
 	if held_interactable and &"grip_multiplier" in held_interactable:
@@ -304,16 +319,12 @@ func _apply_hold_force(delta: float) -> void:
 	held_body.global_position = new_pos
 
 func _restore_held_body() -> void:
-	print("[DEBUG_LOG] Hand: Restoring body: ", held_body)
 	if not is_instance_valid(held_body):
-		print("[DEBUG_LOG] Hand: held_body is NOT valid in _restore_held_body")
 		return
 	
-	print("[DEBUG_LOG] Hand: Setting freeze to ", held_body_was_frozen)
 	# Use set_deferred if we are in a physics callback
 	held_body.set_deferred(&"freeze", held_body_was_frozen)
 	held_body.freeze_mode = held_body_freeze_mode
-	print("[DEBUG_LOG] Hand: Body freeze is now: ", held_body.freeze, " (deferred set to ", held_body_was_frozen, ")")
 	
 	if not held_body_was_frozen:
 		held_body.set_deferred(&"linear_velocity", _held_body_velocity)
@@ -327,16 +338,13 @@ func _restore_held_body() -> void:
 
 
 func reset_to_spawn() -> void:
-	print("[DEBUG_LOG] Hand: Resetting to spawn: ", _original_spawn_pos)
 	_set_state(State.IDLE)
 	global_position = _original_spawn_pos
 	velocity = Vector2.ZERO
 
 
 func _on_vulnerable_area_2d_area_entered(_area: Area2D) -> void:
-	print("[DEBUG_LOG] Hand: Vulnerable area entered. Held body: ", held_body)
 	if current_state == State.HOLDING:
-		print("[DEBUG_LOG] Hand: Was holding, transitioning to REJECTING")
 		# Zero out momentum so the egg falls gently and can be caught
 		_held_body_velocity = Vector2.ZERO
 	_start_rejection()
