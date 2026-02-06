@@ -11,18 +11,28 @@ signal toggled (is_on: bool)
 
 @export var is_on: bool = false
 
+var starting_state: bool = is_on
 
 func _ready() -> void:
+	add_to_group("switch")
+	starting_state = is_on
+	GlobalData.reset.connect(reset)
 	toggle_area_2d.body_entered.connect(_on_hand_entered)
 	toggle_area_2d.body_exited.connect(_on_hand_exited)
 	_update_sprites()
+
+func reset() -> void:
+	_set_state(starting_state)
 
 func _process(_delta: float) -> void:
 	pass
 
 func toggle() -> void:
-	toggled.emit(is_on)
-	is_on = !is_on
+	_set_state(!is_on)
+
+func _set_state(state: bool) -> void:
+	is_on = state
+	toggled.emit(state)
 	_update_sprites()
 	if toggle_audio_stream_player_2d:
 		toggle_audio_stream_player_2d.play()

@@ -3,6 +3,7 @@ extends RigidBody2D
 
 @onready var pencil_sprite_2d: Sprite2D = %PencilSprite2D
 @onready var hit_audio_stream_player_2d: AudioStreamPlayer2D = %HitAudioStreamPlayer2D
+@onready var trail_particles: CPUParticles2D = %TrailParticles
 @onready var hazard_area_2d: Area2D = %HazardArea2D
 @onready var hazard_collision_shape_2d: CollisionShape2D = %HazardCollisionShape2D
 
@@ -25,9 +26,11 @@ func destroy() -> void:
 	queue_free()
 
 func stick() -> void:
+	hit_audio_stream_player_2d.play()
 	call_deferred("_do_stick")
 
 func _do_stick() -> void:
+	trail_particles.emitting = false
 	self.freeze_mode = RigidBody2D.FREEZE_MODE_STATIC
 	self.freeze = true
 	linear_velocity = Vector2.ZERO

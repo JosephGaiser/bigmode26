@@ -1,6 +1,8 @@
 class_name Global
 extends Node
 
+signal reset
+
 var goal_reached: bool = false
 var timer_running: bool = false
 var current_time: float = 0.0
@@ -21,6 +23,7 @@ func stop_timer() -> void:
 			best_time = current_time
 
 func reset_timer() -> void:
+	reset.emit()
 	timer_running = false
 	current_time = 0.0
 

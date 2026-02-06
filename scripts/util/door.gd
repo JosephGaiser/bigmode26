@@ -7,7 +7,8 @@ extends Node2D
 
 func _ready() -> void:
 	switch.toggled.connect(_on_switch_toggled)
+	_on_switch_toggled(switch.is_on)
 
 func _on_switch_toggled(is_on: bool) -> void:
-	door_collision_shape_2d.set_deferred("disabled", !door_collision_shape_2d.disabled)
-	polygon_2d.visible = !polygon_2d.visible
+	door_collision_shape_2d.set_deferred("disabled", !is_on)
+	polygon_2d.visible = !is_on

@@ -32,9 +32,8 @@ debug_color = Color(0, 0.6, 0.69803923, 0.13333334)
 
 [node name="MusicAudioStream" type="AudioStreamPlayer2D" parent="." unique_id=2141783283]
 stream = ExtResource("3_l5is0")
-volume_db = 10.0
 autoplay = true
 max_distance = 20000.0
 attenuation = 2.1435478
 panning_strength = 0.27
-bus = &"sfx"
+bus = &"music"

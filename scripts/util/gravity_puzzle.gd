@@ -14,10 +14,12 @@ var initial_body_states: Dictionary = {}
 func _ready() -> void:
 	default_grav_mode = self.gravity_space_override
 	switch.toggled.connect(_on_switch_toggled)
+	GlobalData.reset.connect(reset_puzzle)
 
 	# Store initial positions and velocities of bodies in the area
 	await get_tree().process_frame
 	_store_initial_states()
+	_on_switch_toggled(switch.is_on)
 
 func _store_initial_states() -> void:
 	for body in get_overlapping_bodies():
@@ -56,7 +58,7 @@ func reset_puzzle() -> void:
 			body.angular_velocity = state["angular_velocity"]
 
 func _on_switch_toggled(is_on: bool) -> void:
-	if !is_on:
+	if is_on:
 		self.gravity_space_override = Area2D.SPACE_OVERRIDE_DISABLED
 		gravity_shader.visible = false
 	else:

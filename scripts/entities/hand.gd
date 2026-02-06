@@ -171,6 +171,7 @@ func _input(event: InputEvent) -> void:
 		_mouse_delta = event.relative
 	
 	if event.is_action_pressed("player_reset"):
+		GlobalData.reset.emit()
 		reset_to_spawn()
 	
 	if event.is_action_released("hand_grab"):

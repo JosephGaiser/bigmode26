@@ -3,15 +3,38 @@
 [ext_resource type="Script" uid="uid://dodu2ceo8wpxs" path="res://scripts/entities/pencil_launcher.gd" id="1_pf8d0"]
 [ext_resource type="PackedScene" uid="uid://cpprmohheiymv" path="res://scenes/entities/pencil_projectile.tscn" id="2_hhgg7"]
 [ext_resource type="Texture2D" uid="uid://cchip65c3nkmt" path="res://assets/icons/kenney_input-prompts_1.4/Flairs/Double/flair_arrow_long.png" id="3_tk6ob"]
+[ext_resource type="AudioStream" uid="uid://cy0ifw5fwxm8p" path="res://assets/sfx/Cards Shuffle Oneshot 002.wav" id="4_hhgg7"]
 
 [node name="PencilLauncher" type="Node2D" unique_id=1413982585]
 script = ExtResource("1_pf8d0")
 projectile = ExtResource("2_hhgg7")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2010255018]
+unique_name_in_owner = true
 scale = Vector2(2, 2)
 texture = ExtResource("3_tk6ob")
+
+[node name="SmokeParticles" type="CPUParticles2D" parent="." unique_id=123456789]
+unique_name_in_owner = true
+emitting = false
+amount = 24
+lifetime = 1.2
+one_shot = true
+explosiveness = 0.8
+emission_shape = 1
+emission_sphere_radius = 64.15
+direction = Vector2(-1, 0)
+spread = 30.0
+gravity = Vector2(0, -100)
+initial_velocity_min = 20.0
+initial_velocity_max = 50.0
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color = Color(0, 0, 0, 1)
 
 [node name="FireTimer" type="Timer" parent="." unique_id=866063240]
 unique_name_in_owner = true
 autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1129850227]
+stream = ExtResource("4_hhgg7")
