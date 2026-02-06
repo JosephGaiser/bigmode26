@@ -10,5 +10,5 @@ func _ready() -> void:
 	_on_switch_toggled(switch.is_on)
 
 func _on_switch_toggled(is_on: bool) -> void:
-	door_collision_shape_2d.set_deferred("disabled", !is_on)
+	door_collision_shape_2d.set_deferred("disabled", is_on)
 	polygon_2d.visible = !is_on

@@ -18,4 +18,5 @@ func _on_goal_entered(body: Node2D) -> void:
 		GlobalData.goal_reached = true
 		GlobalData.stop_timer()
 		goal_audio_stream_player_2d.play()
+		Dialogic.VAR.set_variable("finish_time", GlobalData.format_time(GlobalData.best_time))
 		body._play_dialouge("egg_goal")

@@ -1,4 +1,5 @@
 join egg center
 egg: My Dozen! My Family!
 egg: Thank you so much!
-egg: <Empty Text Event>
+egg: You finished in {finish_time}
+egg: That's fast!

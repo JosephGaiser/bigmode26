@@ -45,7 +45,8 @@ layout/style_list=["res://assets/dialogic/theme.tres"]
 layout/default_style="res://assets/dialogic/theme.tres"
 variables={
 "egg_deaths": 0,
-"egg_intro": false
+"egg_intro": false,
+"finish_time": ""
 }
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01

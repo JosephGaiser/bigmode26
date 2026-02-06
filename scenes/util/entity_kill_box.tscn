@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://coo7dlwtiu1c0"]
+
+[ext_resource type="Script" uid="uid://kv8y8dupc7k8" path="res://scripts/util/entity_kill_box.gd" id="1_ffq4h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ffq4h"]
+size = Vector2(788, 352)
+
+[node name="EntityKillBox" type="Node2D" unique_id=297254318]
+script = ExtResource("1_ffq4h")
+
+[node name="KillBoxArea2D" type="Area2D" parent="." unique_id=938441903]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillBoxArea2D" unique_id=1844210623]
+shape = SubResource("RectangleShape2D_ffq4h")
+debug_color = Color(0.9882353, 0, 0, 0.2)

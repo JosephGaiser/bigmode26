@@ -4,12 +4,13 @@ shader_type canvas_item;
 
 // Handles the concentric ripples
 uniform float frequency: hint_range(0, 15, 0.01) = 4.0;
-uniform float amplitude: hint_range(0, 3, 0.1) = 2.0;
+uniform float amplitude: hint_range(0, 3, 0.1) = 1.0;
 uniform float ripple_rate : hint_range(0, 20.0, 1) = 5;
 
 // Handles the waves themselves
-uniform float wave_amplitude: hint_range(0.001, 0.1, 0.001) = 0.05;
+uniform float wave_amplitude: hint_range(0.001, 0.1, 0.001) = 0.02;
 uniform float wave_frequency: hint_range(0, 15, 0.01) = 4.0;
+uniform float transparency: hint_range(0, 1, 0.01) = 0.5;
 
 uniform sampler2D noise;
 
@@ -30,13 +31,13 @@ void fragment() {
 	
 	vec2 uv = FRAGCOORD.xy / (1.0 / SCREEN_PIXEL_SIZE).xy + (center_position/center_distance) * ripple * wave_amplitude;
     vec2 background_wave = wave(uv, TIME);
-	vec4 background_texture = texture(SCREEN_TEXTURE,background_wave) * sqrt(amplitude);
+	vec4 background_texture = texture(SCREEN_TEXTURE, background_wave);
 
-	float alpha_scalar = (1.0 - min(center_distance, 1.0)) * background_texture.x * 2.5; 
+	float alpha_scalar = (1.0 - min(center_distance, 1.0)); 
 	
-	background_texture.a *= 1.0 * alpha_scalar * (ripple + background_texture.x * background_texture.y);
-	background_texture.a = max(background_texture.a - (background_texture.y * 0.45), 0.0);
+	float ripple_alpha = 1.0 * alpha_scalar * (ripple + background_texture.x * background_texture.y);
+	background_texture.a = clamp(ripple_alpha, 0.0, 1.0) * transparency;
 	
-	COLOR = vec4(background_texture.xyz, background_texture.a);
+	COLOR = background_texture;
 
 }
