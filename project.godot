@@ -187,6 +187,7 @@ toggle_shaders={
 2d_physics/layer_4="Egg"
 2d_physics/layer_5="Hazard"
 2d_physics/layer_6="Gravity Block"
+2d_physics/layer_7="Projectiles"
 
 [physics]
 

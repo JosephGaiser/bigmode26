@@ -8,6 +8,8 @@ extends CharacterBody2D
 @export var closed_hand_sprite_2d: Sprite2D
 ## Area used to detect grabbable objects
 @export var grab_area_2d: Area2D
+## Timer label used to show elasped time for run
+@export var timer_label: Label
 
 @export_category("FX Node References")
 @onready var blood_particles: CPUParticles2D = $FX/BloodParticles
@@ -65,6 +67,7 @@ var _mouse_delta: Vector2 = Vector2.ZERO
 var _held_body_velocity: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
+	add_to_group("hand")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	_closed_hand_base_pos = closed_hand_sprite_2d.position
 	_original_spawn_pos = global_position
@@ -116,10 +119,14 @@ func _physics_process(delta: float) -> void:
 	_mouse_delta = Vector2.ZERO
 	_apply_collision_impulses()
 	move_and_slide()
-	
+
 	# Fail-safe release
 	if not Input.is_action_pressed("hand_grab") and current_state != State.IDLE and current_state != State.REJECTING:
 		_set_state(State.IDLE)
+
+	# Update timer
+	if timer_label:
+		timer_label.text = GlobalData.format_time(GlobalData.current_time)
 
 func _articulate_held_body() -> void:
 	var rotation_amount: float = _mouse_delta.x * articulation_rotation_speed
@@ -201,6 +208,10 @@ func _try_grab() -> void:
 	hold_offset = held_body.global_position - global_position
 	_prepare_held_body()
 	_set_state(State.HOLDING)
+
+	# Start timer on first egg pickup
+	if held_body is Egg and not GlobalData.timer_running:
+		GlobalData.start_timer()
 
 	if held_interactable and held_interactable.has_method(&"on_grab"):
 		held_interactable.on_grab(self)

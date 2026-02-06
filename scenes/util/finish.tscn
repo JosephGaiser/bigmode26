@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c67j0luay48nr" path="res://scripts/util/finish.gd" id="1_8nqo0"]
 [ext_resource type="AudioStream" uid="uid://cyyiomosvcihg" path="res://assets/sfx/Trombone Expression D.wav" id="2_wkmnk"]
+[ext_resource type="Texture2D" uid="uid://begvcd3r0w5ws" path="res://assets/sprites/entities/egg.png" id="3_3bi5l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tsva6"]
 radius = 160.0
@@ -25,3 +26,63 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalArea2D" unique_id=1634928479]
 shape = SubResource("CircleShape2D_tsva6")
 debug_color = Color(0, 0.6509804, 0.101960786, 0.17254902)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1636640350]
+position = Vector2(157.005, -1.7000008)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_3bi5l")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1887502381]
+position = Vector2(93.005005, -1.7000008)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_3bi5l")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=517676133]
+position = Vector2(29.005005, -1.7000008)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_3bi5l")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=448205851]
+position = Vector2(-34.994995, -1.7000008)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_3bi5l")
+
+[node name="Sprite2D5" type="Sprite2D" parent="." unique_id=372090426]
+position = Vector2(-98.994995, -1.7000008)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_3bi5l")
+
+[node name="Sprite2D6" type="Sprite2D" parent="." unique_id=1881352459]
+position = Vector2(-162.995, -1.7000008)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_3bi5l")
+
+[node name="Sprite2D12" type="Sprite2D" parent="." unique_id=905542353]
+position = Vector2(189.005, 30.3)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_3bi5l")
+
+[node name="Sprite2D11" type="Sprite2D" parent="." unique_id=1438136270]
+position = Vector2(125.005005, 30.3)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_3bi5l")
+
+[node name="Sprite2D10" type="Sprite2D" parent="." unique_id=269335247]
+position = Vector2(61.005005, 30.3)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_3bi5l")
+
+[node name="Sprite2D9" type="Sprite2D" parent="." unique_id=1095493510]
+position = Vector2(-2.994995, 30.3)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_3bi5l")
+
+[node name="Sprite2D8" type="Sprite2D" parent="." unique_id=23054075]
+position = Vector2(-66.994995, 30.3)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_3bi5l")
+
+[node name="Sprite2D7" type="Sprite2D" parent="." unique_id=1199615709]
+position = Vector2(-130.995, 30.3)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_3bi5l")

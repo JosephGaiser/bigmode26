@@ -38,6 +38,7 @@ func _play_dialouge(timeline: String, interupt: bool = false) -> void:
 	layout.register_character("egg", sprite)
 	get_viewport().set_input_as_handled()
 
+
 func _physics_process(_delta: float) -> void:
 	if is_cracked:
 		return
@@ -99,6 +100,9 @@ func _trigger_crack_effects() -> void:
 	crack_particles.restart()
 	crack_particles.emitting = true
 	crack_audio_stream_player_2d.play()
+
+	# Reset timer when egg cracks
+	GlobalData.reset_timer()
 
 	# Spawn egg shells
 	for shell_scene in [shell_1, shell_2]:

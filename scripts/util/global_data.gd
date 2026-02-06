@@ -1,15 +1,30 @@
 class_name Global
 extends Node
 
-
-
 var goal_reached: bool = false
+var timer_running: bool = false
+var current_time: float = 0.0
+var best_time: float = INF
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if timer_running:
+		current_time += delta
+
+func start_timer() -> void:
+	timer_running = true
+	current_time = 0.0
+
+func stop_timer() -> void:
+	if timer_running:
+		timer_running = false
+		if current_time < best_time:
+			best_time = current_time
+
+func reset_timer() -> void:
+	timer_running = false
+	current_time = 0.0
+
+func format_time(time: float) -> String:
+	var minutes := int(time) / 60
+	var seconds := int(time) % 60
+	return "%02d:%02d" % [minutes, seconds]

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c6m4re43b863m" path="res://assets/sprites/hand/closed_hand.png" id="1_r87o2"]
 [ext_resource type="Texture2D" uid="uid://bnfwskw7jtmmi" path="res://assets/sprites/hand/open_hand.png" id="2_c0igx"]
 [ext_resource type="AudioStream" uid="uid://bb3l0rsqufjfs" path="res://assets/sfx/Unrecorder F.wav" id="4_fworh"]
+[ext_resource type="Texture2D" uid="uid://drpqnsyqiq0ji" path="res://assets/sprites/entities/watch_cut.png" id="4_gni6f"]
 [ext_resource type="AudioStream" uid="uid://cmloob8h8fjvs" path="res://assets/sfx/Token Place Soft 001.wav" id="4_hgv3r"]
 [ext_resource type="AudioStream" uid="uid://dwehhynvchi8v" path="res://assets/sfx/Silly Whistle C.wav" id="5_kjao4"]
 
@@ -16,7 +17,24 @@ radius = 80.09994
 [sub_resource type="CircleShape2D" id="CircleShape2D_kjao4"]
 radius = 40.1995
 
-[node name="Hand" type="CharacterBody2D" unique_id=1833399177 node_paths=PackedStringArray("open_hand_sprite_2d", "closed_hand_sprite_2d", "grab_area_2d", "grab_audio_stream_player_2d", "drop_audio_stream_player_2d")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gni6f"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 8
+border_width_top = 8
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 16.0
+expand_margin_top = 16.0
+expand_margin_right = 16.0
+expand_margin_bottom = 16.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_fworh"]
+font_size = 63
+
+[node name="Hand" type="CharacterBody2D" unique_id=1833399177 node_paths=PackedStringArray("open_hand_sprite_2d", "closed_hand_sprite_2d", "grab_area_2d", "timer_label", "grab_audio_stream_player_2d", "drop_audio_stream_player_2d")]
 collision_layer = 4
 collision_mask = 3
 motion_mode = 1
@@ -24,6 +42,7 @@ script = ExtResource("1_c0igx")
 open_hand_sprite_2d = NodePath("Sprites/OpenHandSprite2D")
 closed_hand_sprite_2d = NodePath("Sprites/ClosedHandSprite2D")
 grab_area_2d = NodePath("GrabArea2D")
+timer_label = NodePath("CanvasLayer/PanelContainer/TimerLabel")
 grab_audio_stream_player_2d = NodePath("SFX/GrabAudioStreamPlayer2D")
 drop_audio_stream_player_2d = NodePath("SFX/DropAudioStreamPlayer2D")
 mouse_sensitivity = 9.0
@@ -43,6 +62,13 @@ visible = false
 position = Vector2(48, -227.22)
 scale = Vector2(0.895, 0.895)
 texture = ExtResource("1_r87o2")
+
+[node name="WatchSprite2D" type="Sprite2D" parent="Sprites" unique_id=1362651214]
+visible = false
+position = Vector2(28.000002, -168)
+rotation = -1.325804
+scale = Vector2(0.26454616, 0.26454616)
+texture = ExtResource("4_gni6f")
 
 [node name="SFX" type="Node2D" parent="." unique_id=1885763702]
 
@@ -96,5 +122,26 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VulnerableArea2D" unique_id=1563371941]
 shape = SubResource("CircleShape2D_kjao4")
 debug_color = Color(0.9882353, 0, 0, 0.2)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2033105156]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=1772093721]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -239.0
+offset_top = -82.0
+offset_right = -12.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gni6f")
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer/PanelContainer" unique_id=1851424012]
+layout_mode = 2
+text = "00:00"
+label_settings = SubResource("LabelSettings_fworh")
 
 [connection signal="area_entered" from="VulnerableArea2D" to="." method="_on_vulnerable_area_2d_area_entered"]

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bkdfqchwjy5va"]
+
+[ext_resource type="Script" uid="uid://dodu2ceo8wpxs" path="res://scripts/entities/pencil_launcher.gd" id="1_pf8d0"]
+[ext_resource type="PackedScene" uid="uid://cpprmohheiymv" path="res://scenes/entities/pencil_projectile.tscn" id="2_hhgg7"]
+[ext_resource type="Texture2D" uid="uid://cchip65c3nkmt" path="res://assets/icons/kenney_input-prompts_1.4/Flairs/Double/flair_arrow_long.png" id="3_tk6ob"]
+
+[node name="PencilLauncher" type="Node2D" unique_id=1413982585]
+script = ExtResource("1_pf8d0")
+projectile = ExtResource("2_hhgg7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2010255018]
+scale = Vector2(2, 2)
+texture = ExtResource("3_tk6ob")
+
+[node name="FireTimer" type="Timer" parent="." unique_id=866063240]
+unique_name_in_owner = true
+autostart = true
