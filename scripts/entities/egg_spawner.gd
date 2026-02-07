@@ -10,9 +10,7 @@ var current_egg: Egg
 
 func _ready() -> void:
 	spawn_egg()
-
-func _process(delta: float) -> void:
-	pass
+	GlobalData.reset.connect(_on_reset)
 
 func spawn_egg() -> void:
 	current_egg = egg_scene.instantiate()
@@ -22,4 +20,9 @@ func spawn_egg() -> void:
 	egg_spawned.emit(current_egg)
 	
 func _on_egg_cracked() -> void:
+	pass
+
+func _on_reset() -> void:
+	if !current_egg.is_cracked:
+		current_egg._trigger_crack_effects()
 	spawn_egg()

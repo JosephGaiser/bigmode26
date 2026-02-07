@@ -1,0 +1,7 @@
+join egg center
+if {maze_room_seen} == false:
+	set {maze_room_seen} = true
+	egg: Its hazy, but I think I remember this place
+	egg: Careful not to touch the walls in here
+else:
+	egg: This place sucks

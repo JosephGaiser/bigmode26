@@ -1,0 +1,6 @@
+join egg center
+if {fall_room_seen} == false:
+	set {fall_room_seen} = true
+	egg: Watch out above you here
+else:
+	egg: Where is this shit even coming from?

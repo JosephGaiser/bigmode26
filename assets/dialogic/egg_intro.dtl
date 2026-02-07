@@ -1,11 +1,12 @@
 join egg center
 if {egg_intro} == false:
 	set {egg_intro} = true
-	egg: Hey!
-	egg: Its me, the egg
-	egg: Think you could help me out?
-	egg: I need to get back with my dozen
-	egg: Can you pick me up and take me to the top
+	[wait time="1.0"]
+	egg: Wuhh? where am I?
+	egg: What happened last night dude
+	egg: My yolk is pounding dude. I think I had too much to drink
+	egg: I need to get back with my dozen, before they start worrying about me
+	egg: Can you pick me up and take me to the top?
 else:
 	if {egg_deaths} == 1.0:
 		egg: Whoops, dropped me!
@@ -26,4 +27,4 @@ else:
 	elif {egg_deaths} == 9.0:
 		egg: Please, its not worth it man
 	else:
-		egg: No more, please
+		egg: No more, please. Just let me die here.

@@ -1,0 +1,7 @@
+join egg center
+if {grav_room_seen} == false:
+	set {grav_room_seen} = true
+	egg: Looks like the way up is blocked
+	egg: Put me somewhere safe and look for a way to get that door open
+else:
+	egg: This room makes me nauseous

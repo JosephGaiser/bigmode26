@@ -101,9 +101,6 @@ func _trigger_crack_effects() -> void:
 	crack_particles.emitting = true
 	crack_audio_stream_player_2d.play()
 
-	# Reset timer when egg cracks
-	GlobalData.reset_timer()
-
 	# Spawn egg shells
 	for shell_scene in [shell_1, shell_2]:
 		if not shell_scene:

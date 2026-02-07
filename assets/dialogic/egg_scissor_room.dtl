@@ -1,0 +1,6 @@
+join egg center
+if {scissor_room_seen} == false:
+	set {scissor_room_seen} = true
+	egg: Hopefully those are saftey scissors
+else:
+	egg: I am too hungover for this

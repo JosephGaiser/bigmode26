@@ -29,12 +29,20 @@ GlobalData="*uid://2b2d47bk5tp"
 [dialogic]
 
 directories/dch_directory={
+"Eggbert": "res://assets/dialogic/Eggbert.dch",
+"Eggbertina": "res://assets/dialogic/Eggbertina.dch",
 "egg": "res://assets/dialogic/egg.dch"
 }
 directories/dtl_directory={
 "egg_bounce": "res://assets/dialogic/egg_bounce.dtl",
+"egg_fall_room": "res://assets/dialogic/egg_fall_room.dtl",
 "egg_goal": "res://assets/dialogic/egg_goal.dtl",
-"egg_intro": "res://assets/dialogic/egg_intro.dtl"
+"egg_grav_room": "res://assets/dialogic/egg_grav_room.dtl",
+"egg_intro": "res://assets/dialogic/egg_intro.dtl",
+"egg_knife_room": "res://assets/dialogic/egg_knife_room.dtl",
+"egg_maze_room": "res://assets/dialogic/egg_maze_room.dtl",
+"egg_pencil_room": "res://assets/dialogic/egg_pencil_room.dtl",
+"egg_scissor_room": "res://assets/dialogic/egg_scissor_room.dtl"
 }
 layout/style_directory={
 "": "res://assets/dialogic/theme.tres",
@@ -46,14 +54,20 @@ layout/default_style="res://assets/dialogic/theme.tres"
 variables={
 "egg_deaths": 0,
 "egg_intro": false,
-"finish_time": ""
+"fall_room_seen": false,
+"finish_time": "",
+"grav_room_seen": false,
+"knife_room_seen": false,
+"maze_room_seen": false,
+"pencil_room_seen": false,
+"scissor_room_seen": false
 }
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true
 text/text_reveal_skip_delay=0.1
 text/advance_delay=0.1
-text/autoadvance_per_character_delay=0.1
+text/autoadvance_per_character_delay=0
 text/autoadvance_ignored_characters_enabled=true
 animations/join_default_length=0.5
 animations/join_default_wait=true
@@ -82,6 +96,19 @@ audio/channel_defaults={
 }
 }
 audio/type_sound_bus="dialogic"
+text/autoadvance_enabled=true
+text/autoadvance_per_word_delay=0.1
+text/autoadvance_ignored_characters={
+"!": null,
+"\"": null,
+"(": null,
+")": null,
+",": null,
+".": null,
+"/": null,
+"?": null
+}
+text/autoadvance_fixed_delay=1.0
 
 [display]
 

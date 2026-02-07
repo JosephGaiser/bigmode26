@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dxdrw8ydcgpfy"]
+
+[ext_resource type="Script" uid="uid://yh7yubw1kn0w" path="res://scripts/util/dialouge_trigger.gd" id="1_aj547"]
+
+[node name="DialougeTrigger" type="Area2D" unique_id=383212086]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_aj547")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

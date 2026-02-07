@@ -13,7 +13,11 @@ shader_parameter/speed = 0.750000035625
 shader_parameter/direction_x = 1.0
 shader_parameter/direction_y = -1.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qgos8"]
+bg_color = Color(1, 1, 1, 1)
+
 [sub_resource type="Theme" id="Theme_iwpmq"]
+Button/styles/normal = SubResource("StyleBoxFlat_qgos8")
 
 [sub_resource type="LabelSettings" id="LabelSettings_iwpmq"]
 font_size = 64
@@ -40,7 +44,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_iwpmq")
 
-[node name="PausePanel2" type="Panel" parent="." unique_id=78516195]
+[node name="PausePanel" type="Panel" parent="." unique_id=78516195]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -55,7 +59,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_qgos8")
 
-[node name="Label" type="Label" parent="PausePanel2" unique_id=262635923]
+[node name="Label" type="Label" parent="PausePanel" unique_id=262635923]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

@@ -1,0 +1,6 @@
+join egg center
+if {knife_room_seen} == false:
+	set {knife_room_seen} = true
+	egg: Am I seeing things or is this room full of knives
+else:
+	egg: Careful those look sharp
