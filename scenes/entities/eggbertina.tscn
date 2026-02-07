@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cxhokotincay4"]
+
+[ext_resource type="Texture2D" uid="uid://begvcd3r0w5ws" path="res://assets/sprites/entities/egg.png" id="1_6ftkk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5w08n"]
+radius = 29.412632
+height = 84.03614
+
+[node name="Eggbertina" type="RigidBody2D" unique_id=1963366422]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1736185575]
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("1_6ftkk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2080587378]
+position = Vector2(-5, 3)
+rotation = 0.4048925
+shape = SubResource("CapsuleShape2D_5w08n")

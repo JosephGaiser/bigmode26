@@ -87,7 +87,7 @@ transition = 1
 size = Vector2(2400, 2400)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rny25"]
-size = Vector2(2816, 7648)
+size = Vector2(2816, 5248)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dga24"]
 font_size = 64
@@ -130,7 +130,7 @@ size = Vector2(1920, 2112)
 size = Vector2(1344, 960)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6gyxr"]
-size = Vector2(1344, 608)
+size = Vector2(1152, 608)
 
 [node name="World" type="Node2D" unique_id=867132284]
 script = ExtResource("1_q418o")
@@ -158,7 +158,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Polygon2D" type="Polygon2D" parent="Level/StartingRoomStaticBody2D" unique_id=200513074]
-polygon = PackedVector2Array(-640, 0, -640, -768, -512, -1024, -512, -6017, -128, -6273, -1536, -6272, -1536, -9216, -512, -9216, -512, -17058.08, -704, -17152, -960, -17344, -1216, -17664, -1344, -17984, -1376, -18336, -1344, -18688, -1216, -18944, -992, -19296, -736, -19520, -512, -19609.943, -512, -22016, 0, -22016, 0, -22272, -1280, -22272, -1280, -23296, -1024, -23552, 768, -23552, 768, -23808, -1536, -23808, -1624.7476, -24820.15, 1024, -25088, 992, -25344, -583.29175, -25211.145, -1536, -25120, -1696, -26496, -640, -26976, 192, -28928, 288, -29184, -256, -29184, -256, -29952, -608, -37120, -256, -37376, -256, -39936, -512, -39936, -512, -41216, 0, -41216, 0, -42496, -4128, -42496, -4096, -39936, -4096, -35424, -4096, -29568, -4096, -26624, -4096, -22400, -4096, -17792, -4096, -10240, -4096, -6144, -4096, 2048, 4096, 2048, 4096, -22400, 4096, -26624, 4096, -29600, 4128, -35360, 4096, -40000, 4064, -42496, 0, -42496, 0, -41216, 512, -41216, 512, -39936, 256, -39936, 256, -37376, 608, -37120, 256, -29952, 256, -29440, 640, -29440, 640, -29184, 480, -28736, 1280, -28736, 288, -26688, -576, -26688, -1304.9277, -26358.309, -1184, -25536, 1472, -25792, 1600, -24800, -1280, -24576, -1280, -24320, 1038.3606, -24320, 1280, -23968, 1280, -23296, 1280, -23040, 1024, -23040, -768, -23040, -768, -22784, 256, -22784, 512, -22528, 512, -19609.723, 704, -19520, 992, -19296, 1184, -19040, 1344, -18688, 1376, -18336, 1536, -18336, 1440, -18944, 1408, -19328, 1056, -19328, 736, -19648, 736, -20448, 1536, -20448, 3424, -20448, 3424, -17760, 1536, -17760, 1536, -17984, 1344, -17984, 1216, -17664, 992, -17376, 768, -17184, 512.00006, -17069.727, 512, -9216, 1536, -9216, 1536.0005, -8736.26, 1536, -6272, 128, -6273, 512, -6017, 512, -1024, 640, -768, 640, 0)
+polygon = PackedVector2Array(-640, 0, -640, -768, -512, -1024, -512, -6017, -128, -6273, -1536, -6272, -1536, -9216, -512, -9216, -512, -17058.08, -704, -17152, -960, -17344, -1216, -17664, -1344, -17984, -1376, -18336, -1344, -18688, -1216, -18944, -992, -19296, -736, -19520, -512, -19609.943, -512, -22016, 0, -22016, 0, -22272, -1280, -22272, -1280, -23296, -1024, -23552, 768, -23552, 768, -23808, -1536, -23808, -1624.7476, -24820.15, 1024, -25088, 992, -25344, -583.29175, -25211.145, -1536, -25120, -1696, -26496, -640, -26976, 192, -28928, 288, -29184, -256, -29184, -299.0111, -29442.064, -384, -29952, -608, -34816, -608, -39392, -512, -39936, -512, -40448, -512, -41152, 0, -41472, 0, -42496, -4128, -42496, -4096, -39936, -4096, -35424, -4096, -29568, -4096, -26624, -4096, -22400, -4096, -17792, -4096, -10240, -4096, -6144, -4096, 2048, 4096, 2048, 4096, -22400, 4096, -26624, 4096, -29600, 4128, -35360, 4096, -40000, 4064, -42496, 0, -42496, 0, -41472, 512, -41152, 512, -40448, 512, -39936, 608, -39360, 608, -34816, 384, -29952, 256, -29440, 640, -29440, 640, -29184, 480, -28736, 1280, -28736, 288, -26688, -576, -26688, -1304.9277, -26358.309, -1184, -25536, 1472, -25792, 1600, -24800, -1280, -24576, -1280, -24320, 1038.3606, -24320, 1280, -23968, 1280, -23296, 1280, -23040, 1024, -23040, -768, -23040, -768, -22784, 256, -22784, 512, -22528, 512, -19609.723, 704, -19520, 992, -19296, 1184, -19040, 1344, -18688, 1376, -18336, 1536, -18336, 1440, -18944, 1408, -19328, 1056, -19328, 736, -19648, 736, -20448, 1536, -20448, 3424, -20448, 3424, -17760, 1536, -17760, 1536, -17984, 1344, -17984, 1216, -17664, 992, -17376, 768, -17184, 512.00006, -17069.727, 512, -9216, 1536, -9216, 1536.0005, -8736.26, 1536, -6272, 128, -6273, 512, -6017, 512, -1024, 640, -768, 640, 0)
 
 [node name="BigRoomStaticBody2D" type="StaticBody2D" parent="Level" unique_id=823941324 groups=["hazard"]]
 collision_layer = 2
@@ -186,7 +186,7 @@ polygon = PackedVector2Array(1376, -17984, 1728, -17984, 1920, -18016, 2112, -18
 [node name="GoalStaticBody2D" type="StaticBody2D" parent="Level" unique_id=2105168762]
 
 [node name="Polygon2D" type="Polygon2D" parent="Level/GoalStaticBody2D" unique_id=182072311]
-polygon = PackedVector2Array(-384, -40352, 384, -40352, 384, -40448, -384, -40448)
+polygon = PackedVector2Array(-352, -40352, 352, -40352, 352, -40448, -352, -40448)
 
 [node name="Lights" type="Node2D" parent="." unique_id=474948773]
 visible = false
@@ -203,7 +203,7 @@ metadata/_edit_lock_ = true
 [node name="Camera2D" type="Camera2D" parent="Cameras" unique_id=864754509]
 physics_interpolation_mode = 1
 top_level = true
-position = Vector2(0, -320)
+position = Vector2(32, -288)
 zoom = Vector2(0.8, 0.8)
 process_callback = 0
 metadata/_edit_lock_ = true
@@ -217,7 +217,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 [node name="PlayerPhantomCamera2D" type="Node2D" parent="Cameras" unique_id=1541733472 node_paths=PackedStringArray("follow_targets")]
 unique_name_in_owner = true
 top_level = true
-position = Vector2(0, -320)
+position = Vector2(32, -288)
 script = ExtResource("3_btahq")
 priority = 10
 follow_mode = 3
@@ -274,7 +274,7 @@ metadata/_edit_lock_ = true
 [node name="BigRoomPhantomCamera2D" type="Node2D" parent="Cameras" unique_id=1152866720 node_paths=PackedStringArray("follow_target", "follow_path")]
 unique_name_in_owner = true
 top_level = true
-position = Vector2(0, -320)
+position = Vector2(32, -288)
 script = ExtResource("3_btahq")
 follow_mode = 2
 follow_target = NodePath("../../Hand")
@@ -309,7 +309,7 @@ metadata/_edit_lock_ = true
 [node name="GravityPhantomCamera2D" type="Node2D" parent="Cameras" unique_id=1994055810 node_paths=PackedStringArray("follow_target")]
 unique_name_in_owner = true
 top_level = true
-position = Vector2(0, -320)
+position = Vector2(32, -288)
 script = ExtResource("3_btahq")
 follow_mode = 2
 follow_target = NodePath("../../Hand")
@@ -353,13 +353,12 @@ switch = NodePath("../../Entities/Switch")
 [node name="FallingShitArea2D" type="Area2D" parent="Gravity" unique_id=1583902920]
 position = Vector2(0, -34560)
 collision_layer = 0
-collision_mask = 9
 gravity_space_override = 2
 gravity = 300.0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Gravity/FallingShitArea2D" unique_id=433831195]
-position = Vector2(0, 912)
+position = Vector2(0, 2112)
 shape = SubResource("RectangleShape2D_rny25")
 debug_color = Color(0, 0.6, 0, 0.13333334)
 
@@ -421,6 +420,9 @@ label_settings = SubResource("LabelSettings_dga24")
 position = Vector2(320, 32)
 texture = ExtResource("20_yywnm")
 
+[node name="Finish" parent="." unique_id=1695939229 instance=ExtResource("11_pj0xw")]
+position = Vector2(0, -40512)
+
 [node name="Entities" type="Node2D" parent="." unique_id=2010477121 groups=["entities"]]
 metadata/_edit_lock_ = true
 
@@ -471,6 +473,21 @@ scale = Vector2(1, -1)
 [node name="KnifeHazard13" parent="Entities" unique_id=1153317206 instance=ExtResource("14_q418o")]
 position = Vector2(223.99994, -21663.998)
 rotation = -2.8797934
+scale = Vector2(1, -1)
+
+[node name="KnifeHazard15" parent="Entities" unique_id=104098724 instance=ExtResource("14_q418o")]
+position = Vector2(6.1035156e-05, -35552.004)
+rotation = -2.8797934
+scale = Vector2(1, -1)
+
+[node name="KnifeHazard16" parent="Entities" unique_id=1835827245 instance=ExtResource("14_q418o")]
+position = Vector2(-256.00092, -38016)
+rotation = -2.6245687
+scale = Vector2(1, -1)
+
+[node name="KnifeHazard17" parent="Entities" unique_id=1402726060 instance=ExtResource("14_q418o")]
+position = Vector2(-127.99899, -39264)
+rotation = -3.5324216
 scale = Vector2(1, -1)
 
 [node name="KnifeHazard14" parent="Entities" unique_id=489524072 instance=ExtResource("14_q418o")]
@@ -601,6 +618,93 @@ loop = false
 position_curve = SubResource("Curve_8c33x")
 path_follow = NodePath("..")
 
+[node name="ScissorsPath2D20" type="Path2D" parent="Entities" unique_id=1963290343]
+position = Vector2(0, -38240)
+rotation = 3.1415927
+scale = Vector2(0.8901251, 0.8730159)
+curve = SubResource("Curve2D_y40x4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D20" unique_id=4160010]
+position = Vector2(413.425, 31.417969)
+rotates = false
+loop = false
+
+[node name="Scissors" parent="Entities/ScissorsPath2D20/PathFollow2D" unique_id=1264885232 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+position_curve = SubResource("Curve_8c33x")
+path_follow = NodePath("..")
+
+[node name="ScissorsPath2D21" type="Path2D" parent="Entities" unique_id=141475584]
+position = Vector2(-95.99999, -38432)
+scale = Vector2(0.8901251, 0.8730159)
+curve = SubResource("Curve2D_y40x4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D21" unique_id=1696027227]
+position = Vector2(413.425, 31.417969)
+rotates = false
+loop = false
+
+[node name="Scissors" parent="Entities/ScissorsPath2D21/PathFollow2D" unique_id=1207156487 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+position_curve = SubResource("Curve_8c33x")
+path_follow = NodePath("..")
+
+[node name="ScissorsPath2D22" type="Path2D" parent="Entities" unique_id=84977956]
+position = Vector2(3.0517578e-05, -38523.43)
+rotation = 3.1415927
+scale = Vector2(0.8901251, 0.8730159)
+curve = SubResource("Curve2D_y40x4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D22" unique_id=623781453]
+position = Vector2(413.425, 31.417969)
+rotates = false
+loop = false
+
+[node name="Scissors" parent="Entities/ScissorsPath2D22/PathFollow2D" unique_id=868229763 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+position_curve = SubResource("Curve_8c33x")
+path_follow = NodePath("..")
+
+[node name="ScissorsPath2D23" type="Path2D" parent="Entities" unique_id=604931047]
+position = Vector2(-95.99996, -38715.43)
+scale = Vector2(0.8901251, 0.8730159)
+curve = SubResource("Curve2D_y40x4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D23" unique_id=1075300233]
+position = Vector2(413.425, 31.417969)
+rotates = false
+loop = false
+
+[node name="Scissors" parent="Entities/ScissorsPath2D23/PathFollow2D" unique_id=645820174 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+position_curve = SubResource("Curve_8c33x")
+path_follow = NodePath("..")
+
+[node name="ScissorsPath2D24" type="Path2D" parent="Entities" unique_id=925141205]
+position = Vector2(16.00003, -38779.43)
+rotation = 3.1415927
+scale = Vector2(0.8901251, 0.8730159)
+curve = SubResource("Curve2D_y40x4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D24" unique_id=578526]
+position = Vector2(413.425, 31.417969)
+rotates = false
+loop = false
+
+[node name="Scissors" parent="Entities/ScissorsPath2D24/PathFollow2D" unique_id=1087187728 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+position_curve = SubResource("Curve_8c33x")
+path_follow = NodePath("..")
+
+[node name="ScissorsPath2D25" type="Path2D" parent="Entities" unique_id=1779840271]
+position = Vector2(-79.99996, -38971.43)
+scale = Vector2(0.8901251, 0.8730159)
+curve = SubResource("Curve2D_y40x4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D25" unique_id=1775708094]
+position = Vector2(413.425, 31.417969)
+rotates = false
+loop = false
+
+[node name="Scissors" parent="Entities/ScissorsPath2D25/PathFollow2D" unique_id=510629005 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+position_curve = SubResource("Curve_8c33x")
+path_follow = NodePath("..")
+
 [node name="ScissorsPath2D9" type="Path2D" parent="Entities" unique_id=1419469419]
 position = Vector2(51.999996, -14528.001)
 rotation = 6.2750297
@@ -702,6 +806,57 @@ path_mode = 1
 position_curve = SubResource("Curve_8c33x")
 path_follow = NodePath("..")
 
+[node name="ScissorsPath2D16" type="Path2D" parent="Entities" unique_id=88331265]
+position = Vector2(-31.999985, -35808)
+rotation = 9.424778
+scale = Vector2(0.8901251, 0.8730159)
+curve = SubResource("Curve2D_gs7m4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D16" unique_id=35456432]
+position = Vector2(229.46683, -34.748047)
+rotates = false
+loop = false
+
+[node name="Scissors" parent="Entities/ScissorsPath2D16/PathFollow2D" unique_id=1939908463 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+travel_time = 3.0
+path_mode = 1
+position_curve = SubResource("Curve_8c33x")
+path_follow = NodePath("..")
+
+[node name="ScissorsPath2D17" type="Path2D" parent="Entities" unique_id=1324465867]
+position = Vector2(-32, -37440)
+rotation = 9.424778
+scale = Vector2(0.8901251, 0.8730159)
+curve = SubResource("Curve2D_gs7m4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D17" unique_id=253939760]
+position = Vector2(229.46683, -34.748047)
+rotates = false
+loop = false
+
+[node name="Scissors" parent="Entities/ScissorsPath2D17/PathFollow2D" unique_id=1598228759 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+travel_time = 3.0
+path_mode = 1
+position_curve = SubResource("Curve_8c33x")
+path_follow = NodePath("..")
+
+[node name="ScissorsPath2D18" type="Path2D" parent="Entities" unique_id=1776928977]
+position = Vector2(31.999992, -36512)
+rotation = 6.2831855
+scale = Vector2(0.8901251, 0.8730159)
+curve = SubResource("Curve2D_gs7m4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Entities/ScissorsPath2D18" unique_id=301034759]
+position = Vector2(229.46683, -34.748047)
+rotates = false
+loop = false
+
+[node name="Scissors" parent="Entities/ScissorsPath2D18/PathFollow2D" unique_id=536693722 node_paths=PackedStringArray("path_follow") instance=ExtResource("12_8c33x")]
+travel_time = 3.0
+path_mode = 1
+position_curve = SubResource("Curve_8c33x")
+path_follow = NodePath("..")
+
 [node name="Switch" parent="Entities" unique_id=1050011839 instance=ExtResource("11_btahq")]
 position = Vector2(1152, -19744)
 
@@ -741,6 +896,45 @@ rotation = -2.475526
 
 [node name="PencilLauncher" parent="Entities" unique_id=1413982585 node_paths=PackedStringArray("projectiles_node") instance=ExtResource("15_3lsws")]
 position = Vector2(-1184, -24064)
+fire_rate = 3.0
+strength = 7000.0
+projectiles_node = NodePath("../Projectiles")
+
+[node name="PencilLauncher18" parent="Entities" unique_id=1387980686 node_paths=PackedStringArray("projectiles_node") instance=ExtResource("15_3lsws")]
+position = Vector2(-448, -36096)
+fire_rate = 3.0
+strength = 7000.0
+projectiles_node = NodePath("../Projectiles")
+
+[node name="PencilLauncher19" parent="Entities" unique_id=2126434507 node_paths=PackedStringArray("projectiles_node") instance=ExtResource("15_3lsws")]
+position = Vector2(-448, -36224)
+fire_rate = 3.0
+strength = 7000.0
+projectiles_node = NodePath("../Projectiles")
+
+[node name="PencilLauncher20" parent="Entities" unique_id=96891968 node_paths=PackedStringArray("projectiles_node") instance=ExtResource("15_3lsws")]
+position = Vector2(-448, -36352)
+fire_rate = 3.0
+strength = 7000.0
+projectiles_node = NodePath("../Projectiles")
+
+[node name="PencilLauncher21" parent="Entities" unique_id=1090553095 node_paths=PackedStringArray("projectiles_node") instance=ExtResource("15_3lsws")]
+position = Vector2(416, -37568)
+rotation = -3.1415927
+fire_rate = 3.0
+strength = 7000.0
+projectiles_node = NodePath("../Projectiles")
+
+[node name="PencilLauncher22" parent="Entities" unique_id=167398482 node_paths=PackedStringArray("projectiles_node") instance=ExtResource("15_3lsws")]
+position = Vector2(416, -37696)
+rotation = -3.1415927
+fire_rate = 3.0
+strength = 7000.0
+projectiles_node = NodePath("../Projectiles")
+
+[node name="PencilLauncher23" parent="Entities" unique_id=1771008122 node_paths=PackedStringArray("projectiles_node") instance=ExtResource("15_3lsws")]
+position = Vector2(416, -37824)
+rotation = -3.1415927
 fire_rate = 3.0
 strength = 7000.0
 projectiles_node = NodePath("../Projectiles")
@@ -879,28 +1073,25 @@ rotation = 0.97402734
 [node name="Util" type="Node2D" parent="." unique_id=558083481]
 metadata/_edit_lock_ = true
 
-[node name="Finish" parent="Util" unique_id=1695939229 instance=ExtResource("11_pj0xw")]
-position = Vector2(0, -40480)
-
 [node name="EggSpawner" parent="Util" unique_id=636781217 node_paths=PackedStringArray("entities") instance=ExtResource("14_y40x4")]
 unique_name_in_owner = true
 position = Vector2(0, -138)
 entities = NodePath("../../Entities")
 
 [node name="Spawner" parent="Util" unique_id=743317397 node_paths=PackedStringArray("entities_node") instance=ExtResource("23_rny25")]
-position = Vector2(0, -37120)
+position = Vector2(0, -34976)
 entities_scenes = Array[PackedScene]([ExtResource("12_jtmcs"), ExtResource("13_3lsws")])
 spawn_rate = 2.0
 entities_node = NodePath("../../Entities")
 
 [node name="Spawner2" parent="Util" unique_id=1104862861 node_paths=PackedStringArray("entities_node") instance=ExtResource("23_rny25")]
-position = Vector2(-416, -36992)
+position = Vector2(-416, -34848)
 entities_scenes = Array[PackedScene]([ExtResource("12_jtmcs"), ExtResource("13_3lsws")])
 spawn_rate = 2.0
 entities_node = NodePath("../../Entities")
 
 [node name="Spawner3" parent="Util" unique_id=882382858 node_paths=PackedStringArray("entities_node") instance=ExtResource("23_rny25")]
-position = Vector2(384, -36960)
+position = Vector2(416, -34848)
 entities_scenes = Array[PackedScene]([ExtResource("12_jtmcs"), ExtResource("13_3lsws")])
 spawn_rate = 2.0
 entities_node = NodePath("../../Entities")
@@ -959,9 +1150,18 @@ position = Vector2(0, -29712)
 shape = SubResource("RectangleShape2D_6gyxr")
 debug_color = Color(0.85882354, 0, 0.8784314, 0.42745098)
 
+[node name="GoalDialougeTrigger" parent="Util" unique_id=619380191 instance=ExtResource("27_0e0f6")]
+position = Vector2(0, -10080)
+timeline = "egg_goal_room"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Util/GoalDialougeTrigger" unique_id=1555163626]
+position = Vector2(0, -29824)
+shape = SubResource("RectangleShape2D_6gyxr")
+debug_color = Color(0.85882354, 0, 0.8784314, 0.42745098)
+
 [node name="Hand" parent="." unique_id=1833399177 instance=ExtResource("17_rm5ru")]
 unique_name_in_owner = true
-position = Vector2(0, -320)
+position = Vector2(32, -288)
 mouse_sensitivity = 4.1
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="." unique_id=445386051]

@@ -1,0 +1,7 @@
+join egg center
+if {goal_room_seen} == false:
+	set {goal_room_seen} = true
+	egg: MY DOZEN!
+	egg: We are so close!
+else:
+	egg: This is it!

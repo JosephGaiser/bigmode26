@@ -1,6 +1,7 @@
 extends Node
 
 signal reset
+signal game_over
 
 var goal_reached: bool = false
 var timer_running: bool = false
@@ -30,3 +31,6 @@ func format_time(time: float) -> String:
 	var minutes := int(time) / 60
 	var seconds := int(time) % 60
 	return "%02d:%02d" % [minutes, seconds]
+
+func game_over_dialogue_ended() -> void:
+	game_over.emit()

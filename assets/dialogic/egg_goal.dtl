@@ -2,7 +2,10 @@ join egg center
 egg: My Dozen! My Family!
 egg: Thank you so much!
 egg: You finished in {finish_time}
-join Eggbert center
-Eggbert: EGG! We missed you so much bro, what happened last night
+join Eggbertina center
 Eggbertina: Oh Egg, my love! I was worried sick! Where have you been
+egg: Eggerbitna! My love
 Eggbertina: Get over here and crack me big boy
+egg: WOOF WOOF WOOF
+set {game_over} = true
+do GlobalData.game_over_dialogue_ended()

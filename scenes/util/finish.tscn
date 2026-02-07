@@ -3,6 +3,24 @@
 [ext_resource type="Script" uid="uid://c67j0luay48nr" path="res://scripts/util/finish.gd" id="1_8nqo0"]
 [ext_resource type="AudioStream" uid="uid://cyyiomosvcihg" path="res://assets/sfx/Trombone Expression D.wav" id="2_wkmnk"]
 [ext_resource type="Texture2D" uid="uid://begvcd3r0w5ws" path="res://assets/sprites/entities/egg.png" id="3_3bi5l"]
+[ext_resource type="Texture2D" uid="uid://cqtt5wbga704f" path="res://assets/icons/kenney_input-prompts_1.4/Flairs/Default/flair_cross.png" id="3_umty7"]
+[ext_resource type="PackedScene" uid="uid://cxhokotincay4" path="res://scenes/entities/eggbertina.tscn" id="5_oqh8v"]
+
+[sub_resource type="Curve" id="Curve_umty7"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 2.8, 0, 0, Vector2(1, 0.9887544), 1.0340703, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_oqh8v"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_wifnc"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_3f0cu"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tsva6"]
 radius = 288.0
@@ -17,6 +35,41 @@ unique_name_in_owner = true
 stream = ExtResource("2_wkmnk")
 
 [node name="FX" type="Node2D" parent="." unique_id=300950534]
+
+[node name="ConfettiCPUParticles2D" type="CPUParticles2D" parent="FX" unique_id=685895675]
+unique_name_in_owner = true
+position = Vector2(0, -64)
+emitting = false
+amount = 256
+texture = ExtResource("3_umty7")
+lifetime = 2.5
+one_shot = true
+explosiveness = 0.9
+emission_shape = 1
+emission_sphere_radius = 128.0
+direction = Vector2(0, -1)
+spread = 55.04
+gravity = Vector2(0, 245)
+initial_velocity_min = 150.0
+initial_velocity_max = 350.0
+angular_velocity_min = 6.18
+angular_velocity_max = 61.8
+linear_accel_max = 20.9
+linear_accel_curve = SubResource("Curve_umty7")
+damping_max = 0.5
+damping_curve = SubResource("Curve_oqh8v")
+scale_amount_min = 0.2
+scale_amount_curve = SubResource("Curve_wifnc")
+color_ramp = SubResource("Gradient_3f0cu")
+
+[node name="FinishedLabel" type="Label" parent="FX" unique_id=1781223916]
+unique_name_in_owner = true
+offset_left = -224.0
+offset_top = -608.0
+offset_right = 224.0
+offset_bottom = -524.0
+theme_override_font_sizes/font_size = 73
+text = "FINISHED!"
 
 [node name="GoalArea2D" type="Area2D" parent="." unique_id=2118573155]
 unique_name_in_owner = true
@@ -83,7 +136,7 @@ position = Vector2(-66.994995, 30.3)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("3_3bi5l")
 
-[node name="Sprite2D7" type="Sprite2D" parent="." unique_id=1199615709]
-position = Vector2(-130.995, 30.3)
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("3_3bi5l")
+[node name="Eggbertina" parent="." unique_id=1963366422 instance=ExtResource("5_oqh8v")]
+unique_name_in_owner = true
+position = Vector2(-128, 1.9073486e-06)
+rotation = -0.4089975
