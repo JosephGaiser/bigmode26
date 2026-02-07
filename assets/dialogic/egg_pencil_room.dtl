@@ -4,4 +4,4 @@ if {pencil_room_seen} == false:
 	egg: There is no way I could survive a hit by one of those pencils
 else:
 	egg: Are those the metal kuru toga .5 lead mechanical pencils?
-	egg: damn, thats a nice pencil
+	egg: damn, that's a nice pencil

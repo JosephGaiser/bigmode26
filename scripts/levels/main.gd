@@ -31,7 +31,8 @@ func _on_start_button_pushed() -> void:
 	tween.finished.connect(_load_world)
 
 func _load_world() -> void:
-	menu.queue_free()
+	if is_instance_valid(menu):
+		menu.queue_free()
 	world_instance = world.instantiate()
 	level_container.add_child(world_instance)
 	world_instance.modulate.a = 0.0

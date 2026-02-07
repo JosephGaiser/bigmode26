@@ -2,13 +2,15 @@
 
 [ext_resource type="Shader" uid="uid://eiweh32ugl02" path="res://misc/checker.gdshader" id="1_7w7rl"]
 [ext_resource type="Script" uid="uid://cpjjhijnp7ct7" path="res://scripts/util/menu.gd" id="1_wedc3"]
+[ext_resource type="Texture2D" uid="uid://cgq0idpk2w6f6" path="res://assets/sprites/entities/egg_shell_1.png" id="3_w6y0u"]
+[ext_resource type="Texture2D" uid="uid://bcoc7efgtfulg" path="res://assets/sprites/entities/egg_shell_2.png" id="4_cx0sj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c2n5p"]
 shader = ExtResource("1_7w7rl")
-shader_parameter/size = 39.9290018491275
+shader_parameter/size = 59.534002780365
 shader_parameter/color1 = Color(1, 1, 1, 0.1764706)
 shader_parameter/color2 = Color(0.69803923, 0.69803923, 0.69803923, 0)
-shader_parameter/speed = 0.750000035625
+shader_parameter/speed = 0.6000000285
 shader_parameter/direction_x = 1.0
 shader_parameter/direction_y = -1.0
 
@@ -35,6 +37,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_w6y0u")
 
+[node name="EggShell1" type="Sprite2D" parent="." unique_id=1303539510]
+position = Vector2(295, 417)
+rotation = 1.2082157
+scale = Vector2(0.7812619, 0.7812619)
+texture = ExtResource("3_w6y0u")
+
+[node name="EggShell2" type="Sprite2D" parent="." unique_id=284713040]
+position = Vector2(1316, 382)
+rotation = -1.6088912
+scale = Vector2(0.8500161, 0.8500161)
+texture = ExtResource("4_cx0sj")
+
 [node name="TitleLabel" type="Label" parent="." unique_id=1318745871]
 unique_name_in_owner = true
 layout_mode = 1
@@ -43,19 +57,44 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -490.5
+offset_left = -690.0
 offset_top = -180.0
-offset_right = 490.5
+offset_right = 291.0
 offset_bottom = 63.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.70980394)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 9
 theme_override_constants/shadow_offset_y = 9
-theme_override_constants/outline_size = 0
-theme_override_constants/shadow_outline_size = 32
+theme_override_constants/outline_size = 40
+theme_override_constants/shadow_outline_size = 42
 theme_override_font_sizes/font_size = 212
-text = "EGG UP"
+text = "EGG"
+horizontal_alignment = 1
+
+[node name="TitleLabel2" type="Label" parent="." unique_id=1111143304]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -222.0
+offset_top = -180.0
+offset_right = 759.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.70980394)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 9
+theme_override_constants/outline_size = 40
+theme_override_constants/shadow_outline_size = 42
+theme_override_font_sizes/font_size = 212
+text = "UP"
 horizontal_alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=735669507]

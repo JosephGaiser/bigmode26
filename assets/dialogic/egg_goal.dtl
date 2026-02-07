@@ -4,7 +4,7 @@ egg: Thank you so much!
 egg: You finished in {finish_time}
 join Eggbertina center
 Eggbertina: Oh Egg, my love! I was worried sick! Where have you been
-egg: Eggerbitna! My love
+egg: Eggbertina! My love
 Eggbertina: Get over here and crack me big boy
 egg: WOOF WOOF WOOF
 set {game_over} = true

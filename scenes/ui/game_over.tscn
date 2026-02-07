@@ -57,6 +57,7 @@ text = "EGG UP"
 horizontal_alignment = 1
 
 [node name="TimePanelContainer" type="PanelContainer" parent="." unique_id=1679311126]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -124,16 +125,20 @@ theme_override_font_sizes/font_size = 33
 text = "Special thanks"
 horizontal_alignment = 1
 
+[node name="FontLabel" type="Label" parent="ThanksPanelContainer/VBoxContainer" unique_id=766018445]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "FONT BY GGBOT"
+horizontal_alignment = 1
+
 [node name="MusicLabel" type="Label" parent="ThanksPanelContainer/VBoxContainer" unique_id=2103083421]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "Original Music: pmya"
+text = "Original Music by pmya"
 horizontal_alignment = 1
 
 [node name="BigmodeLabel" type="Label" parent="ThanksPanelContainer/VBoxContainer" unique_id=783891003]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "BIGMODE TEAM
-For contining to support the arts
-"
+text = "BIGMODE TEAM FOR HOSTING THE JAM"
 horizontal_alignment = 1

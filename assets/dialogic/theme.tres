@@ -25,7 +25,7 @@ overrides = {
 "box_modulate": "Color(1, 1, 1, 0.5764706)",
 "name_label_enabled": "false",
 "name_label_use_character_color": "false",
-"text_size": "18.0"
+"text_size": "20.0"
 }
 
 [resource]
@@ -37,4 +37,4 @@ layer_info = {
 "10": SubResource("Resource_jyo7b"),
 "11": SubResource("Resource_h5tav")
 }
-metadata/_latest_layer = "10"
+metadata/_latest_layer = "11"
